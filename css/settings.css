@@ -1,0 +1,103 @@
+/*
+$Id: settings.css 159 2012-12-06 23:51:54Z i.bitcero $
+*/
+
+.w_sections{
+    list-style: none;
+    padding: 0px;
+    margin: 0;
+    /*position: absolute;*/
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+.w_sections li{
+    list-style: none;
+    margin: 0 0 1px 0;
+    background: #ebebeb url("../images/a-left.png") no-repeat -50px;
+    transition: all 0.3s linear;
+        -moz-transition: all 0.3s linear;
+        -webkit-transition: all 0.3s linear;
+        -o-transition: all 0.3s linear;
+}
+/*.w_sections li:first-child{border-radius: 3px 3px 0 0;}*/
+.w_sections li:last-child{border-radius: 0 0 3px 3px;}
+.w_sections li a{
+    display: block;
+    padding: 10px 12px;
+    text-transform: uppercase;
+    color: #666;
+    background: url("../images/a-right.png") no-repeat 120%;
+    text-shadow: 1px 1px 0 #fafafa;
+    transition: all 0.5s linear;
+        -moz-transition: all 0.5s linear;
+        -webkit-transition: all 0.5s linear;
+        -o-transition: all 0.5s linear;
+}
+.w_sections li:hover{
+    background-position: left;
+    background-color: #8CD3FF;
+}
+.w_sections li:hover a{
+    /*background-position: right;*/
+    text-decoration: none;
+    color: #FFF;
+    text-shadow: 1px 1px 0 #66B1E0;
+}
+.w_sections li.xt-section-visible{
+    background-color: #FF9B3F;
+    background-position: left;
+}
+.w_sections li.xt-section-visible a{
+    color: #663E19;
+    text-shadow: 1px 1px 0 #FFC896;
+    font-weight: bold;
+    text-align: center;
+    background: url("../images/a-right.png") no-repeat right;
+    cursor: default;
+}
+
+/* Sections */
+.xt-configuration-section{
+    display: none;
+}
+.xt-option-group{
+    padding: 10px 0;
+    border-bottom: 1px dotted #ddd;
+}
+.xt-option-label{
+    font-weight: bold;
+    padding: 0;
+    display: inline-block;
+    line-height: 80%;
+}
+.xt-option-field{
+    display: block;
+    padding: 2px 0;
+}
+.xt-option-desc{
+    display: block;
+    line-height: 150%;
+    color: #666;
+    padding: 2px 0;
+    font-size: 0.9em;
+}
+
+.xt-settings-buttons{
+    overflow: hidden;
+    display: table;
+}
+.xt-settings-buttons > div{
+    display: table-row;
+}
+.xt-settings-buttons > div > div:last-child{
+    width: 250px;
+    display: table-cell;
+    padding: 0 0 0 5px;
+    text-align: right;
+    vertical-align: middle;
+}
+.sb-bottom{
+    margin-top: 10px;
+}
+.control-group{
+    border-bottom: 1px dashed #d4d4d4;
+}

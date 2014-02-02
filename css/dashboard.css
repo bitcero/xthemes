@@ -1,0 +1,96 @@
+/*
+$Id: dashboard.css 101 2012-10-25 06:12:22Z i.bitcero $
+*/
+
+#xthemes-credits ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#xthemes-credits ul > li{
+    list-style: none;
+    padding: 3px 0;
+}
+#xthemes-credits ul > li > span{
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 80px;
+    font-weight: bold;
+}
+
+.dtitem{
+    padding: 10px;
+    box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -o-box-sizing: border-box;
+    width: 180px;
+    height: 180px;
+    display: inline-block;
+    vertical-align: text-top;
+    position: relative;
+}
+
+.dtitem > a{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #CCC;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -o-box-sizing: border-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.dtitem > a > .name{
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 5px;
+    background: #000;
+    color: #FFF;
+    opacity: 0.7;
+    text-shadow: 1px 1px 1px #000;
+}
+.dtitem > .desc{
+    display: none;
+}
+.themes{
+    margin-bottom: 15px;
+}
+.waiting{
+    background: url(../images/searching.gif) no-repeat center;
+    min-height: 100px;
+}
+.empty{
+    background: url(../images/error.png) no-repeat center;
+    min-height: 100px;
+}
+.info-box{
+    background: #FFF8D6;
+    border: 1px solid #FFC464;
+    border-radius: 3px;
+    padding: 10px;
+    margin-top: 15px;
+}
+.info-box p{
+    margin-bottom: 10px;
+}
+
+.support-me:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.support-me img.avatar{
+    float: left;
+    padding: 1px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    margin: 0 5px 0 0;
+    width: 80px;
+}
