@@ -76,13 +76,13 @@ function xt_form_field($name, $option, $ret = 0){
             break;
         case 'select':
             $ele = new RMFormSelect($option['caption'], $name);                
-            foreach ($option['options'] as $op => $opvalue){
+            foreach ($option['options'] as $opvalue => $op){
                 $ele->addOption($opvalue, $op, $opvalue==$option['value'] ? 1 : 0);
             }
             break;
         case 'select_multi':
             $ele = new RMFormSelect($option['caption'], $name.'[]', 1, $option['value']);
-            foreach ($option['options'] as $op => $opvalue){
+            foreach ($option['options'] as $opvalue => $op){
                 $ele->addOption($opvalue, $op);
             }
             break;
@@ -122,7 +122,7 @@ function xt_form_field($name, $option, $ret = 0){
             break;
         case 'radio':
             $ele = new RMFormRadio($option['caption'], $name, 1);                
-            foreach ($option['options'] as $op => $opvalue){
+            foreach ($option['options'] as $opvalue => $op){
                 $ele->addOption($op, $opvalue, $opvalue==$option['value'] ? 1 : 0);
             }
             break;
