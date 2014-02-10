@@ -24,21 +24,31 @@
         <div id="section-<?php echo $name; ?>" class="tab-pane<?php if($visible==$name): ?> active<?php endif; ?> xt-configuration-section">
         <?php if(isset($options[$name])): ?>
             <?php foreach($options[$name] as $name => $option): ?>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-md-4 col-lg-4">
-                        <label for="<?php echo $name; ?>">
-                            <strong><?php echo $option['caption']; ?></strong>
-                        </label>
+                <?php if( isset($option['type']) && $option['type'] == 'heading'): ?>
+                    <h2>
+                        <?php echo $option['caption']; ?><br>
                         <?php if($option['description']!=''): ?>
-                            <span class="help-block"><?php echo $option['description']; ?></span>
+                        <small><?php echo $option['description']; ?></small>
                         <?php endif; ?>
-                    </div>
-                    <div class="col-md-8 col-lg-8">
-                        <?php echo $option['field']; ?>
+                    </h2>
+                    <hr>
+                <?php else: ?>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4">
+                            <label for="<?php echo $name; ?>">
+                                <strong><?php echo $option['caption']; ?></strong>
+                            </label>
+                            <?php if($option['description']!=''): ?>
+                                <span class="help-block"><?php echo $option['description']; ?></span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-md-8 col-lg-8">
+                            <?php echo $option['field']; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
         </div>

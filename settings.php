@@ -181,7 +181,9 @@ function xt_show_options(){
 
     foreach($topt as $id => $option){
 
-        $option['field'] = xt_form_field($id, $option);
+        if ( !isset( $option['type'] ) || $option['type']!='heading' )
+            $option['field'] = xt_form_field($id, $option);
+
         $options[$option['section']][$id] = $option;
         
     }
