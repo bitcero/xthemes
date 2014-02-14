@@ -132,6 +132,10 @@ abstract class XtTheme extends RMObject
         global $xtAssembler;
         return $xtAssembler->menu($id);
     }
+
+    public function blocks(){
+        return array();
+    }
 	
 }
 

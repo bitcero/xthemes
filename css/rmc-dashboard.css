@@ -1,0 +1,14 @@
+#xthemes-options .nav-options{
+    margin-top: -49px;
+    padding: 0 4px 4px 4px;
+}
+#xthemes-options .nav-options li{
+    background: rgba(0,0,0,0.6);
+}
+#xthemes-options .fa{
+    font-size: 22px;
+}
+#xthemes-options .nav-options .fa{
+    font-size: 24px;
+    color: #FFF;
+}
