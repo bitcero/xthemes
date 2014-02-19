@@ -47,15 +47,6 @@ $Id: themes.css 159 2012-12-06 23:51:54Z i.bitcero $
 .xt_current{
     overflow: hidden;
 }
-.xt_current_screenshot img{
-    width: 338px;
-    padding: 5px;
-    border: 1px solid #999;
-    float: left;
-}
-.xt_current_data{
-    margin-left: 380px;
-}
 .current_legend{
     color: #999;
     font-size: 0.9em;
@@ -71,21 +62,12 @@ $Id: themes.css 159 2012-12-06 23:51:54Z i.bitcero $
     margin-bottom: 40px;
 }
 .available_theme{
-    width: 300px;
-    padding: 20px;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 14px;
+    max-width: 300px;
 }
-.available_theme h6{
+.available_theme h3{
     font-size: 16px;
     font-weight: bold;
     margin: 0;
-}
-.theme_screenshot img{
-    width: 260px;
-    height: 151px;
-
 }
 .theme_author{
     border-bottom: 1px dashed #e3e3e3;
@@ -97,26 +79,10 @@ $Id: themes.css 159 2012-12-06 23:51:54Z i.bitcero $
     padding: 2px 0;
 }
 .theme_options{
-    overflow: hidden;
-    padding-top: 15px;
-    font-size: 12px;
+    padding: 0!important;
 }
-.theme_options ul{
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.theme_options ul li{
-    float: left;
-    padding: 0 5px;
-    border-right: 1px solid #DADADA;
-}
-.theme_options ul li:first-child{
-    padding-left: 0;
-}
-.theme_options ul li:last-child{
-    padding-right: 0;
-    border: 0;
+.theme_options .nav > li > a{
+    padding: 8px 6px;
 }
 .theme_details{display: none; padding: 20px 0 0 0;}
 
@@ -159,32 +125,20 @@ $Id: themes.css 159 2012-12-06 23:51:54Z i.bitcero $
     color: #546870;
     text-transform: uppercase;
 }
-.current_options .button{
-    padding-left: 8px;
-    padding-right: 8px;
+.current_options .nav > li > a{
+    background: rgba(0,0,0,0.04);
     color: #333;
-    margin-top: 4px;
 }
-.current_options .button:hover{
-    text-decoration: none;
-    color: #000;
+.current_social{
+    margin: 10px 0;
 }
-.current_options a.buttonLight{
-    box-shadow:inset 0px 1px 0px 0px #FFD09C;
-        -moz-box-shadow:inset 0px 1px 0px 0px #FFD09C;
-        -webkit-box-shadow:inset 0px 1px 0px 0px #FFD09C;
-        -o-box-shadow:inset 0px 1px 0px 0px #FFD09C;
-    border:1px solid #D96A01;
-    color:#401F00;
-    text-shadow: 1px 1px 0px #FFC078;
-    background: #ffb76b; /* Old browsers */
-    background: -moz-linear-gradient(top,  #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffb76b), color-stop(50%,#ffa73d), color-stop(51%,#ff7c00), color-stop(100%,#ff7f04)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  #ffb76b 0%,#ffa73d 50%,#ff7c00 51%,#ff7f04 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04',GradientType=0 ); /* IE6-9 */
+.current_social .nav > li > a{
+    font-size: 1.3em;
+    background: rgba(0,0,0,0.15);
+    color: #FFF;
+    display: block;
+    line-height: 1em;
+    padding: 4px 7px;
 }
 
 /* Widget */

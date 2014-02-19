@@ -12,3 +12,14 @@
     font-size: 24px;
     color: #FFF;
 }
+#xthemes-options hr{
+    margin: 10px 0;
+}
+.xthemes-social:last-child > li > a{
+    font-size: 1.3em;
+    background: rgba(0,0,0,0.15);
+    color: #FFF;
+    display: block;
+    line-height: 1em;
+    padding: 4px 7px;
+}

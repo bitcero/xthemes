@@ -116,7 +116,36 @@ class XtFunctions
         return $db->queryF($sql);
         
     }
-    
+
+    /**
+     * Create positions for blocks
+     */
+    public function insertPositions( $theme ){
+
+        if($theme==null) return false;
+
+        $positions = $theme->blocks_positions();
+
+        if( false === $positions ) return true;
+
+        foreach ( $positions as $tag => $name ){
+
+            $pos = new RMBlockPosition( $tag );
+            if($pos->isNew()){
+
+                $pos->setVar( 'name', $name );
+                $pos->setVar( 'tag', $tag );
+                $pos->setVar( 'active', 1 );
+                $pos->save();
+
+            }
+
+        }
+
+        return true;
+
+    }
+
     /**
     * Remove all theme data from database
     */
@@ -134,6 +163,21 @@ class XtFunctions
         $sql = "DELETE FROM ".$db->prefix("xt_menus")." WHERE theme=".$theme->id();
         if(!$db->queryF($sql))
             return false;
+
+        $positions = $theme->blocks_positions();
+        if( false === $positions ) return true;
+
+        foreach ( $positions as $tag => $name ){
+
+            $pos = new RMBlockPosition( $tag );
+            if($pos->isNew())
+                continue;
+
+            $pos->delete();
+
+        }
+
+        return true;
         
         return $theme->delete();
         
@@ -150,6 +194,59 @@ class XtFunctions
 
         foreach($menu as $m){
             include $tpl->get_template('xt_menu_manager.php', 'module', 'xthemes');
+        }
+    }
+
+    /**
+     * Shows the icon for social network
+     * @param string $type Social identifier
+     * @return string
+     */
+    public function social_icon( $type ){
+
+        $icons = array(
+
+            'twitter'   => 'fa fa-twitter',
+            'facebook'   => 'fa fa-facebook',
+            'google-plus'   => 'fa fa-google-plus',
+            'linkedin'   => 'fa fa-linkedin',
+            'instagram'   => 'fa fa-instagram',
+            'tumblr'   => 'fa fa-tumblr',
+            'flickr'   => 'fa fa-flickr',
+            'youtube'   => 'fa fa-youtube',
+            'stack-overflow'   => 'fa fa-stack-overflow',
+            'vimeo'   => 'fa fa-vimeo',
+            'skype'   => 'fa fa-skype',
+            'foursquare'   => 'fa fa-foursquare',
+            'github'   => 'fa fa-github',
+            'pinterest'   => 'fa fa-pinterest',
+        );
+
+        if ( isset( $icons[$type] ) )
+            return '<span class="fa ' . $icons[$type] . '"></span>';
+
+        return '<span class="fa fa-check-square"></span>';
+
+    }
+
+    public function notify_deactivation( $dir ){
+        $theme = self::load_theme( $dir );
+
+        if ( !is_a( $theme, 'StandardTheme') ){
+
+            $theme->status( 'inactive' );
+            // Disable blocks positions assigned to this theme
+            $positions = $theme->blocks_positions();
+            foreach( $positions as $tag => $name){
+
+                $pos = new RMBlockPosition( $tag );
+                if ( !$pos->isNew() ){
+                    $pos->setVar('active', 0);
+                    $pos->save();
+                }
+
+            }
+
         }
     }
     

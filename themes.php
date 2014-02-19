@@ -16,7 +16,7 @@ $tpl = RMTemplate::get();
 $xtf = new XTFunctions();
 
 function xt_show_themes(){
-    global $tpl, $xtf, $xoopsSecurity, $xtAssembler;
+    global $tpl, $xtf, $xoopsSecurity, $xtAssembler, $xtFunctions;
 
     $current = $xtAssembler->theme();
     
@@ -50,7 +50,8 @@ function xt_show_themes(){
     }
     
     $tpl->add_style("themes.css", 'xthemes');
-    $tpl->add_local_script('xthemes.js', 'xthemes');
+    $tpl->add_script('masonry.pkgd.min.js', 'xthemes');
+    $tpl->add_script('xthemes.js', 'xthemes');
     $tpl->add_head_script("var xoops_url = '".XOOPS_URL."';");
     $tpl->assign('xoops_pagetitle', __('Themes Manager','xthemes'));
 
@@ -93,26 +94,71 @@ function xt_preview_theme(){
 }
 
 function xt_activate_theme(){
-    
-    $dir = rmc_server_var($_GET, 'dir', '');
+    global $xtAssembler;
+
+    $dir = RMHttpRequest::get( 'dir', 'string', '' );
     if($dir=='')
-        redirectMsg('themes.php', __('No theme has been specified!','xthemes'), RMMSG_ERROR);
+        RMUris::redirect_with_message( __('No theme has been specified!','xthemes'), 'themes.php', RMMSG_ERROR );
     
     $theme_dir = XOOPS_THEME_PATH.'/'.$dir;
     
     if(!is_file($theme_dir.'/theme.html'))
-        redirectMsg('themes.php', __('Specified directory does not contain a valid theme!','xthemes'), RMMSG_WARN);
-        
+        RMUris::redirect_with_message( __('Specified directory does not contain a valid theme!','xthemes'), 'themes.php', RMMSG_WARN );
+
+    /**
+     * Notify to current theme that will be disabled
+     */
+    $theme = $xtAssembler->theme();
+    if ( $xtAssembler->isSupported() && $theme_dir != $theme->getInfo('dir') ){
+
+        $theme->status( 'inactive' );
+        // Disable blocks positions assigned to this theme
+        $positions = $theme->blocks_positions();
+        foreach( $positions as $tag => $name){
+
+            $pos = new RMBlockPosition( $tag );
+            if ( !$pos->isNew() ){
+                $pos->setVar('active', 0);
+                $pos->save();
+            }
+
+        }
+
+    }
+
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     
     $sql = "UPDATE ".$db->prefix("config")." SET conf_value='$dir' WHERE conf_modid=0 AND conf_catid=1 AND conf_name='theme_set'";
     if(!$db->queryF($sql))
-        redirectMsg('themes.php', __('Theme could not be activated','xthemes').$db->getError(), RMMSG_ERROR);
+        RMUris::redirect_with_message( __('Theme could not be activated','xthemes').$db->getError(), 'themes.php', RMMSG_ERROR );
         
     $sql = "UPDATE ".$db->prefix("config")." SET conf_value='".serialize(array($dir))."' WHERE conf_modid=0 AND conf_catid=1 AND conf_name='theme_set_allowed'";
     $db->queryF($sql);
-    
-    redirectMsg('themes.php', __('Theme activated successfully!','xthemes'), RMMSG_SUCCESS);
+
+    /**
+     * Notify to new theme that was activated
+     */
+    $xtAssembler->loadTheme( $dir );
+    $theme = $xtAssembler->theme();
+
+    if ( $xtAssembler->isSupported() && $dir == $theme->getInfo('dir') ){
+
+        $theme->status( 'active' );
+        // Disable blocks positions assigned to this theme
+        $positions = $theme->blocks_positions();
+        foreach( $positions as $tag => $name){
+
+            $pos = new RMBlockPosition( $tag );
+            if ( !$pos->isNew() ){
+                $pos->setVar('active', 1);
+                $pos->save();
+            }
+
+        }
+
+    }
+
+    RMUris::redirect_with_message( __('Theme activated successfully!','xthemes'), 'themes.php', RMMSG_SUCCESS );
     
 }
 
@@ -120,9 +166,11 @@ function xt_activate_theme(){
 * Install specified theme
 */
 function xt_install_theme(){
-    global $xoopsConfig, $xtFunctions;
+    global $xoopsConfig, $xtFunctions, $xtAssembler;
+
+    $current = $xtAssembler->theme()->getInfo('dir');
     
-    $dir = rmc_server_var($_GET, 'dir', '');
+    $dir = RMHttpRequest::get( 'dir', 'string', '' );
     if($dir=='')
         redirectMsg('themes.php', __('No theme has been specified!','xthemes'), RMMSG_ERROR);
     
@@ -150,12 +198,17 @@ function xt_install_theme(){
         
         if(!$theme->save() && $theme->isNew())
             redirectMsg('themes.php', __('Sorry, theme could not be installed!','xthemes').$theme->errors(), RMMSG_ERROR);
-        
+
+        // Notify to current theme
+        $xtFunctions->notify_deactivation( $current );
+
         // Configuration options
         if(!$xtFunctions->insertOptions($theme))
             redirectMsg('themes.php', __('Sorry, theme could not be installed!','xthemes').$theme->errors(), RMMSG_ERROR);
         
-        
+        // Create blocks positions
+        if ( !$xtFunctions->insertPositions( $theme ) )
+            showMessage( __('The blocks positions could not be installed.', 'xthemes'), 'themes.php', RMMSG_WARN );
         
     }
     
@@ -194,7 +247,8 @@ function xt_uninstall_theme(){
 
     if(!$xtFunctions->purge_theme($theme))
         redirectMsg('themes.php', __('Theme could not be uninstalled!','xthemes').'<br />'.$db->error(), RMMSG_ERROR);
-    
+
+    $theme->delete();
     redirectMsg('themes.php', __('Theme has been uninstalled successfully!','xthemes'), RMMSG_SUCCESS);
     
 }

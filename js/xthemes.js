@@ -202,6 +202,12 @@ $(document).ready(function(){
 
     // Add block level
     $("input[type='text'], select, textarea").addClass("input-block-level");
+
+    // Masonry
+    $('#themes-items').masonry({
+        columnWidth: 320,
+        itemSelector: '.available_theme'
+    });
     
 });	
 

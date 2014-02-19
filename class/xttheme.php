@@ -136,6 +136,23 @@ abstract class XtTheme extends RMObject
     public function blocks(){
         return array();
     }
+
+    public function blocks_positions(){
+        return false;
+    }
+
+    /**
+     * Notify to theme when it is activated or deactivated in order to perform operations.
+     *
+     * This method is called only when the theme changes its status and is installed and
+     * is the theme that will be deactivated or activated.
+     *
+     * @param string $action <p>New status: active|inactive</p>
+     * @return bool
+     */
+    public function status( $action = 'active' ){
+        return true;
+    }
 	
 }
 

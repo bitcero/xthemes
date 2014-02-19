@@ -80,7 +80,7 @@ class XthemesRmcommonPreload
      * Add the customize widget to Common Utilities Dashboard
      */
     public function eventRmcommonDashboardRightWidgets(){
-        global $xtAssembler;
+        global $xtAssembler, $xtFunctions;
 
         if (!isset($GLOBALS['xtAssembler']))
             $xtAssembler = new XtAssembler();
@@ -102,7 +102,7 @@ class XthemesRmcommonPreload
                 <img src="<?php echo XOOPS_THEME_URL; ?>/<?php echo $theme->getInfo('dir'); ?>/<?php echo $theme->getInfo('screenshot'); ?>" class="img-thumbnail">
                 <ul class="nav nav-pills nav-justified nav-options">
                     <li>
-                        <a href="<?php echo XOOPS_URL; ?>/modules/xthemes/" title="<?php _e('Manage Themes', 'xthemes'); ?>" rel="tooltip">
+                        <a href="<?php echo XOOPS_URL; ?>/modules/xthemes/themes.php" title="<?php _e('Manage Themes', 'xthemes'); ?>" rel="tooltip">
                             <span class="fa fa-th-large"></span>
                         </a>
                     </li>
@@ -131,11 +131,11 @@ class XthemesRmcommonPreload
                 <small><?php echo $theme->getInfo('description'); ?></small>
                 <?php if( $theme->getInfo('social') ): ?>
                     <hr>
-                <ul class="list-inline">
+                <ul class="nav nav-pills xthemes-social">
                     <?php foreach( $theme->getInfo('social') as $type => $link ): ?>
                     <li>
-                        <a href="<?php echo $link; ?>">
-                            <span class="fa fa-<?php echo $type; ?>"></span>
+                        <a href="<?php echo $link; ?>" target="_blank">
+                            <?php echo $xtFunctions->social_icon( $type ); ?>
                         </a>
                     </li>
                     <?php endforeach; ?>
