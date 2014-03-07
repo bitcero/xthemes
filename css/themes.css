@@ -127,7 +127,6 @@ $Id: themes.css 159 2012-12-06 23:51:54Z i.bitcero $
 }
 .current_options .nav > li > a{
     background: rgba(0,0,0,0.04);
-    color: #333;
 }
 .current_social{
     margin: 10px 0;
