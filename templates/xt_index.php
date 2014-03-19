@@ -1,7 +1,7 @@
 <h1 class="cu-section-title"><?php _e('Dashboard', 'xthemes'); ?></h1>
-<div class="row">
+<div class="row" data-news="load" data-boxes="load" data-module="xthemes" data-target="#xt-news">
 
-    <div class="col-md-8">
+    <div class="col-md-8" data-box="module-box-left">
 
         <div class="cu-box themes">
             <div class="box-header">
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4" data-box="module-box-right">
 
         <div class="cu-box">
             <div class="box-header">

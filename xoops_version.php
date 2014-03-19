@@ -65,9 +65,11 @@ $modversion['hasMain'] = 0;
 $modversion['hasSearch'] = 0;
 
 global $xtAssembler;
-$theme = $xtAssembler->theme();
-if ( $xtAssembler->isSupported() ){
+if ( $xtAssembler ){
+    $theme = $xtAssembler->theme();
+    if ( $xtAssembler->isSupported() ){
 
-    $modversion['blocks'] = $theme->blocks();
+        $modversion['blocks'] = $theme->blocks();
 
+    }
 }
