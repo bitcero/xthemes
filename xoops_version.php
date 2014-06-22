@@ -27,7 +27,7 @@ if (!function_exists("__")){
 $modversion['name'] = 'XThemes';
 $modversion['version'] = 1.5;
 $modversion['rmnative'] = '1';
-$modversion['rmversion'] = array('major'=>1,'minor'=>5, 'revision'=>28,'stage'=>0,'name'=>'XThemes');
+$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>10,'stage'=>-1,'name'=>'XThemes');
 $modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
 $modversion['description'] = 'A module to manage themes from Red México';
 $modversion['credits'] = "Eduardo Cortés <i.bitcero@gmail.com>";
