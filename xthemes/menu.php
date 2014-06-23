@@ -27,7 +27,7 @@ $adminmenu[] = array(
     'location' => 'themes'
 );
 
-if($xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()){
+if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()){
     $menu = array(
         'title' => $xtAssembler->theme()->getInfo('name'),
         'link' => 'settings.php',
