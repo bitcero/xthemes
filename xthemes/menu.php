@@ -27,7 +27,7 @@ $adminmenu[] = array(
     'location' => 'themes'
 );
 
-if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()){
+if(is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()){
     $menu = array(
         'title' => $xtAssembler->theme()->getInfo('name'),
         'link' => 'settings.php',
@@ -40,7 +40,7 @@ if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->setting
             'title' => __('Menus','xthemes'),
             'link'  => 'navigation.php',
             'selected' => 'menus',
-            'icon' => 'images/menu.png'
+            'icon' => 'fa fa-reorder'
         );
     endif;
     
@@ -49,7 +49,7 @@ if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->setting
             'title' => __('Settings','xthemes'),
             'link'  => 'settings.php',
             'selected' => 'settings',
-            'icon' => 'images/tools.png'
+            'icon' => 'fa fa-cog'
         );
     endif;
     
@@ -58,7 +58,7 @@ if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->setting
             'title' => __('Website','xthemes'),
             'link'  => $xtAssembler->theme()->getInfo('uri'),
             'selected' => 'none',
-            'icon' => 'images/web.png'
+            'icon' => 'fa fa-globe'
         );
     endif;
     
@@ -67,7 +67,7 @@ if($xtAsembler && $xtAssembler->isSupported() &&  $xtAssembler->theme()->setting
             'title' => __('Author','xthemes'),
             'link'  => $xtAssembler->theme()->getInfo('author_uri'),
             'selected' => 'none',
-            'icon' => 'images/author.png'
+            'icon' => 'fa fa-user'
         );
     endif;
     
