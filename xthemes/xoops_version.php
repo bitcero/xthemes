@@ -24,22 +24,24 @@ if (!function_exists("__")){
     }
 }
 
-$modversion['name'] = 'XThemes';
+$modversion['name'] = 'xThemes';
 $modversion['version'] = 1.5;
-$modversion['rmnative'] = '1';
-$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>10,'stage'=>-1,'name'=>'XThemes');
-$modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
-$modversion['description'] = 'A module to manage themes from Red México';
+$modversion['description'] = 'A module to manage advanced themes for XOOPS.';
 $modversion['credits'] = "Eduardo Cortés <i.bitcero@gmail.com>";
-$modversion['author'] = "BitC3R0";
-$modversion['authormail'] = "i.bitcero@gmail.com";
-$modversion['authorweb'] = "Xoops México";
-$modversion['authorurl'] = "http://www.xoopsmexico.net";
-$modversion['help'] = "";
+$modversion['help'] = "docs/readme.html";
 $modversion['license'] = "GPLv2";
 $modversion['official'] = 0;
 $modversion['image'] = "images/logo.png";
 $modversion['dirname'] = "xthemes";
+
+// Common Utilities
+$modversion['rmnative'] = '1';
+$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>10,'stage'=>-1,'name'=>'XThemes');
+$modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
+$modversion['author'] = "Eduardo Cortes";
+$modversion['authormail'] = "i.bitcero@gmail.com";
+$modversion['authorweb'] = "EduardoCortes.mx";
+$modversion['authorurl'] = "http://eduardocortes.mx";
 $modversion['icon16'] = "images/xthemes.png";
 $modversion['icon24'] = 'images/xthemes24.png';
 $modversion['icon32'] = 'images/xthemes32.png';

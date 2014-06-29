@@ -290,7 +290,7 @@ class XtAssembler
 
         } else {
 
-            $mod = $rmf->load_module($dirname);
+            $mod = RMModules::load_module( $dirname );
             if($mod->isNew())
                 return false;
             else

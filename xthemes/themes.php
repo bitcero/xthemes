@@ -194,7 +194,7 @@ function xt_install_theme(){
         $theme->setVar('date', time());
             
         if(!$theme->on_install())
-            redirectMsg('themes.php', __('Theme could not be activated!','xthemes').$theme->errors(), RMMSG_ERROR);
+            RMUris::redirect_with_message( __('Theme could not be activated!','xthemes'). '<br>' . implode('<br>', $theme->errors()), 'themes.php', RMMSG_ERROR);
         
         if(!$theme->save() && $theme->isNew())
             redirectMsg('themes.php', __('Sorry, theme could not be installed!','xthemes').$theme->errors(), RMMSG_ERROR);
