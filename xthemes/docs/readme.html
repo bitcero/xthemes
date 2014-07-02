@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>MyWords for Common Utilities</title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.1.1/cerulean/bootstrap.min.css" rel="stylesheet">
+    <title>xThemes for Common Utilities</title>
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/cosmo/bootstrap.min.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="leeme.html"><span class="fa fa-language"></span> Español</a></li>
-                <li><a href="http://www.github.com/bitcero/mywords/"><span class="fa fa-github-alt"></span> GitHub</a></li>
+                <li><a href="http://www.github.com/bitcero/xthemes/"><span class="fa fa-github-alt"></span> GitHub</a></li>
                 <li><a href="http://www.github.com/bitcero/rmcommon/"><span class="fa fa-download"></span> Get Common Utilities</a></li>
                 <li><a href="http://www.github.com/bitcero/"><span class="fa fa-asterisk"></span> Other Modules</a></li>
             </ul>
@@ -55,8 +55,9 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>
-                    <img src="https://raw.githubusercontent.com/bitcero/mywords/master/mywords/images/logo.png" alt="MyWords logo" width="92" height="52" class="pull-left" />
-                    MyWords for Common Utilities
+                    <img src="https://raw.githubusercontent.com/bitcero/xthemes/master/xthemes/images/logo.png" alt="xThemes logo" width="92" height="52" class="pull-left img-thumbnail" style="margin: 0 10px 0 0;">
+                    xThemes for Common Utilities<br>
+                    <small><em>for a beautiful XOOPS</em></small>
                 </h1>
             </div>
         </div>
@@ -68,32 +69,81 @@
 
         <article class="col-xs-12 col-md-8">
 
-            <p>¡Thanks for download <strong>MyWords</strong>. This module will allow you to create a news or articles section, or even a blog in your web site in a
-                quick and easy way. Now you can concentrate in content and forget configuration and all complications of other similar modules.</p>
+            <p>¡Thanks for download <strong>xThemes</strong>. xThemes is a themes manager/framework for XOOPS. This means that allow to design
+                and develop new themes providing new tools and utilities to achieve better results than ever.</p>
+            <hr>
+            <h3>What xThemes offers me that XOOPS not?</h3>
+            <p>
+                The answer is very simple. xThemes gives you all the capabilities of XOOPS and Smarty to create themes, but also adds improvements and new
+                exciting posibilities for your themes, making them fundamentally different to others. Do you know XOOPS modules? Well, xThemes locate the
+                themes to the same level that a module. Following is a partial list of what themes offers:
+            </p>
+            <ul>
+                <li>A menu maker (forget modules to make menus).</li>
+                <li>Configuration like a module.</li>
+                <li>Customization trough configuration.</li>
+                <li>Plugins for Smarty.</li>
+                <li>Theme plugins.</li>
+                <li>Fully integration to low level.</li>
+                <li>All Common Utilities capabilites.</li>
+            </ul>
             <hr>
             <h3>Requirements</h3>
             <ul>
-                <li>This version has been extensively tested in XOOPS 2.5. I recommedn you to use the last version of XOOPS (currently 2.5.7)</li>
-                <li>Common Utilities 2.2</li>
+                <li><a href="http://xoops.org/">XOOPS 2.5.x</a> (tested on 2.5.7 version)</li>
+                <li><a href="http://www.github.com/bitcero/rmcommon/">Common Utilities 2.2</a></li>
+                <li><a href="https://github.com/bitcero/advform">Advanced Forms plugin</a></li>
             </ul>
             <hr>
             <h3>Install</h3>
-            <p class="important"><strong>Important: </strong>before installing MyWords <abbr title="Common Utilities">rmcommon</abbr> ust be installed, otherwise the module may not be properly installed.</p>
+            <p class="important"><strong>Important: </strong>before installing xThemes, <abbr title="Common Utilities">rmcommon</abbr> must be installed, otherwise the module may not be properly installed.</p>
             <ol>
                 <li>Extract the compressed file to your hard disk.</li>
-                <li>Upload folder &laquo;<strong>mywords</strong>&raquo; to directory &laquo;modules&raquo; in your XOOPS installation.</li>
-                <li>Go to XOOPS control panel, then go to the Common Utilities modules manager and install <strong>MyWords</strong>strong> such as normal module.</li>
-                <li>Done! MyWords has been installed..</li>
+                <li>Upload folder &laquo;<strong><code>xthemes</code></strong>&raquo; to directory &laquo;<code>modules</code>&raquo; in your XOOPS installation.</li>
+                <li>Go to XOOPS control panel, then go to the Common Utilities modules manager and install <strong>xThemes</strong>strong> such as normal module.</li>
+                <li>Done! xThemes has been installed..</li>
             </ol>
             <hr>
-            <h3>Get MyWords</h3>
-            <p>You can get the latest version of <strong>MyWords</strong>driectly from <a href="http://github.com/bitcero/mywords/releases/"><span class="fa fa-github-alt"></span> GitHub</a>.</p>
-            <p>Also, you can <em>fork</em> the <strong>Mywords</strong> repository from <a href="http://github.com/bitcero/mywords/"><span class="fa fa-code-fork"></span> GitHub</a>.</p>
+            <h3>Troubleshooting</h3>
+            <p>
+                Sometimes xThemes doesn't work properly at the first installation. Generally this may ocurr due to a problem with the &laquo;modules active&raquo; file.
+                To solve this situation you can folow next steps:
+            </p>
+            <ol>
+                <li>Locate the folder <code>xoops_data/caches/xoops_cache</code>.</li>
+                <li>With a text or code editor, open file <code>xoops_(<em>some alphanumeric chars</em>)_system_modules_active.php</code></li>
+                <li>You can find several lines. Check if a line containing xthemes already exists. Example:<br>
+                    <pre>0 => '<em>module</em>',
+1 => '<em>module</em>',
+2 => '<em>xthemes</em>',
+3 => 'etc...',</pre></li>
+                <li>If xthemes is not present, then add a new line continuing the numbering:
+                <pre>4 => '<strong>xthemes</strong>',</pre> This line muste be add between existing parenthesis.</li>
+            </ol>
+            <p>
+                Example of a finished file:
+            </p>
+            <pre>1422009898
+return array (
+  0 => 'system',
+  1 => 'rmcommon',
+  2 => 'mywords',
+  3 => 'xthemes',
+  4 => 'galleries',
+  5 => 'vcontrol',
+  6 => 'contacts',
+  7 => 'contact',
+  8 => 'works',
+);</pre>
+            <hr>
+            <h3>Get xThemes</h3>
+            <p>You can get the latest version of <strong>xThemes</strong> directly from <a href="http://github.com/bitcero/xthemes/releases/"><span class="fa fa-github-alt"></span> GitHub</a>.</p>
+            <p>Also, you can <em>fork</em> the <strong>xThemes</strong> repository from <a href="http://github.com/bitcero/xthemes/"><span class="fa fa-code-fork"></span> GitHub</a>.</p>
             <p class="important"><strong>Notice:</strong>strong> Do not use the deveopment version in sites on production.</p>
             <hr>
             <h3>Bugs report</h3>
 
-            <p>Please use the <a href="https://github.com/bitcero/mywords/issues"><span class="fa fa-exclamation-circle"></span> issues tool from GitHub</a> to report bugs.
+            <p>Please use the <a href="https://github.com/bitcero/xthemes/issues"><span class="fa fa-exclamation-circle"></span> issues tool from GitHub</a> to report bugs.
             This is the best way and the only that I check frequently.</p>
 
             <hr>
