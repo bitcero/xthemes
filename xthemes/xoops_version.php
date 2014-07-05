@@ -25,7 +25,7 @@ if (!function_exists("__")){
 }
 
 $modversion['name'] = 'xThemes';
-$modversion['version'] = 1.5;
+$modversion['version'] = 1.6;
 $modversion['description'] = 'A module to manage advanced themes for XOOPS.';
 $modversion['credits'] = "Eduardo Cortés <i.bitcero@gmail.com>";
 $modversion['help'] = "docs/readme.html";
