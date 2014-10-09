@@ -132,7 +132,11 @@ $(document).ready(function(){
     
     $(".xt-menus-container").on('click', '.menu_opt_display', function(){
        
-       $(this).parent().children(".options").slideToggle('fast'); 
+        $(this).parent().children(".options").slideToggle('fast');
+        if ( $(this).hasClass( 'displayed' ) )
+            $(this).removeClass( 'displayed' );
+        else
+            $(this).addClass( 'displayed' );
         
     });
     

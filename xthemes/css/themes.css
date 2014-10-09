@@ -279,8 +279,14 @@ ol#copy{display: none;}
     font-size: 16px;
     text-shadow: 1px 1px 1px rgba(255,255,255,0.6);
 }
+.menu_opt_display{
+    transition: all ease 250ms;
+}
 .menu_opt_display:hover, .menu_delete:hover{
     opacity: 0.9;
+}
+.menu_opt_display.displayed{
+    transform: rotate(180deg);
 }
 .placeholder {
     border: 1px dashed #B7C4C9;

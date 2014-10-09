@@ -59,6 +59,9 @@ class XtAssembler
         if(method_exists($this->current, 'register')){
             
             $plugins = $this->theme()->register();
+
+            if ( empty( $plugins ) )
+                return;
             
             $dir = str_replace(XOOPS_URL, XOOPS_ROOT_PATH, $this->theme()->url().'/assemble/plugins');
             foreach($plugins as $plug){
@@ -84,7 +87,7 @@ class XtAssembler
     * Init data for theme rendering
     */
     public function init(){
-        
+
         global $xoopsTpl, $xoopsConfig, $rmc_config, $xoTheme;
 
 	    $xoopsTpl->assign('isHome', defined('XTHEMES_IS_HOME'));
@@ -147,10 +150,11 @@ class XtAssembler
         $xoopsTpl->assign('xtColor', $this->colors);
         
         // Assign plugins
+
         foreach($this->registered as $id => $o){
             $xoopsTpl->assign($id, $o);
         }
-        
+
         // Register smarty plugins
         $dir = str_replace(XOOPS_URL, XOOPS_ROOT_PATH, $this->theme()->url());
         

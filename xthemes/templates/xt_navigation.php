@@ -51,7 +51,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
 <ol id="copy">
     <li>
         <div>
-            <span class="title"><?php _e('Menu Item','xthemes'); ?></span> <i class="fa fa-chevron-down menu_opt_display" title="<?php _e('Show options','xthemes'); ?>"></i> <i class="fa fa-trash-o menu_delete" title="<?php _e('Delete item','xthemes'); ?>"></i>
+            <span class="title"><?php _e('Menu Item','xthemes'); ?></span> <i class="fa fa-chevron-down menu_opt_display displayed" title="<?php _e('Show options','xthemes'); ?>"></i> <i class="fa fa-trash-o menu_delete" title="<?php _e('Delete item','xthemes'); ?>"></i>
             <div class="options row" style="display: block;">
                 <div class="xt-separator"></div>
                 <div class="option col-md-5">
