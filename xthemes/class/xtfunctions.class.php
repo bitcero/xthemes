@@ -220,6 +220,8 @@ class XtFunctions
             'foursquare'   => 'fa fa-foursquare',
             'github'   => 'fa fa-github',
             'pinterest'   => 'fa fa-pinterest',
+            'blog'  => 'fa fa-quote-left'
+
         );
 
         if ( isset( $icons[$type] ) )

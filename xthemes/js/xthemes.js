@@ -208,10 +208,12 @@ $(document).ready(function(){
     $("input[type='text'], select, textarea").addClass("input-block-level");
 
     // Masonry
-    $('#themes-items').masonry({
-        columnWidth: 320,
-        itemSelector: '.available_theme'
-    });
+    if ( $("#themes-items").length > 0 ) {
+        $('#themes-items').masonry({
+            columnWidth: 320,
+            itemSelector: '.available_theme'
+        });
+    }
     
 });	
 

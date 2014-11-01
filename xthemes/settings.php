@@ -156,6 +156,9 @@ function xt_form_field($name, $option, $ret = 0){
             $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size']>0 ? $option['size'] : 50, null, $option['value'], $option['type']=='password'? 1: 0);
             break;
     }
+
+    if ( isset( $option['attributes'] ) )
+        $ele->attrs( $option['attributes'] );
     
     $ele->setId('xtfield-'.$ids);
     $ids++;

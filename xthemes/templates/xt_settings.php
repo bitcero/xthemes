@@ -25,12 +25,14 @@
         <?php if(isset($options[$name])): ?>
             <?php foreach($options[$name] as $name => $option): ?>
                 <?php if( isset($option['type']) && $option['type'] == 'heading'): ?>
-                    <h2>
+                    <h3>
                         <?php echo $option['caption']; ?><br>
                         <?php if($option['description']!=''): ?>
                         <small><?php echo $option['description']; ?></small>
                         <?php endif; ?>
-                    </h2>
+                    </h3>
+                    <hr>
+                <?php elseif ( isset($option['type']) && $option['type'] == 'divider'): ?>
                     <hr>
                 <?php else: ?>
                 <div class="form-group">

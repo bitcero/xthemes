@@ -18,7 +18,7 @@
 
                         <?php if($current->getInfo('type')=='standard'): ?>
                             <div class="current_standar_legend">
-                                <?php _e('This is a standard XOOPS Theme and doesn\'t have any additional option.','xthemes'); ?>
+                                <?php _e('This is a standard XOOPS Theme and doesn\'t have any additional options.','xthemes'); ?>
                             </div>
                             <a href="<?php echo XOOPS_URL; ?>" class="button" target="_blank"><i class="icon-home"></i> <?php _e('View Site','xthemes'); ?></a>
                         <?php else: ?>
