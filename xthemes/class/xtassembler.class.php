@@ -171,7 +171,7 @@ class XtAssembler
     * Access to registered plugins
     */
     public function plugin($name){
-        
+
         if($name=='' || !isset($this->registered[$name])) return false;
         
         return $this->registered[$name];
@@ -197,7 +197,7 @@ class XtAssembler
         $settings = array();
         
         while($row = $db->fetchArray($result)){
-            $settings[$row['name']] = $row['type']=='array' ? unserialize(trim($row['value'])) : $row['value'];
+            $settings[$row['name']] = $row['type']=='array' ? unserialize( base64_decode( $row['value'] ) ) : $row['value'];
         }
         
         return $settings;

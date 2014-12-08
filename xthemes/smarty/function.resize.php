@@ -28,13 +28,28 @@
  */
 
 /**
-* This function enable the capacity of translate themes for Xoops
-*/
-function smarty_function_locale($params, &$smarty){
-    global $xtAssembler;
-    
-    $theme = $xtAssembler->theme()->getInfo('dir');
-    
-    return __($params['t'], $theme);
-    
+ * <p>This file allows to create a thumbnails or different sizes versions of
+ * an image in runtime.</p>
+ *
+ * <strong>Example of use:</strong>
+ * <pre>
+ * <img src="<{resize file=url_to_an_image w=width_value h=height_value}>">
+ * </pre>
+ */
+
+function smarty_function_resize( $options, $tpl ){
+
+    $file = RMHttpRequest::array_value( 'file', $options, 'string', '' );
+    $dir = RMHttpRequest::array_value( 'dir', $options, 'string', '' );
+    $width = RMHttpRequest::array_value( 'w', $options, 'integer', 0 );
+    $height = RMHttpRequest::array_value( 'h', $options, 'integer', 0 );
+    $params = new stdClass();
+    $params->width = $width;
+    $params->height = $height;
+    $params->target = $dir;
+
+    $resizer = new RMImageResizer();
+    $image = $resizer->resize( $file, $params );
+    return $image->url;
+
 }

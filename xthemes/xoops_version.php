@@ -36,7 +36,7 @@ $modversion['dirname'] = "xthemes";
 
 // Common Utilities
 $modversion['rmnative'] = '1';
-$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>22,'stage'=>-1,'name'=>'XThemes');
+$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>24,'stage'=>0,'name'=>'XThemes');
 $modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
 $modversion['author'] = "Eduardo Cortes";
 $modversion['authormail'] = "i.bitcero@gmail.com";

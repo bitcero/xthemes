@@ -27,7 +27,7 @@
                 <?php if( isset($option['type']) && $option['type'] == 'heading'): ?>
                     <h3>
                         <?php echo $option['caption']; ?><br>
-                        <?php if($option['description']!=''): ?>
+                        <?php if( isset( $option['description'] ) && $option['description'] != '' ): ?>
                         <small><?php echo $option['description']; ?></small>
                         <?php endif; ?>
                     </h3>
