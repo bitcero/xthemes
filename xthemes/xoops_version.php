@@ -66,6 +66,17 @@ $modversion['adminmenu'] = "menu.php";
 $modversion['hasMain'] = 0;
 $modversion['hasSearch'] = 0;
 
+$modversion['config'] = array(
+    array(
+        'name' => 'recal',
+        'title' => __('Recalculate length of serialized data','docs'),
+        'description' => __('Enable this option only when you receive an error like <em>[function.unserialize]: Error at offset</em>.', 'docs'),
+        'formtype' => 'yesno',
+        'valuetype' => 'int',
+        'default' => 0
+    ),
+);
+
 global $xtAssembler;
 if ( $xtAssembler ){
     $theme = $xtAssembler->theme();

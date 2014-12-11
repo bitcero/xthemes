@@ -23,6 +23,7 @@ class XtAssembler
     private $menus = null;
     private $registered = array();
     private $colors = '';
+    private $xsettings;
     
     public function __construct($theme = ''){
         
@@ -45,7 +46,10 @@ class XtAssembler
         * The theme support native menus?
         */
         $this->root_menus = $this->current->haveMenus();
-        
+
+        // xThemes settings (?)
+        $this->xsettings = RMSettings::module_settings( 'xthemes' );
+
         /**
         * Load theme configuration
         */
@@ -73,7 +77,7 @@ class XtAssembler
             }
             
         }
-        
+
     }
     
     /**
@@ -89,6 +93,9 @@ class XtAssembler
     public function init(){
 
         global $xoopsTpl, $xoopsConfig, $rmc_config, $xoTheme;
+
+        // xThemes settings (?)
+        $this->xsettings = RMSettings::module_settings( 'xthemes' );
 
 	    $xoopsTpl->assign('isHome', defined('XTHEMES_IS_HOME'));
 
@@ -197,11 +204,19 @@ class XtAssembler
         $settings = array();
         
         while($row = $db->fetchArray($result)){
-            $settings[$row['name']] = $row['type']=='array' ? unserialize( base64_decode( $row['value'] ) ) : $row['value'];
+            $settings[$row['name']] = $row['type']=='array' ? unserialize( $this->recalculate( base64_decode( $row['value'] ) ) ) : $row['value'];
         }
         
         return $settings;
         
+    }
+
+    private function recalculate( $data ){
+
+        if ( $this->xsettings->recal )
+            $data = preg_replace_callback('!s:(\d+):"(.*?)";!', function($t){ return "s:" . strlen($t[2]) . ":\"$t[2]\";";}, $data);
+
+        return $data;
     }
     
     /**
