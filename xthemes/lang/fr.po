@@ -1,168 +1,380 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xThemes\n"
-"POT-Creation-Date: 2012-10-23 14:46-0600\n"
-"PO-Revision-Date: 2013-04-19 18:16-0600\n"
-"Last-Translator: Eduardo Cortés <i.bitcero@gmail.com>\n"
+"POT-Creation-Date: 2014-12-15 19:59-0600\n"
+"PO-Revision-Date: 2014-12-15 20:05-0600\n"
+"Last-Translator: Eduardo Cortés <me@eduardocortes.mx>\n"
 "Language-Team: Xoops Mexico <xoopsmexico@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.1\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: c:\\wamp\\www\\xm\\modules\\xthemes\n"
+"X-Poedit-SearchPath-0: Y:\\www\\xoops\\modules\\xthemes\n"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:17
-#: c:\wamp\www\xm\modules\xthemes/class/xtfunctions.class.php:13
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:38
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:3
+#: Y:\www\xoops\modules\xthemes/class/xtfunctions.class.php:13
+#: Y:\www\xoops\modules\xthemes/menu.php:17
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:3
+#: Y:\www\xoops\modules\xthemes/templates/xt_index.php:1
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:80
 msgid "Dashboard"
 msgstr "Tableau de contrôle"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:24
+#: Y:\www\xoops\modules\xthemes/class/xtfunctions.class.php:14
+msgid "Available Themes"
+msgstr "Thèmes disponibles"
+
+#: Y:\www\xoops\modules\xthemes/class/xtfunctions.class.php:15
+msgid "Theme Settings"
+msgstr "Réglages du thème"
+
+#: Y:\www\xoops\modules\xthemes/class/xtfunctions.class.php:16
+msgid "About"
+msgstr "A propos"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:21
+#: Y:\www\xoops\modules\xthemes/templates/xt_settings.php:11
+msgid "Configuration Sections"
+msgstr "Sections de configuration"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:53
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:1
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:16
+msgid "Current Theme"
+msgstr "Thème en cours"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:68
+#, php-format
+msgid "%s Options"
+msgstr "%s Options"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:99
+msgid "Appearance"
+msgstr "Apparence"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:105
+msgid "Manage Themes"
+msgstr "Gérer Thèmes"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:111
+#, php-format
+msgid "%s Control Panel"
+msgstr "%s Panneau de Commande"
+
+#: Y:\www\xoops\modules\xthemes/events/rmcommon.php:118
+msgid "Menu Maker"
+msgstr "Fabricant de Menu"
+
+#: Y:\www\xoops\modules\xthemes/menu.php:24
+#: Y:\www\xoops\modules\xthemes/themes.php:59
 msgid "Themes"
 msgstr "Thèmes"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:40
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:41
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:6
+#: Y:\www\xoops\modules\xthemes/menu.php:40
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:6
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:83
 msgid "Menus"
 msgstr "Menus"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:48
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:44
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:9
+#: Y:\www\xoops\modules\xthemes/menu.php:49
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:9
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:86
 msgid "Settings"
 msgstr "Réglages"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:56
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:28
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:47
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:12
+#: Y:\www\xoops\modules\xthemes/menu.php:58
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:12
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:51
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:89
 msgid "Website"
 msgstr "Site Web"
 
-#: c:\wamp\www\xm\modules\xthemes/menu.php:64
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:50
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:15
+#: Y:\www\xoops\modules\xthemes/menu.php:67
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeoptions.php:15
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:92
 msgid "Author"
 msgstr "Auuteur"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:29
+#: Y:\www\xoops\modules\xthemes/navigation.php:29
 msgid "This theme does not support xThemes menus!"
 msgstr "Ce thème ne supporte pas la gestion des menus xThemes!"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:36
+#: Y:\www\xoops\modules\xthemes/navigation.php:36
 msgid "Do you really want to delete selected menu?"
 msgstr "Voulez vous vraiment effacer le menu sélectionné?"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:38
+#: Y:\www\xoops\modules\xthemes/navigation.php:38
 msgid "Theme menus"
 msgstr "Menus du Thème"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:61
+#: Y:\www\xoops\modules\xthemes/navigation.php:65
 msgid "Menu not found!"
 msgstr "Menu introuvable!"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:74
+#: Y:\www\xoops\modules\xthemes/navigation.php:78
 #, php-format
 msgid "Current theme \"%s\" does not have any menu identified as \"%s\""
 msgstr "Le thème utilisé \"%s\" n'a pas de menu identifié comme \"%s\" "
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:80
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:99
+#: Y:\www\xoops\modules\xthemes/navigation.php:84
+#: Y:\www\xoops\modules\xthemes/navigation.php:103
 msgid "There was some errors while trying to save menus:"
 msgstr ""
 "Il y a eu quelques erreurs lors de la tentative de sauvegarde des menus:"
 
-#: c:\wamp\www\xm\modules\xthemes/navigation.php:101
+#: Y:\www\xoops\modules\xthemes/navigation.php:105
 msgid "Menu saved successfully!"
 msgstr "Menu sauvegardé avec succès!"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:100
-#: c:\wamp\www\xm\modules\xthemes/settings.php:105
+#: Y:\www\xoops\modules\xthemes/settings.php:100
+#: Y:\www\xoops\modules\xthemes/settings.php:105
 msgid "None"
 msgstr "Aucun"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:138
+#: Y:\www\xoops\modules\xthemes/settings.php:138
 msgid "Slider Title"
 msgstr "Titre du Slider"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:138
+#: Y:\www\xoops\modules\xthemes/settings.php:138
 msgid "Show the slider title"
 msgstr "Voir le titre du Slider"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:198
+#: Y:\www\xoops\modules\xthemes/settings.php:209
 msgid "This is a not valid theme"
 msgstr "Ce n'est pas un thème valide"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:212
+#: Y:\www\xoops\modules\xthemes/settings.php:223
 msgid "Settings could not be saved! Please try again"
 msgstr "Les réglages ne peuvent pas être sauvegardés! Merci de réessayer"
 
-#: c:\wamp\www\xm\modules\xthemes/settings.php:216
+#: Y:\www\xoops\modules\xthemes/settings.php:227
 msgid "Settings updated successfully!"
 msgstr "Réglages mis à jour avec succès!"
 
-#: c:\wamp\www\xm\modules\xthemes/theme.php:25
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeinfo.php:9
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:42
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:44
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:125
+#, php-format
+msgid "By %s"
+msgstr "Par %s"
+
+#: Y:\www\xoops\modules\xthemes/templates/widgets/xt_wgt_themeinfo.php:10
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:48
+#, php-format
+msgid "Version %s"
+msgstr "Version %s"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_index.php:8
+msgid "Recent Themes on Xoops Mexico"
+msgstr "Thèmes récents sur Xoops Mexico"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_index.php:13
+msgid "View more themes"
+msgstr "Voir plus de thèmes"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_index.php:19
+msgid "xThemes Related News"
+msgstr "Nouvelles de xThemes"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:4
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:54
+msgid "Show options"
+msgstr "Voir les options"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:4
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:54
+msgid "Delete item"
+msgstr "Effacer un item"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:11
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:61
+msgid "Title:"
+msgstr "Titre:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:22
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:72
+msgid "URL:"
+msgstr "URL:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:33
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:83
+msgid "Rel:"
+msgstr "Rel:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:44
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:94
+msgid "Target:"
+msgstr "Cible:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:55
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:105
+msgid "Extra:"
+msgstr "Extra:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:59
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:109
+msgid "Description:"
+msgstr "Description:"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_menu_manager.php:60
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:110
+msgid "255 characters long"
+msgstr "255 caractères de long"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:1
+msgid "Menus and Navigation"
+msgstr "Menus et Navigation"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:4
+#, php-format
+msgid ""
+"This theme have %u different menus that can be configured with xThemes menus."
+msgstr ""
+"Ce thème a %u menus différents qui peuvent être configurés avec le "
+"gestionnaire de menu xThemes"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:5
+msgid ""
+"To configure menus please select a menu by clicking on tab name, and then "
+"use next form to add elements."
+msgstr ""
+"Pour configurer les menus, sélectionnez en un en cliquant sur le nom de "
+"l'onglet, et utilisez le formulaire apparu pour ajouter des éléments."
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:8
+msgid "Add Menu"
+msgstr "Ajouter un Menu"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:9
+msgid "Save Menu"
+msgstr "Sauvegarder le Menu"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:54
+#: Y:\www\xoops\modules\xthemes/templates/xt_navigation.php:64
+msgid "Menu Item"
+msgstr "Item du Menu"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_settings.php:1
+#, php-format
+msgid "%s Settings"
+msgstr "%s Réglages"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_settings.php:19
+#: Y:\www\xoops\modules\xthemes/templates/xt_settings.php:65
+msgid "Save Settings"
+msgstr "Sauvegarder les Réglages"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_settings.php:62
+msgid ""
+"You can configure all sections before to press \"Save Settings\" button. "
+"Change between sections will not loose configured data."
+msgstr ""
+"Vous pouvez configurer toutes les sections avant de presser le bouton "
+"\"Sauvegarder les réglages\". Les changements entre les sections ne perdront "
+"pas les données configurées."
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:21
+msgid "This is a standard XOOPS Theme and doesn't have any additional options."
+msgstr "Ce est un thème XOOPS standard et n'a pas d'options supplémentaires."
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:23
+msgid "View Site"
+msgstr "Voir le site"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:77
+msgid "Theme Options"
+msgstr "Options du Thème"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:122
+msgid "This is a standard XOOPS theme."
+msgstr "C'est un thème XOOPS standard."
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:135
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:143
+msgid "Activate"
+msgstr "Activer"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:136
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:146
+msgid "Preview"
+msgstr "Prévisualisation"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:141
+msgid "Install"
+msgstr "Installer"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:144
+msgid "Uninstall"
+msgstr "Désinstaller"
+
+#: Y:\www\xoops\modules\xthemes/templates/xt_themes.php:147
+msgid "Details"
+msgstr "Détails"
+
+#: Y:\www\xoops\modules\xthemes/theme.php:24
 #, php-format
 msgid "%s does not support this feature."
 msgstr "%s ne supporte pas cette option."
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:57
+#: Y:\www\xoops\modules\xthemes/themes.php:56
 msgid "Themes Manager"
 msgstr "Gestionnaire de thèmes"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:74
-#: c:\wamp\www\xm\modules\xthemes/themes.php:98
-#: c:\wamp\www\xm\modules\xthemes/themes.php:126
+#: Y:\www\xoops\modules\xthemes/themes.php:76
+#: Y:\www\xoops\modules\xthemes/themes.php:101
+#: Y:\www\xoops\modules\xthemes/themes.php:175
 msgid "No theme has been specified!"
 msgstr "Aucun thème n'a été spécifié!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:80
+#: Y:\www\xoops\modules\xthemes/themes.php:82
 #, php-format
 msgid "%s is not a valid theme!"
 msgstr "%s n'est pas un thème valide!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:103
-#: c:\wamp\www\xm\modules\xthemes/themes.php:131
+#: Y:\www\xoops\modules\xthemes/themes.php:106
+#: Y:\www\xoops\modules\xthemes/themes.php:180
 msgid "Specified directory does not contain a valid theme!"
 msgstr "Le répertoire spécifié ne contient pas de thème valide!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:109
-#: c:\wamp\www\xm\modules\xthemes/themes.php:163
+#: Y:\www\xoops\modules\xthemes/themes.php:133
+#: Y:\www\xoops\modules\xthemes/themes.php:217
 msgid "Theme could not be activated"
 msgstr "Le thème ne peut pas être activé"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:114
+#: Y:\www\xoops\modules\xthemes/themes.php:161
 msgid "Theme activated successfully!"
 msgstr "Thème activé avec succès!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:142
+#: Y:\www\xoops\modules\xthemes/themes.php:191
 msgid "Specified theme is not a valid xThemes theme!"
 msgstr "Le thème spécifié n'est pas un thème xThemes valide!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:148
+#: Y:\www\xoops\modules\xthemes/themes.php:197
 msgid "Theme could not be activated!"
 msgstr "Le thème ne peint pas être activé!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:151
-#: c:\wamp\www\xm\modules\xthemes/themes.php:155
+#: Y:\www\xoops\modules\xthemes/themes.php:200
+#: Y:\www\xoops\modules\xthemes/themes.php:207
 msgid "Sorry, theme could not be installed!"
 msgstr "Désolé, le thème ne peut pas être installé!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:168
+#: Y:\www\xoops\modules\xthemes/themes.php:211
+msgid "The blocks positions could not be installed."
+msgstr "Les positions des blocs ne peuvent être installés."
+
+#: Y:\www\xoops\modules\xthemes/themes.php:222
 msgid "Theme installed and activated successfully!"
 msgstr "Thème installé et activé avec succès!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:179
+#: Y:\www\xoops\modules\xthemes/themes.php:233
 msgid "Specified theme is not valid!"
 msgstr "Le thème spécifié n'est pas valide!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:182
+#: Y:\www\xoops\modules\xthemes/themes.php:236
 msgid ""
 "Specified theme is being used by XOOPS as current theme and can not be "
 "uninstalled. Please, activate another available theme before uninstalling "
@@ -172,7 +384,7 @@ msgstr ""
 "être désinstallé. SVP, activez un autre thème disponible avant de le "
 "désinstaller."
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:187
+#: Y:\www\xoops\modules\xthemes/themes.php:241
 msgid ""
 "This theme is not a xThemes! To deactivate it simply activate another "
 "available theme."
@@ -180,227 +392,63 @@ msgstr ""
 "Ce n'est pas un thème xThemes! Pour le désactiver, activez simplement un "
 "autre thème disponible."
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:191
+#: Y:\www\xoops\modules\xthemes/themes.php:246
+#: Y:\www\xoops\modules\xthemes/themes.php:249
 msgid "Theme could not be uninstalled!"
 msgstr "Le thème ne peut pas être désinstallé!"
 
-#: c:\wamp\www\xm\modules\xthemes/themes.php:193
+#: Y:\www\xoops\modules\xthemes/themes.php:252
 msgid "Theme has been uninstalled successfully!"
 msgstr "Le thème a été désinstallé avec succès!"
 
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:31
-msgid "bitcero on Twitter"
-msgstr "bitcero sur Twitter"
+#: Y:\www\xoops\modules\xthemes/xoops_version.php:51
+msgid "Twitter"
+msgstr "Twitter"
 
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:32
-msgid "bitcero on nLinkedIn"
-msgstr "bitcero sur LinkedIn"
+#: Y:\www\xoops\modules\xthemes/xoops_version.php:52
+msgid "LinkedIn"
+msgstr "LinkedIn"
 
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:33
-msgid "Xoops Mexico on Twitter"
-msgstr "Xoops Mexico sur Twitter"
+#: Y:\www\xoops\modules\xthemes/xoops_version.php:53
+msgid "Google+"
+msgstr "Google+"
 
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:34
-msgid "Xoops Mexico on Facebook"
-msgstr "Xoops Mexico sur Facebook"
+#: Y:\www\xoops\modules\xthemes/xoops_version.php:72
+msgid "Recalculate length of serialized data"
+msgstr "Recalculer la longueur des données sérialisé"
 
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:35
-msgid "Red Mexico on Twitter"
-msgstr "Red Mexico sur Twitter"
-
-#: c:\wamp\www\xm\modules\xthemes/xoops_version.php:36
-msgid "Red Mexico on Facebook"
-msgstr "Red Mexico sur Facebook"
-
-#: c:\wamp\www\xm\modules\xthemes/class/xtfunctions.class.php:14
-msgid "Available Themes"
-msgstr "Thèmes disponibles"
-
-#: c:\wamp\www\xm\modules\xthemes/class/xtfunctions.class.php:15
-msgid "Theme Settings"
-msgstr "Réglages du thème"
-
-#: c:\wamp\www\xm\modules\xthemes/class/xtfunctions.class.php:16
-msgid "About"
-msgstr "A propos"
-
-#: c:\wamp\www\xm\modules\xthemes/events/rmcommon.php:21
-msgid "Configuration Sections"
-msgstr "Sections de configuration"
-
-#: c:\wamp\www\xm\modules\xthemes/events/rmcommon.php:63
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:7
-msgid "Current Theme"
-msgstr "Thème en cours"
-
-#: c:\wamp\www\xm\modules\xthemes/events/rmcommon.php:78
-#, php-format
-msgid "%s Options"
-msgstr "%s Options"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_index.php:2
-msgid "Recent Themes on Xoops Mexico"
-msgstr "Thèmes récents sur Xoops Mexico"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_index.php:6
-msgid "View more themes"
-msgstr "Voir plus de thèmes"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_index.php:12
-msgid "xThemes Related News"
-msgstr "Nouvelles de xThemes"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_index.php:21
-msgid "About xThemes"
-msgstr "A propos de xThemes"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:3
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:54
-msgid "Show options"
-msgstr "Voir les options"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:3
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:54
-msgid "Delete item"
-msgstr "Effacer un item"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:8
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:59
-msgid "Title:"
-msgstr "Titre:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:12
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:63
-msgid "URL:"
-msgstr "URL:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:16
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:67
-msgid "Rel:"
-msgstr "Rel:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:20
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:71
-msgid "Target:"
-msgstr "Cible:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:25
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:76
-msgid "Extra:"
-msgstr "Extra:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_menu_manager.php:27
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:78
-msgid "Description:"
-msgstr "Description:"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:1
-msgid "Menus and Navigation"
-msgstr "Menus et Navigation"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:4
-#, php-format
+#: Y:\www\xoops\modules\xthemes/xoops_version.php:73
 msgid ""
-"This theme have %u different menus that can be configured with xThemes menus."
+"Enable this option only when you receive an error like <em>[function."
+"unserialize]: Error at offset</em>."
 msgstr ""
-"Ce thème a %u menus différents qui peuvent être configurés avec le "
-"gestionnaire de menu xThemes"
+"Activer cette option uniquement lorsque vous recevez une erreur comme <em> "
+"[function.unserialize]: Erreur à l'offset </ em>."
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:5
-msgid ""
-"To configure menus please select a menu by clicking on tab name, and then "
-"use next form to add elements."
-msgstr ""
-"Pour configurer les menus, sélectionnez en un en cliquant sur le nom de "
-"l'onglet, et utilisez le formulaire apparu pour ajouter des éléments."
+#~ msgid "bitcero on Twitter"
+#~ msgstr "bitcero sur Twitter"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:8
-msgid "Add Menu"
-msgstr "Ajouter un Menu"
+#~ msgid "bitcero on nLinkedIn"
+#~ msgstr "bitcero sur LinkedIn"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:9
-msgid "Save Menu"
-msgstr "Sauvegarder le Menu"
+#~ msgid "Xoops Mexico on Twitter"
+#~ msgstr "Xoops Mexico sur Twitter"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:54
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:60
-msgid "Menu Item"
-msgstr "Item du Menu"
+#~ msgid "Xoops Mexico on Facebook"
+#~ msgstr "Xoops Mexico sur Facebook"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_navigation.php:79
-msgid "255 characters long"
-msgstr "255 caractères de long"
+#~ msgid "Red Mexico on Twitter"
+#~ msgstr "Red Mexico sur Twitter"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_settings.php:1
-#, php-format
-msgid "%s Settings"
-msgstr "%s Réglages"
+#~ msgid "Red Mexico on Facebook"
+#~ msgstr "Red Mexico sur Facebook"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_settings.php:26
-msgid ""
-"You can configure all sections before to press \"Save Settings\" button. "
-"Change between sections will not loose configured data."
-msgstr ""
-"Vous pouvez configurer toutes les sections avant de presser le bouton "
-"\"Sauvegarder les réglages\". Les changements entre les sections ne perdront "
-"pas les données configurées."
+#~ msgid "About xThemes"
+#~ msgstr "A propos de xThemes"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_settings.php:29
-msgid "Cancel"
-msgstr "Annuler"
+#~ msgid "Cancel"
+#~ msgstr "Annuler"
 
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_settings.php:30
-msgid "Save Settings"
-msgstr "Sauvegarder les Réglages"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:11
-msgid "This is a standard XOOPS Theme and doesn't have any additional option."
-msgstr "C'est un thème XOOPS standard, qui n'a pas d'option additionnelle "
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:13
-msgid "View Site"
-msgstr "Voir le site"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:19
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:21
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:77
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeinfo.php:9
-#, php-format
-msgid "By %s"
-msgstr "Par %s"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:25
-#: c:\wamp\www\xm\modules\xthemes/templates/widgets/xt_wgt_themeinfo.php:10
-#, php-format
-msgid "Version %s"
-msgstr "Version %s"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:36
-msgid "Theme Options"
-msgstr "Options du Thème"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:68
-msgid "This is a standard XOOPS theme."
-msgstr "C'est un thème XOOPS standard."
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:71
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:84
-msgid "Activate"
-msgstr "Activer"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:72
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:87
-msgid "Preview"
-msgstr "Prévisualisation"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:82
-msgid "Install"
-msgstr "Installer"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:85
-msgid "Uninstall"
-msgstr "Désinstaller"
-
-#: c:\wamp\www\xm\modules\xthemes/templates/xt_themes.php:88
-msgid "Details"
-msgstr "Détails"
+#~ msgid ""
+#~ "This is a standard XOOPS Theme and doesn't have any additional option."
+#~ msgstr "C'est un thème XOOPS standard, qui n'a pas d'option additionnelle "
