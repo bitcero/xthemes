@@ -77,6 +77,7 @@ class XtFunctions
         
         if($theme==null) return false;
         $options = $theme->options();
+        $to_delete = array();
         
         if(empty($options)) return true;
         
@@ -84,11 +85,14 @@ class XtFunctions
         // Current settings
         $current = $theme->settings();
         $count = count($current);
+
+        $to_delete = array_keys( array_diff_key( $current, $options['options'] ) );
         
         $sql = "INSERT INTO ".$db->prefix("xt_options")." (`theme`,`name`,`value`,`type`) VALUES ";
         $sqlu = "UPDATE ".$db->prefix("xt_options")." SET `value`=";
         
         foreach($options['options'] as $name => $option){
+
             if($count<=0){
                 $value = isset($set[$name]) ? $set[$name] : $option['default'];
                 $value = $option['type']=='array' ? base64_encode( serialize( $value ) ) : TextCleaner::getInstance()->addslashes($value);
@@ -98,7 +102,7 @@ class XtFunctions
                     // Update single option
                     $value = $option['content']=='array' ? base64_encode( serialize( $set[$name] ) ) : TextCleaner::getInstance()->addslashes($set[$name]);
                     $sqlt = $sqlu . "'$value', `type`='$option[content]' WHERE name='$name' AND theme='".$theme->id()."'";
-                    $db->queryF($sqlt);
+                    $db->queryF( $sqlt );
                 }else{
                     $value = isset($set[$name]) ? $set[$name] : $option['content'];
                     $value = $option['type']=='array' ? base64_encode( serialize( $value ) ) : TextCleaner::getInstance()->addslashes($value);
@@ -107,7 +111,10 @@ class XtFunctions
             }
 
         }
-        
+
+        if ( !empty( $to_delete ) )
+            $db->queryF("DELETE FROM " . $db->prefix("xt_options") . " WHERE theme = " . $theme->id() . " AND ( name = '" . implode("' OR name='", $to_delete) . "')");
+
         if(!empty($values))
             $sql .= implode(",",$values); 
         else
