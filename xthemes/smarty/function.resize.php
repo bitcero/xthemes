@@ -40,7 +40,7 @@
 function smarty_function_resize( $options, $tpl ){
 
     $file = RMHttpRequest::array_value( 'file', $options, 'string', '' );
-    $dir = RMHttpRequest::array_value( 'dir', $options, 'string', '' );
+    $dir = RMHttpRequest::array_value( 'dir', $options, 'string', 'resizer' );
     $width = RMHttpRequest::array_value( 'w', $options, 'integer', 0 );
     $height = RMHttpRequest::array_value( 'h', $options, 'integer', 0 );
     $params = new stdClass();

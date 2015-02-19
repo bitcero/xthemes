@@ -192,7 +192,7 @@ function xt_show_options(){
     }
 
 	$tpl->add_style("settings.css",'xthemes');
-    $tpl->add_local_script('jquery.ck.js', 'rmcommon', 'include');
+    $tpl->add_local_script('jquery.ck.js', 'rmcommon');
     $tpl->add_local_script('xthemes.js', 'xthemes');
     xoops_cp_header();
     

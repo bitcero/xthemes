@@ -87,25 +87,27 @@ class XtFunctions
         $count = count($current);
 
         $to_delete = array_keys( array_diff_key( $current, $options['options'] ) );
-        
+
         $sql = "INSERT INTO ".$db->prefix("xt_options")." (`theme`,`name`,`value`,`type`) VALUES ";
         $sqlu = "UPDATE ".$db->prefix("xt_options")." SET `value`=";
-        
+
+        $values = array();
+
         foreach($options['options'] as $name => $option){
 
             if($count<=0){
                 $value = isset($set[$name]) ? $set[$name] : $option['default'];
-                $value = $option['type']=='array' ? base64_encode( serialize( $value ) ) : TextCleaner::getInstance()->addslashes($value);
+                $value = $option['type']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : TextCleaner::getInstance()->addslashes($value);
                 $values[] = "(".$theme->id().",'$name','$value','$option[content]')";
             }else {
-                if($set && isset($current[$name]) && isset($set[$name])){
+                if( $set && isset($current[$name]) ){
                     // Update single option
-                    $value = $option['content']=='array' ? base64_encode( serialize( $set[$name] ) ) : TextCleaner::getInstance()->addslashes($set[$name]);
+                    $value = $option['content']=='array' ? ( isset( $set[$name] ) ? base64_encode( serialize( $set[$name] ) ) : '' ) : TextCleaner::getInstance()->addslashes($set[$name]);
                     $sqlt = $sqlu . "'$value', `type`='$option[content]' WHERE name='$name' AND theme='".$theme->id()."'";
                     $db->queryF( $sqlt );
                 }else{
                     $value = isset($set[$name]) ? $set[$name] : $option['content'];
-                    $value = $option['type']=='array' ? base64_encode( serialize( $value ) ) : TextCleaner::getInstance()->addslashes($value);
+                    $value = $option['type']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : TextCleaner::getInstance()->addslashes($value);
                     $values[] = "(".$theme->id().",'$name','$value','$option[content]')";
                 }
             }

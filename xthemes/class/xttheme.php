@@ -153,6 +153,10 @@ abstract class XtTheme extends RMObject
     public function status( $action = 'active' ){
         return true;
     }
+
+    public function body_classes(){
+        return RMTemplate::get()->body_classes();
+    }
 	
 }
 
