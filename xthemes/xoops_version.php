@@ -36,6 +36,7 @@ $modversion['dirname'] = "xthemes";
 
 // Common Utilities
 $modversion['rmnative'] = '1';
+$modversion['url'] = 'https://github.com/bitcero/xthemes';
 $modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>26,'stage'=>0,'name'=>'XThemes');
 $modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
 $modversion['author'] = "Eduardo Cortes";
