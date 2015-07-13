@@ -34,7 +34,8 @@ function xt_show_menus(){
     $tpl->add_local_script('jquery.nestedSortable.js', 'xthemes');
     $tpl->add_local_script('json_encode.js', 'xthemes');
     $tpl->add_head_script("var lang_delete = '".__('Do you really want to delete selected menu?','xthemes')."';");
-    $tpl->add_local_script('xthemes.js', 'xthemes');
+    $tpl->add_local_script('xthemes.min.js', 'xthemes');
+    $tpl->add_style('xthemes.min.css', 'xthemes');
     $tpl->assign('xoops_pagetitle', __('Theme menus','xthemes'));
     
     xoops_cp_header();

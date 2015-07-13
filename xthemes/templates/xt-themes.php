@@ -111,47 +111,49 @@
     <div id="themes-items">
         <?php foreach($themes as $theme): ?>
             <?php if($theme['dir'] != $current->getInfo('dir')): ?>
-                <div class="cu-box available_theme" id="available-<?php echo $theme['dir']; ?>">
-                    <div class="box-content">
-                        <div class="theme_screenshot">
-                            <img class="img-responsive img-thumbnail" src="<?php echo $theme['url'].'/'.$theme['screenshot']; ?>" alt="<?php echo $theme['name']; ?>">
-                        </div>
-                        <div class="available_details">
-                            <h3><?php echo $theme['name']; ?></h3>
-                            <?php if(isset($theme['type']) && $theme['type']=='standard'): ?>
-                                <span class="help-block"><?php echo _e('This is a standard XOOPS theme.','xthemes'); ?></span>
-                            <?php else: ?>
-                                <div class="theme_author">
-                                    <?php echo sprintf(__('By %s','xthemes'), '<a href="'.$theme['author_uri'].'" target="_blank">'.$theme['author'].'</a>'); ?>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <div class="box-footer theme_options">
-
-                        <?php if(isset($theme['type']) && $theme['type']=='standard'): ?>
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Activate','xthemes'); ?></a></li>
-                                <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
-                            </ul>
-                        <?php else: ?>
-                            <ul class="nav nav-pills nav-justified">
-                                <?php if(!$theme['installed']): ?>
-                                    <li><a href="themes.php?action=install&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Install','xthemes'); ?></a></li>
+                <div class="available-theme">
+                    <div class="cu-box" id="available-<?php echo $theme['dir']; ?>">
+                        <div class="box-content">
+                            <div class="theme_screenshot">
+                                <img class="img-responsive img-thumbnail" src="<?php echo $theme['url'].'/'.$theme['screenshot']; ?>" alt="<?php echo $theme['name']; ?>">
+                            </div>
+                            <div class="available-details">
+                                <h3><?php echo $theme['name']; ?></h3>
+                                <?php if(isset($theme['type']) && $theme['type']=='standard'): ?>
+                                    <span class="help-block"><?php echo _e('This is a standard XOOPS theme.','xthemes'); ?></span>
                                 <?php else: ?>
-                                    <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Activate','xthemes'); ?></a></li>
-                                    <li><a href="themes.php?action=uninstall&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Uninstall','xthemes'); ?></a></li>
+                                    <div class="theme-author">
+                                        <?php echo sprintf(__('By %s','xthemes'), '<a href="'.$theme['author_uri'].'" target="_blank">'.$theme['author'].'</a>'); ?>
+                                    </div>
                                 <?php endif; ?>
-                                <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
-                                <li><a href="#" class="theme_adetails"><?php _e('Details','xthemes'); ?></a></li>
-                            </ul>
-                        <?php endif; ?>
+                            </div>
+                        </div>
 
-                        <div class="theme_details" id="details-<?php echo $theme['dir']; ?>">
+                        <div class="box-footer theme-options">
+
+                            <?php if(isset($theme['type']) && $theme['type']=='standard'): ?>
+                                <ul class="nav nav-pills nav-justified">
+                                    <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Activate','xthemes'); ?></a></li>
+                                    <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
+                                </ul>
+                            <?php else: ?>
+                                <ul class="nav nav-pills nav-justified">
+                                    <?php if(!$theme['installed']): ?>
+                                        <li><a href="themes.php?action=install&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Install','xthemes'); ?></a></li>
+                                    <?php else: ?>
+                                        <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Activate','xthemes'); ?></a></li>
+                                        <li><a href="themes.php?action=uninstall&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Uninstall','xthemes'); ?></a></li>
+                                    <?php endif; ?>
+                                    <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
+                                    <li><a href="#" class="theme-adetails"><?php _e('Details','xthemes'); ?></a></li>
+                                </ul>
+                            <?php endif; ?>
+
+                            <div class="theme-details" id="details-<?php echo $theme['dir']; ?>">
                 <span class="theme_description">
                     <?php echo $theme['description']; ?>
                 </span>
+                            </div>
                         </div>
                     </div>
                 </div>

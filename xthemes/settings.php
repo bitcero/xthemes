@@ -191,9 +191,9 @@ function xt_show_options(){
         
     }
 
-	$tpl->add_style("settings.css",'xthemes');
+	$tpl->add_style("xthemes.min.css",'xthemes');
     $tpl->add_local_script('jquery.ck.js', 'rmcommon');
-    $tpl->add_local_script('xthemes.js', 'xthemes');
+    $tpl->add_local_script('xthemes.min.js', 'xthemes');
     xoops_cp_header();
     
     include $tpl->get_template('xt_settings.php','module','xthemes');

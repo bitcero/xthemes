@@ -49,9 +49,10 @@ function xt_show_themes(){
         $i++;
     }
     
-    $tpl->add_style("themes.css", 'xthemes');
+    $tpl->add_style("xthemes.min.css", 'xthemes');
+    $tpl->add_script('imagesloaded.pkgd.min.js', 'xthemes');
     $tpl->add_script('masonry.pkgd.min.js', 'xthemes');
-    $tpl->add_script('xthemes.js', 'xthemes');
+    $tpl->add_script('xthemes.min.js', 'xthemes');
     $tpl->add_head_script("var xoops_url = '".XOOPS_URL."';");
     $tpl->assign('xoops_pagetitle', __('Themes Manager','xthemes'));
 
@@ -60,7 +61,7 @@ function xt_show_themes(){
     
     xoops_cp_header();
     
-    include $tpl->get_template("xt_themes.php", 'module', 'xthemes');
+    include $tpl->get_template("xt-themes.php", 'module', 'xthemes');
     
     xoops_cp_footer();
     
