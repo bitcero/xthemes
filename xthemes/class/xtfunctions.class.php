@@ -9,22 +9,6 @@
 
 class XtFunctions
 {
-    public function toolbar(){
-        RMTemplate::get()->add_tool(__('Dashboard', 'xthemes'), 'index.php', 'images/dashboard.png', 'dashboard');
-        RMTemplate::get()->add_tool(__('Available Themes', 'xthemes'), 'themes.php', 'images/themes.png', 'catalog');
-        RMTemplate::get()->add_tool(__('Theme Settings', 'xthemes'), 'settings.php', 'images/settings.png', 'settings');
-        RMTemplate::get()->add_tool(__('About', 'xthemes'), 'index.php?action=about', 'images/about.png', 'about');
-        $events = RMEvents::get();
-        $events->run_event('xthemes.toolbar');
-    }
-    
-    /**
-    * @deprecated
-    */
-    public function menu_options(){
-        $this->toolbar();
-    }
-    
     /**
     * Get the current theme and all related information
     * return object

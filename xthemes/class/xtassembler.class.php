@@ -199,6 +199,7 @@ class XtAssembler
         
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = "SELECT * FROM ".$db->prefix("xt_options")." WHERE theme=".$this->current->id();
+
         $result = $db->query($sql);
         
         $settings = array();

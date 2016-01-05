@@ -13,6 +13,13 @@ require '../../include/cp_header.php';
 load_theme_locale($xoopsConfig['theme_set']);
 
 $rmTpl->add_style('xthemes.min.css', 'xthemes');
+RMTemplate::getInstance()->add_body_class('dashboard');
+
+/**
+ * Additional dashboard panels
+ */
+$dashboardPanels = [];
+$dashboardPanels = RMEvents::get()->trigger('xthemes.dashboard.panels', $dashboardPanels);
 
 xoops_cp_header();
 

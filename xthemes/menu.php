@@ -16,14 +16,14 @@ global $xtAssembler;
 $adminmenu[] = array(
     'title' => __('Dashboard','xthemes'),
     'link' => 'index.php',
-    'icon' => "images/dashboard.png",
+    'icon' => "svg-rmcommon-dashboard text-red",
     'location' => 'dashboard'
 );
 
 $adminmenu[] = array(
     'title' => __('Themes','xthemes'),
     'link' => 'themes.php',
-    'icon' => "images/themes.png",
+    'icon' => "svg-rmcommon-tshirt text-light-blue",
     'location' => 'themes'
 );
 
@@ -31,7 +31,7 @@ if(is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->them
     $menu = array(
         'title' => $xtAssembler->theme()->getInfo('name'),
         'link' => 'settings.php',
-        'icon' => "images/settings.png",
+        'icon' => "svg-rmcommon-gear text-purple",
         'location' => 'settings'
     );
     
