@@ -1,15 +1,24 @@
 #xthemes-options .nav-options{
     margin-top: -49px;
-    padding: 0 4px 4px 4px;
+    padding: 0 4px;
+    border-radius: 0;
 }
 #xthemes-options .nav-options li{
     background: rgba(0,0,0,0.6);
 }
 #xthemes-options .fa{
-    font-size: 22px;
+    font-size: 100%;
+}
+#xthemes-options .nav-options li > a{
+    padding: 0;
+    line-height: 49px;
+    border-radius: 0;
+}
+#xthemes-options .nav-options li > a:hover{
+    background: rgba(0,0,0,0.6);
 }
 #xthemes-options .nav-options .fa{
-    font-size: 24px;
+    font-size: 100%;
     color: #FFF;
 }
 #xthemes-options hr{

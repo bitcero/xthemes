@@ -37,16 +37,13 @@ $modversion['dirname'] = "xthemes";
 // Common Utilities
 $modversion['rmnative'] = '1';
 $modversion['url'] = 'https://github.com/bitcero/xthemes';
-$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>26,'stage'=>0,'name'=>'XThemes');
+$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>32,'stage'=>0,'name'=>'XThemes');
 $modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
 $modversion['author'] = "Eduardo Cortes";
 $modversion['authormail'] = "i.bitcero@gmail.com";
 $modversion['authorweb'] = "EduardoCortes.mx";
 $modversion['authorurl'] = "http://eduardocortes.mx";
-$modversion['icon16'] = "images/xthemes.png";
-$modversion['icon24'] = 'images/xthemes24.png';
-$modversion['icon32'] = 'images/xthemes32.png';
-$modversion['icon48'] = 'images/xthemes48.png';
+$modversion['icon']   = 'fa fa-heart text-red';
 
 // Social links
 $modversion['social'][0] = array('title' => __('Twitter', 'rmcommon'),'type' => 'twitter','url' => 'http://www.twitter.com/bitcero/');

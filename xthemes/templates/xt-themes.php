@@ -134,7 +134,6 @@
                             <?php if(isset($theme['type']) && $theme['type']=='standard'): ?>
                                 <ul class="nav nav-pills nav-justified">
                                     <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Activate','xthemes'); ?></a></li>
-                                    <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
                                 </ul>
                             <?php else: ?>
                                 <ul class="nav nav-pills nav-justified">
@@ -144,7 +143,6 @@
                                         <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Activate','xthemes'); ?></a></li>
                                         <li><a href="themes.php?action=uninstall&amp;dir=<?php echo $theme['dir']; ?>"><?php _e('Uninstall','xthemes'); ?></a></li>
                                     <?php endif; ?>
-                                    <li><a href="#" class="theme_apreview" id="preview-<?php echo $theme['dir']; ?>"><?php _e('Preview','xthemes'); ?></a></li>
                                     <li><a href="#" class="theme-adetails"><?php _e('Details','xthemes'); ?></a></li>
                                 </ul>
                             <?php endif; ?>

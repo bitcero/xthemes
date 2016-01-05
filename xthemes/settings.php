@@ -161,6 +161,7 @@ function xt_form_field($name, $option, $ret = 0){
         $ele->attrs( $option['attributes'] );
     
     $ele->setId('xtfield-'.$ids);
+    $ele->add('class', 'form-control');
     $ids++;
     return $ret ? $ele : $ele->render();
     
