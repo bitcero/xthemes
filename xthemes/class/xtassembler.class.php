@@ -164,9 +164,9 @@ class XtAssembler
 
         // Register smarty plugins
         $dir = str_replace(XOOPS_URL, XOOPS_ROOT_PATH, $this->theme()->url());
-        
+
         $xoopsTpl->plugins_dir[] = XOOPS_ROOT_PATH.'/modules/xthemes/smarty';
-        $xoopsTpl->plugins_dir[] = $dir.'/assemble/smarty';
+        $xoopsTpl->plugins_dir[] = $dir . '/assemble/smarty';
         
         load_theme_locale($this->theme()->getInfo('dir'));
         
