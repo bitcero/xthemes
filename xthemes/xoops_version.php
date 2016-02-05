@@ -33,11 +33,12 @@ $modversion['license'] = "GPLv2";
 $modversion['official'] = 0;
 $modversion['image'] = "images/logo.png";
 $modversion['dirname'] = "xthemes";
+$modversion['onUpdate'] = "include/install.php";
 
 // Common Utilities
 $modversion['rmnative'] = '1';
 $modversion['url'] = 'https://github.com/bitcero/xthemes';
-$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>32,'stage'=>0,'name'=>'XThemes');
+$modversion['rmversion'] = array('major'=>1,'minor'=>6, 'revision'=>35,'stage'=>0,'name'=>'XThemes');
 $modversion['updateurl'] = "http://www.xoopsmexico.net/modules/vcontrol/";
 $modversion['author'] = "Eduardo Cortes";
 $modversion['authormail'] = "i.bitcero@gmail.com";

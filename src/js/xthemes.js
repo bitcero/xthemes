@@ -5,6 +5,8 @@ License:    GPL 2 or newer
 Url:        http://www.redmexico.com.mx
 */
 
+// @prepros-prepend 'json_encode.js';
+
 var processMenu = {
     /**
     * Start the transformation of nested list to menus
@@ -13,7 +15,7 @@ var processMenu = {
     transform : function(container, $mn){
         
         var menu = new Array();
-        var id = $(container).parent().attr("id").replace("menu-");
+        var id = $(container).attr("id").replace("menu-");
         
         $(container+" ol > li").each(function(i){
             $(this).attr("data", $mn+'-'+i);
@@ -173,7 +175,7 @@ $(document).ready(function(){
             };
         });
         
-        params = json_encode(menu);
+        var params = json_encode(menu);
 
         $.post('navigation.php', {action: 'save', params: params}, function(data){
             $("#xt-messages > span:first-child").html(data.message);
@@ -225,6 +227,14 @@ $(document).ready(function(){
                 });
             }
         );
+
+    }
+
+    if($("#frm-settings").length > 0){
+
+        if(undefined != mdEditor){
+            mdEditor.save();
+        }
 
     }
     

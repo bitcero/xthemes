@@ -37,7 +37,7 @@
                         <?php else: ?>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-4 col-lg-4">
+                                    <div class="col-md-4 col-lg-3">
                                         <label for="<?php echo $name; ?>">
                                             <strong><?php echo $option['caption']; ?></strong>
                                         </label>
@@ -45,7 +45,7 @@
                                             <span class="help-block"><?php echo $option['description']; ?></span>
                                         <?php endif; ?>
                                     </div>
-                                    <div class="col-md-8 col-lg-8">
+                                    <div class="col-md-8 col-lg-9">
                                         <?php echo $option['field']; ?>
                                     </div>
                                 </div>

@@ -241,7 +241,7 @@ class XtAssembler
         $this->menus = array();
         
         while($row = $db->fetchArray($result)){
-            $this->menus[$row['menu']] = unserialize($row['content']);
+            $this->menus[$row['menu']] = unserialize(base64_decode($row['content']));
         }
         
     }

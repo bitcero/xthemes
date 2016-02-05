@@ -22,8 +22,10 @@ function xt_form_field($name, $option, $ret = 0)
 
     $form = new RMForm('', '', '');
 
-    if ($xtAssembler->theme()->settings($name) !== false)
-        $option['value'] = $xtAssembler->theme()->settings($name);
+    $currentSettings = $xtAssembler->theme()->settings($name);
+
+    if ($currentSettings !== false)
+        $option['value'] = $currentSettings;
     else
         $option['value'] = $option['default'];
 
@@ -76,7 +78,7 @@ function xt_form_field($name, $option, $ret = 0)
             $ele->setClass('email');
             break;
         case 'select':
-            $ele = new RMFormSelect($option['caption'], $name);
+            $ele = new RMFormSelect($option['caption'], $name, 0, [$option['value']]);
             foreach ($option['options'] as $opvalue => $op) {
                 $ele->addOption($opvalue, $op, $opvalue == $option['value'] ? 1 : 0);
             }
@@ -138,6 +140,9 @@ function xt_form_field($name, $option, $ret = 0)
             $ele = new RMFormSlider($option['caption'], $name, $option['value']);
             $ele->addField('title', array('caption' => __('Slider Title', 'xthemes'), 'description' => __('Show the slider title', 'xthemes'), 'type' => 'textbox'));
             $i = 0;
+
+            $option['options'] = isset($option['options']) && is_array($option['options']) ? $option['options'] : (isset($option['options']) ? [$option['options']] : []);
+
             foreach ($option['options'] as $id => $data) {
                 $ele->addField($id, $data);
             }
@@ -158,11 +163,31 @@ function xt_form_field($name, $option, $ret = 0)
             break;
     }
 
+    $ele = RMEvents::get()->trigger('xthemes.load.form.field', $ele, array_merge($option, ['name' => $name]));
+
     $ele->setId('xtfield-' . $ids);
 
-    $noControls = ['slider', 'color'];
+    $controls = [
+        'select_groups',
+        'select_groups_multi',
+        'theme',
+        'select_theme',
+        'select_theme_multi',
+        'gui',
+        'gui_multi',
+        'email',
+        'select',
+        'select_multi',
+        'language',
+        'select_language',
+        'modules',
+        'timezone',
+        'select_timezone',
+        'textarea',
+        'textbox'
+    ];
 
-    if (in_array($option['type'], $noControls)){
+    if (in_array($option['type'], $controls)){
         $ele->add('class', 'form-control');
     }
 
@@ -176,7 +201,7 @@ function xt_form_field($name, $option, $ret = 0)
 */
 function xt_show_options(){
     global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity;
-    
+
     $tpl = RMTemplate::get();
 
     $options = $xtAssembler->theme()->options();
@@ -209,7 +234,7 @@ function xt_show_options(){
 
 function xt_save_settings(){
     global $xoopsConfig, $xtAssembler, $xtFunctions;
-    
+
     if (!$xtAssembler->isSupported())
         redirectMsg('index.php', __('This is a not valid theme','xthemes'), 1);
     
