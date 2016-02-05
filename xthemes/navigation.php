@@ -30,17 +30,18 @@ function xt_show_menus(){
     
     $theme_menu = $xtAssembler->menu();
     
-    $tpl = RMTemplate::get();
-    $tpl->add_local_script('jquery.nestedSortable.js', 'xthemes');
-    $tpl->add_local_script('json_encode.js', 'xthemes');
-    $tpl->add_head_script("var lang_delete = '".__('Do you really want to delete selected menu?','xthemes')."';");
-    $tpl->add_local_script('xthemes.min.js', 'xthemes');
-    $tpl->add_style('xthemes.min.css', 'xthemes');
+    $tpl = RMTemplate::getInstance();
+    $tpl->add_jquery();
+    $tpl->add_script('jquery.nestedSortable.min.js', 'xthemes', ['id' => 'sortable-js']);
+    //$tpl->add_local_script('json_encode.min.js', 'xthemes');
+    $tpl->add_inline_script("var lang_delete = '".__('Do you really want to delete selected menu?','xthemes')."';");
+    $tpl->add_script('xthemes.min.js', 'xthemes', ['footer' => 1, 'id' => 'xthemes-js']);
+    $tpl->add_style('xthemes.min.css', 'xthemes', ['id' => 'xthemes-css']);
     $tpl->assign('xoops_pagetitle', __('Theme menus','xthemes'));
     
     xoops_cp_header();
     
-    include $tpl->get_template('xt_navigation.php', 'module', 'xthemes');
+    include $tpl->path('xt_navigation.php', 'module', 'xthemes');
     
     xoops_cp_footer();
     
@@ -87,14 +88,17 @@ function xt_save_menus(){
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     
     foreach($menus as $id => $content){
+
+
+
         if(!$xtAssembler->menu($id)){
-            
-            if(!$db->queryF("INSERT INTO ".$db->prefix("xt_menus")." (`theme`,`menu`,`content`) VALUES ('".$xtAssembler->theme()->id()."','".$id."','".serialize($content)."')"))
+
+            if(!$db->queryF("INSERT INTO ".$db->prefix("xt_menus")." (`theme`,`menu`,`content`) VALUES ('".$xtAssembler->theme()->id()."','".$id."','".base64_encode(serialize($content))."')"))
                 $errors[] = $db->error();
                 
         } else {
             
-            if(!$db->queryF("UPDATE ".$db->prefix("xt_menus")." SET `content`='".serialize($content)."' WHERE `theme`='".$xtAssembler->theme()->id()."' AND `menu`='".$id."'"))
+            if(!$db->queryF("UPDATE ".$db->prefix("xt_menus")." SET `content`='".base64_encode(serialize($content))."' WHERE `theme`='".$xtAssembler->theme()->id()."' AND `menu`='".$id."'"))
                 $errors[] = $db->error();
             
         }

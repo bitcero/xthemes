@@ -1,4 +1,4 @@
-<?php $tc = TextCleaner::getInstance(); ?><li data-id="<?php echo $id; ?>">
+<?php $tc = TextCleaner::getInstance(); ?><li data-id="<?php echo isset($id) ? $id : ''; ?>">
 
     <div>
         <span class="title"><?php echo $m['title']; ?></span> <i class="fa fa-chevron-down menu_opt_display" title="<?php _e('Show options','xthemes'); ?>"></i> <i class="fa fa-trash-o menu_delete" title="<?php _e('Delete item','xthemes'); ?>"></i>

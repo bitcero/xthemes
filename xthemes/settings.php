@@ -15,22 +15,25 @@ require '../../include/cp_header.php';
 * @param array Configuration option
 * @return string
 */
-function xt_form_field($name, $option, $ret = 0){
+function xt_form_field($name, $option, $ret = 0)
+{
     global $xtAssembler, $xtFunctions;
     static $ids = 0;
-    
-    $form = new RMForm('','','');
-    
-    if($xtAssembler->theme()->settings($name)!==false)
-        $option['value'] = $xtAssembler->theme()->settings($name);
-    else 
+
+    $form = new RMForm('', '', '');
+
+    $currentSettings = $xtAssembler->theme()->settings($name);
+
+    if ($currentSettings !== false)
+        $option['value'] = $currentSettings;
+    else
         $option['value'] = $option['default'];
-    
+
     $cleaner = TextCleaner::getInstance();
-    
-    $name = 'conf_'.$name;
-    
-    switch ($option['type']){
+
+    $name = 'conf_' . $name;
+
+    switch ($option['type']) {
         case 'checkbox_groups':
         case 'group_multi':
             $ele = new RMFormGroups($option['caption'], $name, 1, 1, 3, $option['value']);
@@ -71,18 +74,18 @@ function xt_form_field($name, $option, $ret = 0){
             $ele = new RMFormYesNo($option['caption'], $name, $option['value']);
             break;
         case 'email':
-            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size']>0 ? $option['size'] : 50, null, $option['value']);
+            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, null, $option['value']);
             $ele->setClass('email');
             break;
         case 'select':
-            $ele = new RMFormSelect($option['caption'], $name);                
-            foreach ($option['options'] as $opvalue => $op){
-                $ele->addOption($opvalue, $op, $opvalue==$option['value'] ? 1 : 0);
+            $ele = new RMFormSelect($option['caption'], $name, 0, [$option['value']]);
+            foreach ($option['options'] as $opvalue => $op) {
+                $ele->addOption($opvalue, $op, $opvalue == $option['value'] ? 1 : 0);
             }
             break;
         case 'select_multi':
-            $ele = new RMFormSelect($option['caption'], $name.'[]', 1, $option['value']);
-            foreach ($option['options'] as $opvalue => $op){
+            $ele = new RMFormSelect($option['caption'], $name . '[]', 1, $option['value']);
+            foreach ($option['options'] as $opvalue => $op) {
                 $ele->addOption($opvalue, $op);
             }
             break;
@@ -97,12 +100,12 @@ function xt_form_field($name, $option, $ret = 0){
             break;
         case 'modules':
             $ele = new RMFormModules($option['caption'], $name, 0, 0, $option['value'], 3);
-            $ele->setInserted(array('--'=>__('None','rmcommon')));
+            $ele->setInserted(array('--' => __('None', 'rmcommon')));
             break;
         case 'modules_multi':
         case 'checkbox_modules':
             $ele = new RMFormModules($option['caption'], $name, 1, 1, $option['value'], 3);
-            $ele->setInserted(array('--'=>__('None','rmcommon')));
+            $ele->setInserted(array('--' => __('None', 'rmcommon')));
             break;
         case 'timezone':
         case 'select_timezone':
@@ -112,7 +115,7 @@ function xt_form_field($name, $option, $ret = 0){
             $ele = new RMFormTimeZoneField($option['caption'], $name, 0, 1, $option['value'], 3);
             break;
         case 'textarea':
-            $ele = new RMFormTextArea($option['caption'], $name,  5, isset($option['size']) && $option['size']>0 ? $option['size'] : 50, $option['content']=='array' ? $cleaner->specialchars(implode('|', $option['value'])) : $cleaner->specialchars($option['value']));
+            $ele = new RMFormTextArea($option['caption'], $name, 5, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, $option['content'] == 'array' ? $cleaner->specialchars(implode('|', $option['value'])) : $cleaner->specialchars($option['value']));
             break;
         case 'user':
             $ele = new RMFormUser($option['caption'], $name, false, $option['value'], 300);
@@ -121,9 +124,9 @@ function xt_form_field($name, $option, $ret = 0){
             $ele = new RMFormUser($option['caption'], $name, true, !is_array($option['value']) ? array($option['value']) : $option['value'], 300);
             break;
         case 'radio':
-            $ele = new RMFormRadio($option['caption'], $name, 1);                
-            foreach ($option['options'] as $opvalue => $op){
-                $ele->addOption($op, $opvalue, $opvalue==$option['value'] ? 1 : 0);
+            $ele = new RMFormRadio($option['caption'], $name, 1);
+            foreach ($option['options'] as $opvalue => $op) {
+                $ele->addOption($op, $opvalue, $opvalue == $option['value'] ? 1 : 0);
             }
             break;
         case 'webfonts':
@@ -133,11 +136,14 @@ function xt_form_field($name, $option, $ret = 0){
             $ele = new RMFormImageUrl($option['caption'], $name, $option['value']);
             break;
         case 'slider':
-            if($ret) return;
+            if ($ret) return;
             $ele = new RMFormSlider($option['caption'], $name, $option['value']);
-            $ele->addField('title', array('caption'=>__('Slider Title','xthemes'),'description'=>__('Show the slider title','xthemes'), 'type'=>'textbox'));
+            $ele->addField('title', array('caption' => __('Slider Title', 'xthemes'), 'description' => __('Show the slider title', 'xthemes'), 'type' => 'textbox'));
             $i = 0;
-            foreach($option['options'] as $id => $data){
+
+            $option['options'] = isset($option['options']) && is_array($option['options']) ? $option['options'] : (isset($option['options']) ? [$option['options']] : []);
+
+            foreach ($option['options'] as $id => $data) {
                 $ele->addField($id, $data);
             }
             break;
@@ -146,22 +152,45 @@ function xt_form_field($name, $option, $ret = 0){
             break;
         case 'imageselect':
             $ele = new RMFormImageSelect($option['caption'], $name, $option['value']);
-            foreach($option['options'] as $v => $url){
+            foreach ($option['options'] as $v => $url) {
                 $ele->addImage($v, $url);
             }
             break;
         case 'textbox':
         case 'password':
         default:
-            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size']>0 ? $option['size'] : 50, null, $option['value'], $option['type']=='password'? 1: 0);
+            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, null, $option['value'], $option['type'] == 'password' ? 1 : 0);
             break;
     }
 
-    if ( isset( $option['attributes'] ) )
-        $ele->attrs( $option['attributes'] );
-    
-    $ele->setId('xtfield-'.$ids);
-    $ele->add('class', 'form-control');
+    $ele = RMEvents::get()->trigger('xthemes.load.form.field', $ele, array_merge($option, ['name' => $name]));
+
+    $ele->setId('xtfield-' . $ids);
+
+    $controls = [
+        'select_groups',
+        'select_groups_multi',
+        'theme',
+        'select_theme',
+        'select_theme_multi',
+        'gui',
+        'gui_multi',
+        'email',
+        'select',
+        'select_multi',
+        'language',
+        'select_language',
+        'modules',
+        'timezone',
+        'select_timezone',
+        'textarea',
+        'textbox'
+    ];
+
+    if (in_array($option['type'], $controls)){
+        $ele->add('class', 'form-control');
+    }
+
     $ids++;
     return $ret ? $ele : $ele->render();
     
@@ -172,7 +201,7 @@ function xt_form_field($name, $option, $ret = 0){
 */
 function xt_show_options(){
     global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity;
-    
+
     $tpl = RMTemplate::get();
 
     $options = $xtAssembler->theme()->options();
@@ -205,7 +234,7 @@ function xt_show_options(){
 
 function xt_save_settings(){
     global $xoopsConfig, $xtAssembler, $xtFunctions;
-    
+
     if (!$xtAssembler->isSupported())
         redirectMsg('index.php', __('This is a not valid theme','xthemes'), 1);
     
