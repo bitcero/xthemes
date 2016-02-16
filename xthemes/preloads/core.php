@@ -26,6 +26,7 @@ class XthemesCorePreload extends XoopsPreloadItem
 
     public function eventCoreHeaderAddMeta(){
         global $xtAssembler;
+
         /**
         * Init data if neccessary
         */
@@ -33,6 +34,17 @@ class XthemesCorePreload extends XoopsPreloadItem
             $xtAssembler->init();
         }
 
+    }
+
+    public function eventCoreFooterStart(){
+        global $xtAssembler;
+
+        /**
+         * Init data if neccessary
+         */
+        if(!defined('XOOPS_CPFUNC_LOADED')){
+            $xtAssembler->footer();
+        }
     }
 
     public function eventCoreIndexStart(){

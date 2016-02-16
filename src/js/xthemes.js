@@ -229,14 +229,6 @@ $(document).ready(function(){
         );
 
     }
-
-    if($("#frm-settings").length > 0){
-
-        if(undefined != mdEditor){
-            mdEditor.save();
-        }
-
-    }
     
 });	
 
