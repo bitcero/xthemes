@@ -124,7 +124,12 @@ function xt_form_field($name, $option, $ret = 0)
             $ele = new RMFormUser($option['caption'], $name, true, !is_array($option['value']) ? array($option['value']) : $option['value'], 300);
             break;
         case 'radio':
-            $ele = new RMFormRadio($option['caption'], $name, 1);
+            $ele = new RMFormRadio([
+                'caption' => $option['caption'],
+                'name' => $name,
+                'value' => $option['value'],
+                'display' => 'inline'
+            ]);
             foreach ($option['options'] as $opvalue => $op) {
                 $ele->addOption($op, $opvalue, $opvalue == $option['value'] ? 1 : 0);
             }

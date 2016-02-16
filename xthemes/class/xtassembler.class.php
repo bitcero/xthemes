@@ -173,6 +173,16 @@ class XtAssembler
         $this->current->init();
         
     }
+
+    public function footer(){
+
+        if(!$this->isSupported()) return null;
+
+        if(method_exists($this->current, 'beforeRender')){
+            $this->current->beforeRender();
+        }
+
+    }
     
     /**
     * Access to registered plugins
