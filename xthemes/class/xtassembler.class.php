@@ -92,7 +92,7 @@ class XtAssembler
     */
     public function init(){
 
-        global $xoopsTpl, $xoopsConfig, $rmc_config, $xoTheme;
+        global $xoopsTpl, $xoopsConfig, $cuSettings, $xoTheme;
 
         // xThemes settings (?)
         $this->xsettings = RMSettings::module_settings( 'xthemes' );
@@ -150,7 +150,7 @@ class XtAssembler
         
         $xoopsTpl->assign('theme', $this->theme());
         $xoopsTpl->assign('xtConfig', $this->theme()->settings());
-        $xoopsTpl->assign('xt_language', $rmc_config['lang']);
+        $xoopsTpl->assign('xt_language', $cuSettings->lang);
         $xoopsTpl->assign('isHome', defined('XTHEMES_IS_HOME'));
         
         $this->colors = new XtColor();
@@ -203,11 +203,13 @@ class XtAssembler
         $result = $db->query($sql);
         
         $settings = array();
+        $option = new Xthemes_Option();
         
         while($row = $db->fetchArray($result)){
-            $settings[$row['name']] = $row['type']=='array' ? unserialize( $this->recalculate( base64_decode( $row['value'] ) ) ) : $row['value'];
+            $option->assignVars($row);
+            $settings[$row['name']] = $option->type == 'array' ? unserialize( $this->recalculate( base64_decode( $option->value ) ) ) : $option->value;
         }
-        
+
         return $settings;
         
     }
@@ -239,9 +241,12 @@ class XtAssembler
         
         $result = $db->query($sql);
         $this->menus = array();
+        $menu = new Xthemes_Menu();
         
         while($row = $db->fetchArray($result)){
-            $this->menus[$row['menu']] = unserialize(base64_decode($row['content']));
+            $menu->assignVars($row);
+            $this->menus[$row['menu']] = $menu->content();
+            //$this->menus[$row['menu']] = unserialize(base64_decode($row['content']));
         }
         
     }

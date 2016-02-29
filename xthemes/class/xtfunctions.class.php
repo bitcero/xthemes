@@ -75,13 +75,26 @@ class XtFunctions
         $sql = "INSERT INTO ".$db->prefix("xt_options")." (`theme`,`name`,`value`,`type`) VALUES ";
         $sqlu = "UPDATE ".$db->prefix("xt_options")." SET `value`=";
 
-        $values = array();
+        //$values = array();
+        $errors = '';
 
         foreach($options['options'] as $name => $option){
 
-            if($count<=0){
+            $value = isset($set[$name]) ? $set[$name] : $option['default'];
+            $value = $option['content']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : $value;
+            
+            $item = new Xthemes_Option($name, $theme->id());
+            $item->name = $name;
+            $item->theme = $theme->id();
+            $item->value = $value;
+            $item->type = $option['content'];
+            if(!$item->save()){
+                $errors .= '<br>' . $item->errors();
+            }
+
+            /*if($count<=0){
                 $value = isset($set[$name]) ? $set[$name] : $option['default'];
-                $value = $option['type']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : TextCleaner::getInstance()->addslashes($value);
+            $value = $option['type']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : TextCleaner::getInstance()->addslashes($value);
                 $values[] = "(".$theme->id().",'$name','$value','$option[content]')";
             }else {
                 if( $set && isset($current[$name]) ){
@@ -94,19 +107,23 @@ class XtFunctions
                     $value = $option['type']=='array' ? ( is_array( $value ) ? base64_encode( serialize( $value ) ) : '' ) : TextCleaner::getInstance()->addslashes($value);
                     $values[] = "(".$theme->id().",'$name','$value','$option[content]')";
                 }
-            }
+            }*/
 
         }
 
         if ( !empty( $to_delete ) )
             $db->queryF("DELETE FROM " . $db->prefix("xt_options") . " WHERE theme = " . $theme->id() . " AND ( name = '" . implode("' OR name='", $to_delete) . "')");
 
-        if(!empty($values))
+        /*if(!empty($values))
             $sql .= implode(",",$values); 
         else
-            return true;
+            return true;*/
 
-        return $db->queryF($sql);
+        if($errors != ''){
+            return $errors;
+        }
+
+        return true;
         
     }
 
