@@ -13,7 +13,7 @@ class XthemesRmcommonPreload
     /**
      * Add the customize widget to Common Utilities Dashboard
      */
-    public function eventRmcommonDashboardPanels($panels)
+    static function eventRmcommonDashboardPanels($panels)
     {
         global $xtAssembler, $xtFunctions;
 
@@ -88,7 +88,7 @@ class XthemesRmcommonPreload
         return $panels;
     }
 
-    public function eventRmcommonSmartyPlugins($plugins)
+    static function eventRmcommonSmartyPlugins($plugins)
     {
         global $xoopsConfig;
 

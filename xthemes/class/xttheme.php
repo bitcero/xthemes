@@ -43,7 +43,7 @@ abstract class XtTheme extends RMObject
         
     }
 	
-	public function errors(){
+	public function errors( $errors = true ){
 		return $this->errors;
 	}
 	
