@@ -253,9 +253,11 @@ function xt_save_settings(){
         $xt_to_save[substr($id, 5)] = $theme->checkSettingValue($v);
 
     }
-    
-    if(!$xtFunctions->insertOptions($theme, $xt_to_save))
-        redirectMsg('settings.php', __('Settings could not be saved! Please try again','xthemes'), RMMSG_ERROR);
+
+    $result = $xtFunctions->insertOptions($theme, $xt_to_save);
+
+    if(true !== $result)
+        redirectMsg('settings.php', __('Settings could not be saved! Please try again','xthemes') . $result, RMMSG_ERROR);
     
     RMEvents::get()->run_event('xtheme.save.settings', $xt_to_save);
     

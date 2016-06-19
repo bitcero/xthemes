@@ -31,7 +31,7 @@ function xt_show_menus(){
     $theme_menu = $xtAssembler->menu();
     
     $tpl = RMTemplate::getInstance();
-    $tpl->add_jquery();
+    $tpl->add_jquery(true, true);
     $tpl->add_script('jquery.nestedSortable.min.js', 'xthemes', ['id' => 'sortable-js']);
     //$tpl->add_local_script('json_encode.min.js', 'xthemes');
     $tpl->add_inline_script("var lang_delete = '".__('Do you really want to delete selected menu?','xthemes')."';");
@@ -89,9 +89,17 @@ function xt_save_menus(){
     
     foreach($menus as $id => $content){
 
+        $menu = new Xthemes_Menu($id, $xtAssembler->theme()->id());
+        if($menu->isNew()){
+            $menu->menu = $id;
+            $menu->theme = $xtAssembler->theme()->id();
+        }
+        $menu->setContent($content);
+        if(!$menu->save()){
+            $errors[] = $menu->errors();
+        }
 
-
-        if(!$xtAssembler->menu($id)){
+        /*if(!$xtAssembler->menu($id)){
 
             if(!$db->queryF("INSERT INTO ".$db->prefix("xt_menus")." (`theme`,`menu`,`content`) VALUES ('".$xtAssembler->theme()->id()."','".$id."','".base64_encode(serialize($content))."')"))
                 $errors[] = $db->error();
@@ -101,7 +109,7 @@ function xt_save_menus(){
             if(!$db->queryF("UPDATE ".$db->prefix("xt_menus")." SET `content`='".base64_encode(serialize($content))."' WHERE `theme`='".$xtAssembler->theme()->id()."' AND `menu`='".$id."'"))
                 $errors[] = $db->error();
             
-        }
+        }*/
     }
     
     if(!empty($errors))

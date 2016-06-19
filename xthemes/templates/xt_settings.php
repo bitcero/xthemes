@@ -1,6 +1,6 @@
 <h1 class="cu-section-title"><?php echo sprintf(__('%s Settings','xthemes'), $xtAssembler->theme()->getInfo("name")); ?></h1>
 
-<form name="formSettings" id="frm-settings" action="settings.php" method="post">
+<form name="formSettings" id="frm-settings" action="settings.php" method="post" data-translate="true">
     <ul class="nav nav-tabs xt-settings-tabs cu-top-tabs">
         <?php if(count($sections)<=6): ?>
             <?php foreach($sections as $name => $section): ?>
@@ -57,14 +57,7 @@
         <?php endforeach; ?>
 
         <div class="xt-settings-buttons sb-bottom">
-            <div>
-                <div class="alert alert-info">
-                    <?php _e('You can configure all sections before to press "Save Settings" button. Change between sections will not loose configured data.', 'xthemes'); ?>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-lg btn-primary"><?php _e('Save Settings','xthemes'); ?></button>
-                </div>
-            </div>
+            <button type="submit" class="btn btn-lg btn-primary"><?php _e('Save Settings','xthemes'); ?></button>
         </div>
 
         <?php echo $xoopsSecurity->getTokenHTML(); ?>
