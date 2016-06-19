@@ -9,8 +9,8 @@
 
 class XthemesCorePreload extends XoopsPreloadItem
 {
-    
-    public function eventCoreIncludeCommonLanguage(){
+
+    static function eventCoreIncludeCommonLanguage(){
 
         load_mod_locale('xthemes');
         define('XTPATH', XOOPS_ROOT_PATH.'/modules/xthemes');
@@ -24,7 +24,7 @@ class XthemesCorePreload extends XoopsPreloadItem
 
     }
 
-    public function eventCoreHeaderAddMeta(){
+    static function eventCoreHeaderAddMeta(){
         global $xtAssembler;
         /**
         * Init data if neccessary
@@ -35,7 +35,7 @@ class XthemesCorePreload extends XoopsPreloadItem
 
     }
 
-    public function eventCoreIndexStart(){
+    static function eventCoreIndexStart(){
 
         define('XTHEMES_IS_HOME', 1);
 

@@ -228,11 +228,15 @@ class XtAssembler
     * @return bool
     */
     private function loadMenus(){
-        
+
+        if(empty($this->root_menus)){
+            return false;
+        }
+
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = "SELECT * FROM ".$db->prefix("xt_menus")." WHERE theme=".$this->current->id()." AND (";
         $sqlm = '';
-        
+
         foreach($this->root_menus as $id => $menu){
             $sqlm .= $sqlm=='' ? "menu='".$id."'" : " OR menu='".$id."'";
         }
