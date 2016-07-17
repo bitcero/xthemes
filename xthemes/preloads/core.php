@@ -10,13 +10,14 @@
 class XthemesCorePreload extends XoopsPreloadItem
 {
 
-    static function eventCoreIncludeCommonLanguage(){
+    static function eventCoreIncludeCommonLanguage()
+    {
 
         load_mod_locale('xthemes');
-        define('XTPATH', XOOPS_ROOT_PATH.'/modules/xthemes');
-        define('XTURL', XOOPS_URL.'/modules/xthemes');
+        define('XTPATH', XOOPS_ROOT_PATH . '/modules/xthemes');
+        define('XTURL', XOOPS_URL . '/modules/xthemes');
 
-        require_once XTPATH.'/class/xtassembler.class.php';
+        require_once XTPATH . '/class/xtassembler.class.php';
         $GLOBALS['xtAssembler'] = new XtAssembler();
         $GLOBALS['xtFunctions'] = new XtFunctions();
 
@@ -24,20 +25,33 @@ class XthemesCorePreload extends XoopsPreloadItem
 
     }
 
-    static function eventCoreHeaderAddMeta(){
+    static function eventCoreHeaderAddMeta()
+    {
         global $xtAssembler;
         /**
-        * Init data if neccessary
-        */
-        if(!defined('XOOPS_CPFUNC_LOADED')){
+         * Init data if neccessary
+         */
+        if (!defined('XOOPS_CPFUNC_LOADED')) {
             $xtAssembler->init();
         }
 
     }
 
-    static function eventCoreIndexStart(){
+    static function eventCoreIndexStart()
+    {
 
         define('XTHEMES_IS_HOME', 1);
 
+    }
+
+    static function eventCoreFooterStart()
+    {
+        global $xtAssembler;
+
+        $theme = $xtAssembler->theme();
+
+        if (method_exists($theme, 'beforeRender')) {
+            $theme->beforeRender();
+        }
     }
 }

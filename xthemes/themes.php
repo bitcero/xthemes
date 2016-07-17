@@ -26,7 +26,10 @@ function xt_show_themes(){
     while(false !== ($dir = readdir($dh))){
         if($dir=='.' || $dir=='..' || is_file(XOOPS_THEME_PATH.'/'.$dir)) continue;
         
-        if(!is_file(XOOPS_THEME_PATH.'/'.$dir.'/theme.html')) continue;
+        if(
+            !is_file(XOOPS_THEME_PATH.'/'.$dir.'/theme.html') &&
+            !is_file(XOOPS_THEME_PATH.'/'.$dir.'/theme.tpl')
+        ) continue;
         
         // Supported themes
         $theme_path = XOOPS_THEME_PATH.'/'.$dir;
@@ -78,8 +81,8 @@ function xt_preview_theme(){
         die();
     }
     
-    $theme = XOOPS_THEME_PATH.'/'.$dir.'/theme.html';
-    if(!is_file($theme)){
+    $path = XOOPS_THEME_PATH.'/'.$dir.'/';
+    if(!is_file($path . '/theme.tpl') && !is_file($path . 'theme.html')){
         echo sprintf(__('%s is not a valid theme!','xthemes'), $dir);
         die();
     }
@@ -103,7 +106,7 @@ function xt_activate_theme(){
     
     $theme_dir = XOOPS_THEME_PATH.'/'.$dir;
     
-    if(!is_file($theme_dir.'/theme.html'))
+    if(!is_file($theme_dir.'/theme.tpl') && !is_file($theme_dir . '/theme.html'))
         RMUris::redirect_with_message( __('Specified directory does not contain a valid theme!','xthemes'), 'themes.php', RMMSG_WARN );
 
     /**
@@ -177,7 +180,7 @@ function xt_install_theme(){
     
     $theme_dir = XOOPS_THEME_PATH.'/'.$dir;
     
-    if(!is_file($theme_dir.'/theme.html'))
+    if(!is_file($theme_dir.'/theme.tpl') && !is_file($theme_dir.'/theme.html'))
         redirectMsg('themes.php', __('Specified directory does not contain a valid theme!','xthemes'), RMMSG_WARN);
     
     $db = XoopsDatabaseFactory::getDatabaseConnection();
