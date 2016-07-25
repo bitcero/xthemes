@@ -46,6 +46,10 @@ abstract class XtTheme extends RMObject
 	public function errors( $errors = true ){
 		return $this->errors;
 	}
+
+    public function addError($error_msg){
+        $this->errors[] = $error_msg;
+    }
 	
     /**
     * Get an info key or all information

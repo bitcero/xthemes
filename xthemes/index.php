@@ -56,6 +56,8 @@ while(false !== ($dir = readdir($dh))){
     $i++;
 }
 
+$common->breadcrumb()->add_crumb(__('Dashboard', 'xthemes'));
+
 xoops_cp_header();
 
 include $rmTpl->get_template("xt_index.php", 'module', 'xthemes');
