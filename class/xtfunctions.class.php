@@ -261,5 +261,20 @@ class XtFunctions
 
         }
     }
+
+    /**
+     * Loads current instance
+     * @return XtFunctions
+     */
+    public static function getInstance()
+    {
+        static $instance;
+
+        if (!isset($instance)) {
+            $instance = new XtFunctions();
+        }
+
+        return $instance;
+    }
     
 }

@@ -7,14 +7,14 @@
 // License: GPL v2
 // --------------------------------------------------------------
 
-define('RMCLOCATION','settings');
+define('RMCLOCATION', 'settings');
 require '../../include/cp_header.php';
 
 /**
-* This function prepares an option to show in confgiuration form
-* @param array Configuration option
-* @return string
-*/
+ * This function prepares an option to show in confgiuration form
+ * @param array Configuration option
+ * @return string
+ */
 function xt_form_field($name, $option, $ret = 0)
 {
     global $xtAssembler, $xtFunctions;
@@ -195,19 +195,20 @@ function xt_form_field($name, $option, $ret = 0)
         'textbox'
     ];
 
-    if (in_array($option['type'], $controls)){
+    if (in_array($option['type'], $controls)) {
         $ele->add('class', 'form-control');
     }
 
     $ids++;
     return $ret ? $ele : $ele->render();
-    
+
 }
 
 /**
-* Show the form to configure current theme
-*/
-function xt_show_options(){
+ * Show the form to configure current theme
+ */
+function xt_show_options()
+{
     global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity, $common;
 
     $tpl = RMTemplate::get();
@@ -217,66 +218,120 @@ function xt_show_options(){
     $topt = $options['options'];
 
     $visible = isset($_COOKIE['xtsection']) ? $_COOKIE['xtsection'] : key($sections);
-    
+
     $options = array();
 
-    foreach($topt as $id => $option){
+    foreach ($topt as $id => $option) {
 
-        if ( !isset( $option['type'] ) || $option['type']!='heading' )
+        if (!isset($option['type']) || $option['type'] != 'heading')
             $option['field'] = xt_form_field($id, $option);
 
         $options[$option['section']][$id] = $option;
-        
+
     }
 
-	$tpl->add_style("xthemes.min.css",'xthemes');
-    $tpl->add_local_script('jquery.ck.js', 'rmcommon');
-    $tpl->add_local_script('xthemes.min.js', 'xthemes');
+    $tpl->add_style("xthemes.min.css", 'xthemes');
+    $tpl->add_script('jquery.ck.js', 'rmcommon', ['footer' => 1]);
+    $tpl->add_script('xthemes.min.js', 'xthemes', ['id' => 'xthemes-js', 'footer' => 1]);
+
+    $tpl->add_inline_script('var confirmDeletion = "' . __('Do your really want to restore default settings for this theme? All current configurations will be lost.', 'xthemes') . '";');
+
     xoops_cp_header();
-    
-    include $tpl->get_template('xt-settings.php','module','xthemes');
-    
+
+    include $tpl->path('xt-settings.php', 'module', 'xthemes');
+
     xoops_cp_footer();
 }
 
 
-function xt_save_settings(){
+function xt_save_settings()
+{
     global $xoopsConfig, $xtAssembler, $xtFunctions;
 
     if (!$xtAssembler->isSupported())
-        redirectMsg('index.php', __('This is a not valid theme','xthemes'), 1);
-    
+        redirectMsg('index.php', __('This is a not valid theme', 'xthemes'), 1);
+
     $xt_to_save = array();
-    
+
     $theme = $xtAssembler->theme();
-    
-    foreach ($_POST as $id => $v){
-        if(substr($id, 0, 5)!='conf_') continue;
-        
+
+    foreach ($_POST as $id => $v) {
+        if (substr($id, 0, 5) != 'conf_') continue;
+
         $xt_to_save[substr($id, 5)] = $theme->checkSettingValue($v);
 
     }
 
     $result = $xtFunctions->insertOptions($theme, $xt_to_save);
 
-    if(true !== $result)
-        redirectMsg('settings.php', __('Settings could not be saved! Please try again','xthemes') . $result, RMMSG_ERROR);
-    
-    RMEvents::get()->run_event('xtheme.save.settings', $xt_to_save);
-    
+    if (true !== $result)
+        redirectMsg('settings.php', __('Settings could not be saved! Please try again', 'xthemes') . $result, RMMSG_ERROR);
+
+    RMEvents::get()->trigger('xtheme.save.settings', $xt_to_save);
+
     redirectMsg('settings.php', __('Settings updated successfully!', 'xthemes'), RMMSG_SAVED);
 }
 
-$action = rmc_server_var($_REQUEST, 'action', '');
 
-switch($action){
-    
+function xt_restore_settings()
+{
+    global $common;
+
+    $common->ajax()->prepare();
+    $common->checkToken();
+
+    $dir = $common->httpRequest()::post('theme', 'string', '');
+
+    if('' == $dir){
+        $common->ajax()->notifyError(__('Provided theme is not valid!', 'xthemes'));
+    }
+
+    $xtAssembler = XtAssembler::getInstance();
+    $xtAssembler->loadTheme($dir);
+
+    if(false == $common->nativeTheme){
+        $common->ajax()->response(
+            __('Provided theme is not a xThemes Theme', 'xthemes'), RMMSG_WARN, 0, [
+                'reload' => true
+            ]
+        );
+    }
+
+    $options = $xtAssembler->theme()->options();
+    $toSave = [];
+
+    foreach ($options['options'] as $name => $option){
+        $toSave[$name] = $option['default'];
+    }
+
+    if(XtFunctions::getInstance()->insertOptions($xtAssembler->theme(), $toSave)){
+        RMEvents::get()->trigger('xtheme.save.settings', $toSave);
+        showMessage(__('Default settings has been restored successfully!', 'xthemes'), RMMSG_SUCCESS);
+        $common->ajax()->response(
+            __('Default settings has been restored successfully!', 'xthemes'), RMMSG_SUCCESS, 0, [
+                'reload' => true
+            ]
+        );
+    }
+
+    $common->ajax()->notifyError(__('Default settings could not be restored. Please try again.', 'xthemes'));
+}
+
+
+$action = $common->httpRequest()::request('action', 'string', '');
+
+switch ($action) {
+
     case 'save':
         xt_save_settings();
         break;
-        
+
+    case 'restore':
+        xt_restore_settings();
+        break;
+
     default:
         xt_show_options();
         break;
-    
+
 }

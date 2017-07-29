@@ -229,6 +229,38 @@ $(document).ready(function(){
         );
 
     }
-    
+
+    /**
+     * Restore default settings
+     */
+    $("button#restore-defaults").click(function(){
+
+        if(false == confirm(confirmDeletion)){
+            return false;
+        }
+
+        var ele = $(this);
+        $(ele).cuSpinner({icon:'svg-rmcommon-spinner-03'});
+
+        var params = {
+            action: 'restore',
+            theme: $("#xt-theme").val(),
+            CUTOKEN_REQUEST: $("#cu-token").val()
+        };
+
+        $.post('settings.php', params, function(response){
+
+            $(ele).cuSpinner();
+
+            if(false == cuHandler.retrieveAjax(response)){
+                return false;
+            }
+
+            window.location.reload(true);
+
+        }, 'json');
+
+    });
+
 });	
 

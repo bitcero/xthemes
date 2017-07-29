@@ -349,4 +349,19 @@ class XtAssembler
 
     }
 
+    /**
+     * Loads an instance
+     * @return XtAssembler
+     */
+    public static function getInstance()
+    {
+        static $instance;
+
+        if (!isset($instance)) {
+            $instance = new XtAssembler();
+        }
+
+        return $instance;
+    }
+
 }
