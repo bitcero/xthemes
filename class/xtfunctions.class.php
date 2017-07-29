@@ -203,7 +203,7 @@ class XtFunctions
         $tpl = RMTemplate::get();
 
         foreach($menu as $m){
-            include $tpl->get_template('xt_menu_manager.php', 'module', 'xthemes');
+            include $tpl->path('xt-menu-manager.php', 'module', 'xthemes');
         }
     }
 

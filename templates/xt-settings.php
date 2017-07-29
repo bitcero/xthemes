@@ -57,6 +57,10 @@
         <?php endforeach; ?>
 
         <div class="xt-settings-buttons sb-bottom">
+            <button type="submit" class="btn btn-lg btn-orange">
+                <?php echo $common->icons()->getIcon('svg-rmcommon-update'); ?>
+                <?php _e('Restore Defaults','xthemes'); ?>
+            </button>
             <button type="submit" class="btn btn-lg btn-primary"><?php _e('Save Settings','xthemes'); ?></button>
         </div>
 

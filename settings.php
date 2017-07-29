@@ -34,6 +34,9 @@ function xt_form_field($name, $option, $ret = 0)
     $name = 'conf_' . $name;
 
     switch ($option['type']) {
+        case 'hidden':
+            return '';
+            break;
         case 'checkbox_groups':
         case 'group_multi':
             $ele = new RMFormGroups($option['caption'], $name, 1, 1, 3, $option['value']);
@@ -205,7 +208,7 @@ function xt_form_field($name, $option, $ret = 0)
 * Show the form to configure current theme
 */
 function xt_show_options(){
-    global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity;
+    global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity, $common;
 
     $tpl = RMTemplate::get();
 
@@ -231,7 +234,7 @@ function xt_show_options(){
     $tpl->add_local_script('xthemes.min.js', 'xthemes');
     xoops_cp_header();
     
-    include $tpl->get_template('xt_settings.php','module','xthemes');
+    include $tpl->get_template('xt-settings.php','module','xthemes');
     
     xoops_cp_footer();
 }

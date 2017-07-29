@@ -28,20 +28,23 @@ class XtAssembler
     public function __construct($theme = '')
     {
 
-        global $xoopsConfig;
+        global $xoopsConfig, $common;
 
         $theme = $theme != '' ? $theme : $xoopsConfig['theme_set'];
         $dir = XOOPS_THEME_PATH . '/' . ($theme == '' ? $xoopsConfig['theme_set'] : $theme);
+        $common->nativeTheme = true;
 
         if (!is_file($dir . '/assemble/' . $theme . '.theme.php')) {
             $this->current = new StandardTheme();
             $this->current->set_dir($theme);
+            $common->nativeTheme = false;
             return;
         }
 
         require_once $dir . '/assemble/' . $theme . '.theme.php';
         $class = ucfirst($theme);
         $this->current = new $class();
+        $common->nativeTheme = true;
 
         /**
          * The theme support native menus?
