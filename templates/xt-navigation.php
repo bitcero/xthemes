@@ -26,7 +26,7 @@
 <div id="menu-<?php echo $id; ?>" class="xt-menus-container<?php echo $i==0 ? ' container-selected': ''; ?>">
     <ol>
         <?php foreach($theme_menu[$id] as $m): ?>
-        <?php include $tpl->get_template('xt_menu_manager.php', 'module', 'xthemes'); ?>
+        <?php include $tpl->path('xt-menu-manager.php', 'module', 'xthemes'); ?>
         <?php endforeach; ?>
     </ol>
     <?php $i++; ?>

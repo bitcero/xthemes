@@ -57,10 +57,15 @@
         <?php endforeach; ?>
 
         <div class="xt-settings-buttons sb-bottom">
+            <button type="button" class="btn btn-lg btn-orange" id="restore-defaults">
+                <?php echo $common->icons()->getIcon('svg-rmcommon-update'); ?>
+                <?php _e('Restore Defaults','xthemes'); ?>
+            </button>
             <button type="submit" class="btn btn-lg btn-primary"><?php _e('Save Settings','xthemes'); ?></button>
         </div>
 
         <?php echo $xoopsSecurity->getTokenHTML(); ?>
         <input type="hidden" name="action" value="save" />
+        <input type="hidden" name="theme" value="<?php echo $xtAssembler->theme()->getInfo('dir'); ?>" id="xt-theme">
     </div>
 </form>

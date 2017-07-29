@@ -60,6 +60,6 @@ $common->breadcrumb()->add_crumb(__('Dashboard', 'xthemes'));
 
 xoops_cp_header();
 
-include $rmTpl->get_template("xt_index.php", 'module', 'xthemes');
+include $rmTpl->get_template("xt-index.php", 'module', 'xthemes');
 
 xoops_cp_footer();

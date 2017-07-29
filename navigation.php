@@ -41,7 +41,7 @@ function xt_show_menus(){
     
     xoops_cp_header();
     
-    include $tpl->path('xt_navigation.php', 'module', 'xthemes');
+    include $tpl->path('xt-navigation.php', 'module', 'xthemes');
     
     xoops_cp_footer();
     
