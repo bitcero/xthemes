@@ -211,9 +211,17 @@ function xt_show_options()
 {
     global $xoopsModule, $xtAssembler, $xtFunctions, $xoopsSecurity, $common;
 
+    $id = $common->httpRequest()::get('theme', 'string', '');
+
     $tpl = RMTemplate::get();
 
-    $options = $xtAssembler->theme()->options();
+    if('' == $id){
+        $theme = $xtAssembler->theme();
+    } else {
+        $theme = $xtAssembler->loadTheme($id);
+    }
+
+    $options = $theme->options();
     $sections = $options['sections'];
     $topt = $options['options'];
 
@@ -282,14 +290,14 @@ function xt_restore_settings()
 
     $dir = $common->httpRequest()::post('theme', 'string', '');
 
-    if('' == $dir){
+    if ('' == $dir) {
         $common->ajax()->notifyError(__('Provided theme is not valid!', 'xthemes'));
     }
 
     $xtAssembler = XtAssembler::getInstance();
     $xtAssembler->loadTheme($dir);
 
-    if(false == $common->nativeTheme){
+    if (false == $common->nativeTheme) {
         $common->ajax()->response(
             __('Provided theme is not a xThemes Theme', 'xthemes'), RMMSG_WARN, 0, [
                 'reload' => true
@@ -300,11 +308,11 @@ function xt_restore_settings()
     $options = $xtAssembler->theme()->options();
     $toSave = [];
 
-    foreach ($options['options'] as $name => $option){
+    foreach ($options['options'] as $name => $option) {
         $toSave[$name] = $option['default'];
     }
 
-    if(XtFunctions::getInstance()->insertOptions($xtAssembler->theme(), $toSave)){
+    if (XtFunctions::getInstance()->insertOptions($xtAssembler->theme(), $toSave)) {
         RMEvents::get()->trigger('xtheme.save.settings', $toSave);
         showMessage(__('Default settings has been restored successfully!', 'xthemes'), RMMSG_SUCCESS);
         $common->ajax()->response(
@@ -315,6 +323,184 @@ function xt_restore_settings()
     }
 
     $common->ajax()->notifyError(__('Default settings could not be restored. Please try again.', 'xthemes'));
+}
+
+function xt_export_settings()
+{
+    global $common, $xtAssembler;
+
+    $common->ajax()->prepare();
+
+    $id = $common->httpRequest()::get('theme', 'string', 'current');
+
+    if('current' == $id){
+        $theme = $xtAssembler->theme();
+    } else {
+        $theme = $xtAssembler->loadTheme($id);
+    }
+
+    $file = XOOPS_CACHE_PATH . '/xtexport.xtheme';
+    $toSave = [
+        'settings' => $theme->settings()
+    ];
+
+    $sql = "SELECT * FROM " . $common->db()->prefix("xt_menus") . " WHERE theme = " . $theme->id();
+    $result = $common->db()->queryF($sql);
+    $menus = [];
+    while($row = $common->db()->fetchArray($result)){
+        $menus[$row['menu']] = $row['content'];
+    }
+
+    $toSave['menu'] = $menus;
+
+    file_put_contents($file, base64_encode(json_encode($toSave)));
+
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.$theme->getInfo('dir').'-export.xtheme"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+    @unlink($file);
+    exit;
+}
+
+function xt_import_settings_form()
+{
+    global $common;
+
+    $common->template()->header();
+
+    $id = $common->httpRequest()::get('theme', 'string', 'current');
+
+    $form = new RMForm([
+        'title' => __('Import Settings', 'xthemes'),
+        'action' => 'settings.php',
+        'method' => 'post',
+        'enctype' => 'multipart/form-data'
+    ]);
+
+    $form->addElement(new RMFormFile([
+        'caption' => __('Settings file', 'xthemes'),
+        'name' => 'file',
+        'id' => 'import-file',
+        'required' => null,
+        'accept' => '.xtheme'
+    ]));
+
+    $form->addElement(new RMFormYesNo([
+        'caption' => __('Import settings', 'xthemes'),
+        'value' => 1,
+        'name' => 'settings'
+    ]));
+
+    $form->addElement(new RMFormYesNo([
+        'caption' => __('Import menus', 'xthemes'),
+        'value' => 0,
+        'name' => 'menus'
+    ]))->setDescription(__('If you import menus, existing menus for this theme will be replaced.', 'xthemes'));
+
+    $form->addElement(new RMFormHidden('action', 'import-settings'));
+    $form->addElement(new RMFormHidden('theme', $id));
+
+    $btnCancel = new RMFormButton([
+        'caption' => __('Cancel', 'xthemes'),
+        'type' => 'button',
+        'class' => 'btn btn-default',
+        'onclick' => 'history.go(-1);'
+    ]);
+
+    $btnSubmit = new RMFormButton([
+        'caption' => __('Import Now!', 'xthemes'),
+        'type' => 'submit',
+        'class' => 'btn btn-primary'
+    ]);
+
+    $buttons = new RMFormButtonGroup();
+    $buttons->addButton($btnSubmit);
+    $buttons->addButton($btnCancel);
+
+    $form->addElement($buttons);
+
+    $form->display();
+
+    $common->template()->footer();
+
+}
+
+function xt_import_settings()
+{
+    global $common, $xtAssembler;
+
+    if(false == $common->security()->check()){
+        $common->uris()::redirect_with_message(
+            __('Session token expired!', 'xthemes'), 'index.php', RMMSG_ERROR
+        );
+    }
+
+    $settings = $common->httpRequest()::post('settings', 'integer', 1);
+    $id = $common->httpRequest()::post('theme', 'string', 'current');
+    $menus = $common->httpRequest()::post('menus', 'integer', 0);
+    $file = $_FILES['file'];
+
+    if('current' == $id){
+        $theme = $xtAssembler->theme();
+    } else {
+        $theme = $xtAssembler->loadTheme($id);
+    }
+
+    if(empty($file)){
+        $common->uris()::redirect_with_message(
+            __('You must provide a settings file', 'xthemes'), 'themes.php', RMMSG_ERROR
+        );
+    }
+
+    $fileData = json_decode(base64_decode(file_get_contents($file['tmp_name'])), true);
+    if(empty($fileData) || false == is_array($fileData)){
+        $common->uris()::redirect_with_message(
+            __('This file is not a vlid settings file', 'xthemes'), 'themes.php', RMMSG_ERROR
+        );
+    }
+
+    if($settings){
+
+        $table = $common->db()->prefix('xt_options');
+
+        if(false == isset($fileData['settings']) || empty($fileData['settings'])){
+            $common->uris()::redirect_with_message(
+                __('Settings not detected', 'xthemes'), 'themes.php', RMMSG_ERROR
+            );
+        }
+
+        foreach($fileData['settings'] as $item => $value){
+            $sql = "UPDATE $table SET value='" . $common->db()->escape($value) . "' WHERE theme=" . $theme->id() . " AND name='" . $item . "'";
+            $common->db()->queryF($sql);
+        }
+
+        //RMEvents::get()->trigger('xtheme.save.settings', $fileData['settings']);
+
+    }
+
+    if($menus && false == empty($fileData['menu']) && is_array($fileData['menu']) ){
+
+        $table = $common->db()->prefix('xt_menus');
+
+        foreach($fileData['menu'] as $name => $content){
+            $sql = "UPDATE $table SET content='" . $common->db()->escape($content) . "' WHERE theme=" . $theme->id() . " AND menu='".$common->db()->escape($name)."'";
+            $common->db()->queryF($sql);
+        }
+
+    }
+
+    $common->uris()::redirect_with_message(
+        __('Settings imported successfully!', 'xthemes'),
+        'settings.php?theme=' . $theme->getInfo('dir'),
+        RMMSG_SUCCESS
+    );
+
+
 }
 
 
@@ -328,6 +514,18 @@ switch ($action) {
 
     case 'restore':
         xt_restore_settings();
+        break;
+
+    case 'export':
+        xt_export_settings();
+        break;
+
+    case 'import':
+        xt_import_settings_form();
+        break;
+
+    case 'import-settings':
+        xt_import_settings();
         break;
 
     default:

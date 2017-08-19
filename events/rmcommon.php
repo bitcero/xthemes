@@ -1,15 +1,34 @@
 <?php
-// $Id: rmcommon.php 99 2012-10-24 21:46:58Z i.bitcero $
-// --------------------------------------------------------------
-// xThemes for XOOPS
-// Module for manage themes by Red Mexico
-// Author: Eduardo Cortés <i.bitcero@gmail.com>
-// License: GPL v2
-// --------------------------------------------------------------
+/**
+ * xThemes Framework for XOOPS
+ * More info at Eduardo Cortés Website (www.eduardocortes.mx)
+ *
+ * Copyright © 2012 - 2017 Eduardo Cortés (http://www.eduardocortes.mx)
+ * -------------------------------------------------------------
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ * -------------------------------------------------------------
+ * @copyright    Eduardo Cortés (http://www.eduardocortes.mx)
+ * @license      GNU GPL 2
+ * @package      xthemes
+ * @author       Eduardo Cortés (AKA bitcero)    <i.bitcero@gmail.com>
+ * @url          http://www.eduardocortes.mx
+ */
 
 class XthemesRmcommonPreload
 {
-
     /**
      * Add the customize widget to Common Utilities Dashboard
      */
@@ -104,5 +123,43 @@ class XthemesRmcommonPreload
 
         return $plugins;
 
+    }
+
+    static function eventRmcommonCheckUpdatesThemes($urls)
+    {
+        global $common, $xoopsDB;
+        $sql = "SELECT * FROM " . $xoopsDB->prefix("xt_themes");
+        $result = $xoopsDB->queryF($sql);
+        if($xoopsDB->getRowsNum($result) <= 0){
+            return $urls;
+        }
+        while($row = $xoopsDB->fetchArray($result)){
+            $theme = XtFunctions::getInstance()->load_theme($row['dir']);
+            if(false == $theme->getInfo('updateurl')){
+                continue;
+            }
+            $version = $theme->getInfo('version');
+            if(false == $version || '' == $version){
+                $version = 0;
+            }
+            $url = $theme->getInfo('updateurl');
+            $url .= (strpos($url, '?')===false ? '?' : '&') . 'action=check&type=theme&id='.$row['dir'].'&version='.$version;
+            $urls[$row['dir']] = [
+                'url' => $url,
+                'name' => $theme->getInfo('name')
+            ];
+        }
+        return $urls;
+    }
+
+    static function eventRmcommonThemeUpdateUrl($url, $theme)
+    {
+        global $common;
+        $theme = XtFunctions::getInstance()->load_theme($theme);
+        if(false == $theme){
+            return false;
+        }
+        $url = $theme->getInfo('updateurl');
+        return $url;
     }
 }

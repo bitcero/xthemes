@@ -70,6 +70,7 @@ function xt_save_menus(){
     
     // Errors container
     $errors = array();
+
     // Menus container
     $menus = array();
     

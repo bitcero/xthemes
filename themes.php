@@ -16,7 +16,7 @@ $tpl = RMTemplate::get();
 $xtf = new XTFunctions();
 
 function xt_show_themes(){
-    global $tpl, $xtf, $xoopsSecurity, $xtAssembler, $xtFunctions;
+    global $tpl, $xtf, $xoopsSecurity, $xtAssembler, $xtFunctions, $common;
 
     $current = $xtAssembler->theme();
     

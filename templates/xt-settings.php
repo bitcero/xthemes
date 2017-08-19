@@ -57,6 +57,10 @@
         <?php endforeach; ?>
 
         <div class="xt-settings-buttons sb-bottom">
+            <button type="button" class="btn btn-lg btn-purple" id="export-settings">
+                <?php echo $common->icons()->getIcon('svg-rmcommon-export'); ?>
+                <?php _e('Export Settings', 'xthemes'); ?>
+            </button>
             <button type="button" class="btn btn-lg btn-orange" id="restore-defaults">
                 <?php echo $common->icons()->getIcon('svg-rmcommon-update'); ?>
                 <?php _e('Restore Defaults','xthemes'); ?>
