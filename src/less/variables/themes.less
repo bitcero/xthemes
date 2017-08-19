@@ -167,9 +167,32 @@
   color: #546870;
   text-transform: uppercase;
 }
-.current_options .nav > li > a{
-  background: rgba(0,0,0,0.04);
+
+.current_options{
+
+  .nav{
+    > li{
+      padding: 2px;
+      a{
+        transition: ease all 250ms;
+        border: 1px solid rgba(0,0,0,0.1);
+
+        &:hover{
+          background-color: @theme-main-color;
+          color: @theme-main-color-text!important;
+          .cu-icon{
+            .cu-icon-color(@theme-main-color-text);
+            svg{
+              fill: @theme-main-color-text;
+            }
+          }
+        }
+      }
+    }
+  }
+
 }
+
 .current_social{
   margin: 10px 0;
 }

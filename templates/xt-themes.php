@@ -77,20 +77,46 @@
                                 <h4><span><?php _e('Theme Options','xthemes'); ?></span></h4>
                                 <ul class="nav nav-pills">
                                     <?php if(method_exists($current, 'controlPanel')): ?>
-                                        <li><a href="theme.php"><span class="fa fa-dashboard"></span> <?php _e('Dashboard','xthemes'); ?></a></li>
+                                        <li><a href="theme.php" title="<?php _e('Dashboard','xthemes'); ?>"><span class="fa fa-dashboard"></span></a></li>
                                     <?php endif; ?>
                                     <?php if($xtAssembler->rootMenus()): ?>
-                                        <li><a href="navigation.php"><span class="fa fa-th-list"></span> <?php _e('Menus','xthemes'); ?></a></li>
+                                        <li>
+                                            <a href="navigation.php" title="<?php _e('Menus','xthemes'); ?>">
+                                                <?php echo $common->icons()->getIcon('svg-rmcommon-menu'); ?>
+                                            </a>
+                                        </li>
                                     <?php endif; ?>
                                     <?php if($current->settings()): ?>
-                                        <li><a href="settings.php"><span class="fa fa-wrench"></span> <?php _e('Settings','xthemes'); ?></a></li>
+                                        <li>
+                                            <a href="settings.php" title="<?php _e('Settings','xthemes'); ?>">
+                                                <?php echo $common->icons()->getIcon('svg-rmcommon-wrench'); ?>
+                                            </a>
+                                        </li>
                                     <?php endif; ?>
                                     <?php if($current->getInfo('uri')!=''): ?>
-                                        <li><a href="<?php echo $current->getInfo('uri'); ?>" target="_blank"><span class="fa fa-home"></span> <?php _e('Website','xthemes'); ?></a></li>
+                                        <li>
+                                            <a href="<?php echo $current->getInfo('uri'); ?>" target="_blank" title="<?php _e('Website','xthemes'); ?>">
+                                                <?php echo $common->icons()->getIcon('svg-rmcommon-home'); ?>
+                                            </a>
+                                        </li>
                                     <?php endif; ?>
                                     <?php if($current->getInfo('author_uri')!=''): ?>
-                                        <li><a href="<?php echo $current->getInfo('author_uri'); ?>" target="_blank"><span class="fa fa-user"></span> <?php _e('Author','xthemes'); ?></a></li>
+                                        <li>
+                                            <a href="<?php echo $current->getInfo('author_uri'); ?>" target="_blank" title="<?php _e('Author','xthemes'); ?>">
+                                                <?php echo $common->icons()->getIcon('svg-rmcommon-user'); ?>
+                                            </a>
+                                        </li>
                                     <?php endif; ?>
+                                    <li>
+                                        <a href="settings.php?action=export&theme=current" id="export-settings" class="text-purple" title="<?php _e('Export settings', 'xthemes'); ?>">
+                                            <?php echo $common->icons()->getIcon('svg-rmcommon-export'); ?>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="settings.php?action=import&theme=current" id="export-settings" class="text-light-green" title="<?php _e('Import settings', 'xthemes'); ?>">
+                                            <?php echo $common->icons()->getIcon('svg-rmcommon-import'); ?>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
 

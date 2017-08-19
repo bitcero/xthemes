@@ -90,6 +90,7 @@ class XtAssembler
     public function loadTheme($theme)
     {
         $this->__construct($theme);
+        return $this->theme();
     }
 
     /**
