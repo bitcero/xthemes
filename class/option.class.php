@@ -31,7 +31,6 @@ class Xthemes_Option extends RMObject
 {
     public function __construct($id = null, $theme = '')
     {
-
         $this->noTranslate = ['name', 'type'];
         $this->ownerName = 'xthemes';
         $this->ownerType = 'module';
@@ -47,11 +46,8 @@ class Xthemes_Option extends RMObject
         }
 
         if (is_integer($id)) {
-
             $load = $this->loadValues($id);
-
         } else {
-
             $sql = "SELECT * FROM " . $this->_dbtable . " WHERE `name`='$id' AND `theme`=$theme";
             $result = $this->db->query($sql);
 
@@ -67,7 +63,6 @@ class Xthemes_Option extends RMObject
             $this->assignVars($data);
             $this->unsetNew();
             $load = true;
-
         }
 
         if ($load) {
@@ -75,7 +70,6 @@ class Xthemes_Option extends RMObject
         }
 
         return;
-
     }
 
     public function save()

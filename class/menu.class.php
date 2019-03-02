@@ -48,24 +48,21 @@ class Xthemes_Menu extends RMObject
         $this->initVarsFromTable();
         $this->setVarType('content', XOBJ_DTYPE_SOURCE);
 
-        if ($id==null){
+        if ($id==null) {
             return;
         }
 
-        if(is_integer($id)){
-
+        if (is_integer($id)) {
             $load = $this->loadValues($id);
-
         } else {
-
             $sql = "SELECT * FROM " . $this->_dbtable . " WHERE `menu`='$id' AND `theme`=$theme";
             $result = $this->db->query($sql);
 
-            if($this->db->error()!=''){
+            if ($this->db->error()!='') {
                 $this->addError($this->db->error());
             }
 
-            if($this->db->getRowsNum($result)<=0){
+            if ($this->db->getRowsNum($result)<=0) {
                 return false;
             }
 
@@ -73,10 +70,9 @@ class Xthemes_Menu extends RMObject
             $this->assignVars($data);
             $this->unsetNew();
             $load = true;
-
         }
 
-        if ($load){
+        if ($load) {
             $this->setVar('content', unserialize(base64_decode($this->getVar('content'))));
             $this->encoded = false;
             $this->unsetNew();
@@ -85,28 +81,29 @@ class Xthemes_Menu extends RMObject
         return;
     }
 
-    public function content(){
-        if ($this->encoded){
+    public function content()
+    {
+        if ($this->encoded) {
             return unserialize(base64_decode($this->getVar('content')));
         } else {
             return $this->getVar('content');
         }
-
     }
 
-    public function setContent($content){
+    public function setContent($content)
+    {
         $this->setVar('content', $content);
         $this->encoded = false;
     }
 
-    public function assignVars($vars){
+    public function assignVars($vars)
+    {
         $this->encoded = true;
         parent::assignVars($vars);
     }
 
     public function save()
     {
-
         if (!$this->encoded) {
             $this->setVar('content', base64_encode(serialize($this->getVar('content'))));
             $this->encoded = true;

@@ -8,7 +8,7 @@
 // --------------------------------------------------------------
 
 $amod = xoops_getActiveModules();
-if(!in_array("rmcommon",$amod)){
+if (!in_array("rmcommon", $amod)) {
     $error = "<strong>WARNING:</strong> xThemes requires %s to be installed!<br />Please install %s before trying to use xThemes";
     $error = str_replace("%s", '<a href="http://www.xoopsmexico.net/downloads/common-utilities/" target="_blank">Common Utilities</a>', $error);
     xoops_error($error);
@@ -18,8 +18,9 @@ if(!in_array("rmcommon",$amod)){
     echo "<br />";
 }
 
-if (!function_exists("__")){
-    function __($text, $d){
+if (!function_exists("__")) {
+    function __($text, $d)
+    {
         return $text;
     }
 }
@@ -68,7 +69,7 @@ $modversion['hasSearch'] = 0;
 $modversion['config'] = array(
     array(
         'name' => 'recal',
-        'title' => __('Recalculate length of serialized data','docs'),
+        'title' => __('Recalculate length of serialized data', 'docs'),
         'description' => __('Enable this option only when you receive an error like <em>[function.unserialize]: Error at offset</em>.', 'docs'),
         'formtype' => 'yesno',
         'valuetype' => 'int',
@@ -77,11 +78,9 @@ $modversion['config'] = array(
 );
 
 global $xtAssembler;
-if ( $xtAssembler ){
+if ($xtAssembler) {
     $theme = $xtAssembler->theme();
-    if ( $xtAssembler->isSupported() ){
-
+    if ($xtAssembler->isSupported()) {
         $modversion['blocks'] = $theme->blocks();
-
     }
 }

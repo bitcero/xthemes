@@ -44,7 +44,7 @@
                         <tr>
                             <td><?php _e('Name:', 'xthemes'); ?></td>
                             <td>
-                                <?php if('' != $currentTheme->getInfo('uri')): ?>
+                                <?php if ('' != $currentTheme->getInfo('uri')): ?>
                                     <a href="<?php echo $currentTheme->getInfo('uri'); ?>" target="_blank"><strong><?php echo $currentTheme->getInfo('name'); ?></strong></a>
                                 <?php else: ?>
                                     <strong><?php echo $currentTheme->getInfo('name'); ?></strong>
@@ -54,7 +54,7 @@
                         <tr>
                             <td><?php _e('Author:', 'xthemes'); ?></td>
                             <td>
-                                <?php if('' != $currentTheme->getInfo('author_uri')): ?>
+                                <?php if ('' != $currentTheme->getInfo('author_uri')): ?>
                                 <a href="<?php echo $currentTheme->getInfo('author_uri'); ?>" target="_blank"><strong><?php echo $currentTheme->getInfo('author'); ?></strong></a>
                                 <?php else: ?>
                                 <strong><?php echo $currentTheme->getInfo('author'); ?></strong>
@@ -80,7 +80,7 @@
             </div>
             <div class="box-content">
                 <ul>
-                <?php foreach($themes as $atheme): ?>
+                <?php foreach ($themes as $atheme): ?>
                 <li>
                     <?php echo $atheme['name']; ?>
                 </li>
@@ -97,7 +97,7 @@
         <div class="cu-box" data-load="news" data-module="xthemes" data-target="#xt-news">
             <div class="box-header">
                 <span class="fa fa-caret-up box-handler"></span>
-                <h3 class="box-title"><?php _e('xThemes Related News','xthemes'); ?></h3>
+                <h3 class="box-title"><?php _e('xThemes Related News', 'xthemes'); ?></h3>
             </div>
             <div class="box-content" id="xt-news">
 

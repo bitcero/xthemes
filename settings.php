@@ -24,10 +24,11 @@ function xt_form_field($name, $option, $ret = 0)
 
     $currentSettings = $xtAssembler->theme()->settings($name);
 
-    if ($currentSettings !== false)
+    if ($currentSettings !== false) {
         $option['value'] = $currentSettings;
-    else
+    } else {
         $option['value'] = $option['default'];
+    }
 
     $cleaner = TextCleaner::getInstance();
 
@@ -144,7 +145,9 @@ function xt_form_field($name, $option, $ret = 0)
             $ele = new RMFormImageUrl($option['caption'], $name, $option['value']);
             break;
         case 'slider':
-            if ($ret) return;
+            if ($ret) {
+                return;
+            }
             $ele = new RMFormSlider($option['caption'], $name, $option['value']);
             $ele->addField('title', array('caption' => __('Slider Title', 'xthemes'), 'description' => __('Show the slider title', 'xthemes'), 'type' => 'textbox'));
             $i = 0;
@@ -201,7 +204,6 @@ function xt_form_field($name, $option, $ret = 0)
 
     $ids++;
     return $ret ? $ele : $ele->render();
-
 }
 
 /**
@@ -215,7 +217,7 @@ function xt_show_options()
 
     $tpl = RMTemplate::get();
 
-    if('' == $id){
+    if ('' == $id) {
         $theme = $xtAssembler->theme();
     } else {
         $theme = $xtAssembler->loadTheme($id);
@@ -230,12 +232,11 @@ function xt_show_options()
     $options = array();
 
     foreach ($topt as $id => $option) {
-
-        if (!isset($option['type']) || $option['type'] != 'heading')
+        if (!isset($option['type']) || $option['type'] != 'heading') {
             $option['field'] = xt_form_field($id, $option);
+        }
 
         $options[$option['section']][$id] = $option;
-
     }
 
     $tpl->add_style("xthemes.min.css", 'xthemes');
@@ -256,24 +257,27 @@ function xt_save_settings()
 {
     global $xoopsConfig, $xtAssembler, $xtFunctions;
 
-    if (!$xtAssembler->isSupported())
+    if (!$xtAssembler->isSupported()) {
         redirectMsg('index.php', __('This is a not valid theme', 'xthemes'), 1);
+    }
 
     $xt_to_save = array();
 
     $theme = $xtAssembler->theme();
 
     foreach ($_POST as $id => $v) {
-        if (substr($id, 0, 5) != 'conf_') continue;
+        if (substr($id, 0, 5) != 'conf_') {
+            continue;
+        }
 
         $xt_to_save[substr($id, 5)] = $theme->checkSettingValue($v);
-
     }
 
     $result = $xtFunctions->insertOptions($theme, $xt_to_save);
 
-    if (true !== $result)
+    if (true !== $result) {
         redirectMsg('settings.php', __('Settings could not be saved! Please try again', 'xthemes') . $result, RMMSG_ERROR);
+    }
 
     RMEvents::get()->trigger('xtheme.save.settings', $xt_to_save);
 
@@ -299,7 +303,10 @@ function xt_restore_settings()
 
     if (false == $common->nativeTheme) {
         $common->ajax()->response(
-            __('Provided theme is not a xThemes Theme', 'xthemes'), RMMSG_WARN, 0, [
+            __('Provided theme is not a xThemes Theme', 'xthemes'),
+            RMMSG_WARN,
+            0,
+            [
                 'reload' => true
             ]
         );
@@ -316,7 +323,10 @@ function xt_restore_settings()
         RMEvents::get()->trigger('xtheme.save.settings', $toSave);
         showMessage(__('Default settings has been restored successfully!', 'xthemes'), RMMSG_SUCCESS);
         $common->ajax()->response(
-            __('Default settings has been restored successfully!', 'xthemes'), RMMSG_SUCCESS, 0, [
+            __('Default settings has been restored successfully!', 'xthemes'),
+            RMMSG_SUCCESS,
+            0,
+            [
                 'reload' => true
             ]
         );
@@ -333,7 +343,7 @@ function xt_export_settings()
 
     $id = $common->httpRequest()::get('theme', 'string', 'current');
 
-    if('current' == $id){
+    if ('current' == $id) {
         $theme = $xtAssembler->theme();
     } else {
         $theme = $xtAssembler->loadTheme($id);
@@ -347,7 +357,7 @@ function xt_export_settings()
     $sql = "SELECT * FROM " . $common->db()->prefix("xt_menus") . " WHERE theme = " . $theme->id();
     $result = $common->db()->queryF($sql);
     $menus = [];
-    while($row = $common->db()->fetchArray($result)){
+    while ($row = $common->db()->fetchArray($result)) {
         $menus[$row['menu']] = $row['content'];
     }
 
@@ -427,16 +437,17 @@ function xt_import_settings_form()
     $form->display();
 
     $common->template()->footer();
-
 }
 
 function xt_import_settings()
 {
     global $common, $xtAssembler;
 
-    if(false == $common->security()->check()){
+    if (false == $common->security()->check()) {
         $common->uris()::redirect_with_message(
-            __('Session token expired!', 'xthemes'), 'index.php', RMMSG_ERROR
+            __('Session token expired!', 'xthemes'),
+            'index.php',
+            RMMSG_ERROR
         );
     }
 
@@ -445,53 +456,55 @@ function xt_import_settings()
     $menus = $common->httpRequest()::post('menus', 'integer', 0);
     $file = $_FILES['file'];
 
-    if('current' == $id){
+    if ('current' == $id) {
         $theme = $xtAssembler->theme();
     } else {
         $theme = $xtAssembler->loadTheme($id);
     }
 
-    if(empty($file)){
+    if (empty($file)) {
         $common->uris()::redirect_with_message(
-            __('You must provide a settings file', 'xthemes'), 'themes.php', RMMSG_ERROR
+            __('You must provide a settings file', 'xthemes'),
+            'themes.php',
+            RMMSG_ERROR
         );
     }
 
     $fileData = json_decode(base64_decode(file_get_contents($file['tmp_name'])), true);
-    if(empty($fileData) || false == is_array($fileData)){
+    if (empty($fileData) || false == is_array($fileData)) {
         $common->uris()::redirect_with_message(
-            __('This file is not a vlid settings file', 'xthemes'), 'themes.php', RMMSG_ERROR
+            __('This file is not a vlid settings file', 'xthemes'),
+            'themes.php',
+            RMMSG_ERROR
         );
     }
 
-    if($settings){
-
+    if ($settings) {
         $table = $common->db()->prefix('xt_options');
 
-        if(false == isset($fileData['settings']) || empty($fileData['settings'])){
+        if (false == isset($fileData['settings']) || empty($fileData['settings'])) {
             $common->uris()::redirect_with_message(
-                __('Settings not detected', 'xthemes'), 'themes.php', RMMSG_ERROR
+                __('Settings not detected', 'xthemes'),
+                'themes.php',
+                RMMSG_ERROR
             );
         }
 
-        foreach($fileData['settings'] as $item => $value){
+        foreach ($fileData['settings'] as $item => $value) {
             $sql = "UPDATE $table SET value='" . $common->db()->escape($value) . "' WHERE theme=" . $theme->id() . " AND name='" . $item . "'";
             $common->db()->queryF($sql);
         }
 
         //RMEvents::get()->trigger('xtheme.save.settings', $fileData['settings']);
-
     }
 
-    if($menus && false == empty($fileData['menu']) && is_array($fileData['menu']) ){
-
+    if ($menus && false == empty($fileData['menu']) && is_array($fileData['menu'])) {
         $table = $common->db()->prefix('xt_menus');
 
-        foreach($fileData['menu'] as $name => $content){
+        foreach ($fileData['menu'] as $name => $content) {
             $sql = "UPDATE $table SET content='" . $common->db()->escape($content) . "' WHERE theme=" . $theme->id() . " AND menu='".$common->db()->escape($name)."'";
             $common->db()->queryF($sql);
         }
-
     }
 
     $common->uris()::redirect_with_message(
@@ -499,8 +512,6 @@ function xt_import_settings()
         'settings.php?theme=' . $theme->getInfo('dir'),
         RMMSG_SUCCESS
     );
-
-
 }
 
 

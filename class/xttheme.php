@@ -13,17 +13,18 @@
 
 abstract class XtTheme extends RMObject
 {
-	protected $details = array();
-	protected $errors = array();
+    protected $details = array();
+    protected $errors = array();
     private $settings = array();
     
     /**
     * Load a theme
-    * 
+    *
     * @param mixed Id or dirname for theme
     * @return XtTheme
     */
-    public function __construct(){
+    public function __construct()
+    {
         // Load details from theme
         $this->details = $this->details();
         
@@ -32,49 +33,57 @@ abstract class XtTheme extends RMObject
         $this->setNew();
         $this->initVarsFromTable();
         
-        $id = $this->getInfo('dir'); 
+        $id = $this->getInfo('dir');
         $this->primary = 'dir';
-        if ($this->loadValues($id)) $this->unsetNew();
+        if ($this->loadValues($id)) {
+            $this->unsetNew();
+        }
         $this->primary = 'id_theme';
         
-        if($this->isNew()){
+        if ($this->isNew()) {
             $this->setVars($this->getInfo());
         }
-        
     }
-	
-	public function errors( $errors = true ){
-		return $this->errors;
-	}
+    
+    public function errors($errors = true)
+    {
+        return $this->errors;
+    }
 
-    public function addError($error_msg){
+    public function addError($error_msg)
+    {
         $this->errors[] = $error_msg;
     }
-	
+    
     /**
     * Get an info key or all information
     */
-	public function getInfo($key = ''){
+    public function getInfo($key = '')
+    {
+        if ($key=='') {
+            return $this->details;
+        }
         
-        if($key=='') return $this->details;
-        
-        if(!isset($this->details[$key])) return false;
+        if (!isset($this->details[$key])) {
+            return false;
+        }
         return $this->details[$key];
-        
     }
     
     /**
     * Get theme url
     * @return string
     */
-    public function url(){
+    public function url()
+    {
         return XOOPS_THEME_URL.'/'.$this->getInfo('dir');
     }
     /**
     * Get theme path
     * @return string
     */
-    public function path(){
+    public function path()
+    {
         return XOOPS_THEME_PATH.'/'.$this->getInfo('dir');
     }
     
@@ -82,32 +91,40 @@ abstract class XtTheme extends RMObject
     * Indicates if theme is installed
     * @return bool
     */
-    public function installed(){
+    public function installed()
+    {
         global $xtAssembler;
         
         return $xtAssembler->theme()->getInfo('dir')==$this->getInfo('dir');
     }
 
-    public function on_install(){
+    public function on_install()
+    {
         return true;
     }
     
-    public function on_uninstall(){
+    public function on_uninstall()
+    {
         return true;
     }
     
-    public function setSettings($settings){
+    public function setSettings($settings)
+    {
         $this->settings = $settings;
     }
     
     /**
-    * Get theme configuration 
+    * Get theme configuration
     */
-    public function settings($key = ''){
-        if($key=='') return $this->settings;
+    public function settings($key = '')
+    {
+        if ($key=='') {
+            return $this->settings;
+        }
         
-        if(isset($this->settings[$key]))
+        if (isset($this->settings[$key])) {
             return $this->settings[$key];
+        }
         
         return false;
     }
@@ -117,31 +134,38 @@ abstract class XtTheme extends RMObject
     * @param mixed $value
     * @return mixed value
     */
-    public function checkSettingValue($value){
+    public function checkSettingValue($value)
+    {
         return $value;
     }
     
-    public function save(){
-        if($this->isNew())
+    public function save()
+    {
+        if ($this->isNew()) {
             return $this->saveToTable();
-        else
+        } else {
             return $this->updateTable();
+        }
     }
     
-    public function delete(){
+    public function delete()
+    {
         return $this->deleteFromTable();
     }
     
-    public function menu($id=''){
+    public function menu($id='')
+    {
         global $xtAssembler;
         return $xtAssembler->menu($id);
     }
 
-    public function blocks(){
+    public function blocks()
+    {
         return array();
     }
 
-    public function blocks_positions(){
+    public function blocks_positions()
+    {
         return false;
     }
 
@@ -154,14 +178,15 @@ abstract class XtTheme extends RMObject
      * @param string $action <p>New status: active|inactive</p>
      * @return bool
      */
-    public function status( $action = 'active' ){
+    public function status($action = 'active')
+    {
         return true;
     }
 
-    public function body_classes(){
+    public function body_classes()
+    {
         return RMTemplate::get()->body_classes();
     }
-	
 }
 
 interface XtITheme

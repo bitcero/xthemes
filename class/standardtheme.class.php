@@ -9,8 +9,8 @@
 
 class StandardTheme extends XtTheme implements XtITheme
 {
-    public function details(){
-        
+    public function details()
+    {
         $details = array(
             'name' => '',
             'description' => 'Theme based on original FastPage template from AtomicWebsiteTemplates.com',
@@ -25,18 +25,23 @@ class StandardTheme extends XtTheme implements XtITheme
         );
         
         return $details;
-        
     }
     
-    public function set_dir($dir){
-        
+    public function set_dir($dir)
+    {
         $this->details['dir'] = $dir;
         $this->details['name'] = ucfirst($dir);
-        
     }
     
-    public function haveMenus(){return false;}    
-    public function options(){return false;}
-    public function init(){}
-    
+    public function haveMenus()
+    {
+        return false;
+    }
+    public function options()
+    {
+        return false;
+    }
+    public function init()
+    {
+    }
 }

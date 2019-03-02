@@ -32,21 +32,22 @@ class XthemesRmcommonPreload
     /**
      * Add the customize widget to Common Utilities Dashboard
      */
-    static function eventRmcommonDashboardPanels($panels)
+    public static function eventRmcommonDashboardPanels($panels)
     {
         global $xtAssembler, $xtFunctions;
 
-        if (!isset($GLOBALS['xtAssembler']))
+        if (!isset($GLOBALS['xtAssembler'])) {
             $xtAssembler = new XtAssembler();
+        }
 
-        if (!$xtAssembler->isSupported())
+        if (!$xtAssembler->isSupported()) {
             return;
+        }
 
         $theme = $xtAssembler->theme();
 
         RMTemplate::get()->add_style('rmc-dashboard.css', 'xthemes');
-        ob_start();
-        ?>
+        ob_start(); ?>
         <div class="size-1" data-dashboard="item">
             <div class="cu-box box-green">
                 <div class="box-header">
@@ -107,7 +108,7 @@ class XthemesRmcommonPreload
         return $panels;
     }
 
-    static function eventRmcommonSmartyPlugins($plugins)
+    public static function eventRmcommonSmartyPlugins($plugins)
     {
         global $xoopsConfig;
 
@@ -122,24 +123,23 @@ class XthemesRmcommonPreload
         }
 
         return $plugins;
-
     }
 
-    static function eventRmcommonCheckUpdatesThemes($urls)
+    public static function eventRmcommonCheckUpdatesThemes($urls)
     {
         global $common, $xoopsDB;
         $sql = "SELECT * FROM " . $xoopsDB->prefix("xt_themes");
         $result = $xoopsDB->queryF($sql);
-        if($xoopsDB->getRowsNum($result) <= 0){
+        if ($xoopsDB->getRowsNum($result) <= 0) {
             return $urls;
         }
-        while($row = $xoopsDB->fetchArray($result)){
+        while ($row = $xoopsDB->fetchArray($result)) {
             $theme = XtFunctions::getInstance()->load_theme($row['dir']);
-            if(false == $theme->getInfo('updateurl')){
+            if (false == $theme->getInfo('updateurl')) {
                 continue;
             }
             $version = $theme->getInfo('version');
-            if(false == $version || '' == $version){
+            if (false == $version || '' == $version) {
                 $version = 0;
             }
             $url = $theme->getInfo('updateurl');
@@ -152,11 +152,11 @@ class XthemesRmcommonPreload
         return $urls;
     }
 
-    static function eventRmcommonThemeUpdateUrl($url, $theme)
+    public static function eventRmcommonThemeUpdateUrl($url, $theme)
     {
         global $common;
         $theme = XtFunctions::getInstance()->load_theme($theme);
-        if(false == $theme){
+        if (false == $theme) {
             return false;
         }
         $url = $theme->getInfo('updateurl');

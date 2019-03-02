@@ -7,7 +7,7 @@
 // License: GPL v2
 // --------------------------------------------------------------
 
-define('RMCLOCATION','theme');
+define('RMCLOCATION', 'theme');
 require '../../include/cp_header.php';
 
 /**
@@ -20,7 +20,8 @@ global $xtAssembler;
 
 $theme = $xtAssembler->theme();
 
-if(!method_exists($theme, 'controlPanel'))
-    redirectMsg('themes.php', sprintf(__('%s does not support this feature.','xthemes'), $theme->getInfo('name')), RMMSG_WARN);
+if (!method_exists($theme, 'controlPanel')) {
+    redirectMsg('themes.php', sprintf(__('%s does not support this feature.', 'xthemes'), $theme->getInfo('name')), RMMSG_WARN);
+}
 
 $theme->controlPanel();

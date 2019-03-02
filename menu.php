@@ -14,20 +14,20 @@ load_mod_locale('xthemes');
 global $xtAssembler;
 
 $adminmenu[] = array(
-    'title' => __('Dashboard','xthemes'),
+    'title' => __('Dashboard', 'xthemes'),
     'link' => 'index.php',
     'icon' => "svg-rmcommon-dashboard text-red",
     'location' => 'dashboard'
 );
 
 $adminmenu[] = array(
-    'title' => __('Themes','xthemes'),
+    'title' => __('Themes', 'xthemes'),
     'link' => 'themes.php',
     'icon' => "svg-rmcommon-tshirt text-light-blue",
     'location' => 'themes'
 );
 
-if(is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()){
+if (is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()) {
     $menu = array(
         'title' => $xtAssembler->theme()->getInfo('name'),
         'link' => 'settings.php',
@@ -35,36 +35,36 @@ if(is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->them
         'location' => 'settings'
     );
     
-    if($xtAssembler->rootMenus()):
+    if ($xtAssembler->rootMenus()):
         $options[] = array(
-            'title' => __('Menus','xthemes'),
+            'title' => __('Menus', 'xthemes'),
             'link'  => 'navigation.php',
             'selected' => 'menus',
             'icon' => 'fa fa-reorder'
         );
     endif;
     
-    if($xtAssembler->theme()->options()):
+    if ($xtAssembler->theme()->options()):
         $options[] = array(
-            'title' => __('Settings','xthemes'),
+            'title' => __('Settings', 'xthemes'),
             'link'  => 'settings.php',
             'selected' => 'settings',
             'icon' => 'fa fa-cog'
         );
     endif;
     
-    if($xtAssembler->theme()->getInfo('uri')!=''):
+    if ($xtAssembler->theme()->getInfo('uri')!=''):
         $options[] = array(
-            'title' => __('Website','xthemes'),
+            'title' => __('Website', 'xthemes'),
             'link'  => $xtAssembler->theme()->getInfo('uri'),
             'selected' => 'none',
             'icon' => 'fa fa-globe'
         );
     endif;
     
-    if($xtAssembler->theme()->getInfo('author_uri')!=''):
+    if ($xtAssembler->theme()->getInfo('author_uri')!=''):
         $options[] = array(
-            'title' => __('Author','xthemes'),
+            'title' => __('Author', 'xthemes'),
             'link'  => $xtAssembler->theme()->getInfo('author_uri'),
             'selected' => 'none',
             'icon' => 'fa fa-user'
@@ -75,7 +75,6 @@ if(is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->them
     
     $adminmenu[] = $menu;
     unset($menu, $options);
-    
 }
 
 /*

@@ -27,8 +27,8 @@
  * @url          http://www.eduardocortes.mx
  */
 
-function xoops_module_update_xthemes($mod, $pre){
-
+function xoops_module_update_xthemes($mod, $pre)
+{
     global $xoopsDB;
 
     $table = $xoopsDB->prefix("xt_menus");
@@ -38,24 +38,23 @@ function xoops_module_update_xthemes($mod, $pre){
 
     $toSave = [];
 
-    while($row = $xoopsDB->fetchArray($result)){
+    while ($row = $xoopsDB->fetchArray($result)) {
         $serialized = @unserialize($row['content']);
 
-        if(false !== $serialized){
+        if (false !== $serialized) {
             $toSave[$row['id_menu']] = $row['content'];
         }
     }
 
-    if(empty($toSave)){
+    if (empty($toSave)) {
         return true;
     }
 
     $sql = "UPDATE $table SET content = '%s' WHERE id_menu = %u";
 
-    foreach($toSave as $id => $content){
+    foreach ($toSave as $id => $content) {
         $xoopsDB->queryF(sprintf($sql, base64_encode($content), $id));
     }
 
     return true;
-
 }
