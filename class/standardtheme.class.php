@@ -11,7 +11,7 @@ class StandardTheme extends XtTheme implements XtITheme
 {
     public function details()
     {
-        $details = array(
+        $details = [
             'name' => '',
             'description' => 'Theme based on original FastPage template from AtomicWebsiteTemplates.com',
             'version' => '1.0',
@@ -21,26 +21,28 @@ class StandardTheme extends XtTheme implements XtITheme
             'author_email' => '',
             'license' => 'Not specified',
             'screenshot' => 'screenshot.png',
-            'type' => 'standard'
-        );
-        
+            'type' => 'standard',
+        ];
+
         return $details;
     }
-    
+
     public function set_dir($dir)
     {
         $this->details['dir'] = $dir;
         $this->details['name'] = ucfirst($dir);
     }
-    
+
     public function haveMenus()
     {
         return false;
     }
+
     public function options()
     {
         return false;
     }
+
     public function init()
     {
     }

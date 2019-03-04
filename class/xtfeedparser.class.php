@@ -65,167 +65,169 @@ To see more details and examples, please visit:
 */
 
 /**
-* PHP Univarsel Feed Parser class
-*
-* Parses RSS 1.0, RSS2.0 and ATOM Feed
-*
-* @license     GNU General Public License (GPL)
-* @author      Anis uddin Ahmad <admin@ajaxray.com>
-* @link        http://www.ajaxray.com/blog/2008/05/02/php-universal-feed-parser-lightweight-php-class-for-parsing-rss-and-atom-feeds/
-*/
+ * PHP Univarsel Feed Parser class
+ *
+ * Parses RSS 1.0, RSS2.0 and ATOM Feed
+ *
+ * @license     GNU General Public License (GPL)
+ * @author      Anis uddin Ahmad <admin@ajaxray.com>
+ * @link        http://www.ajaxray.com/blog/2008/05/02/php-universal-feed-parser-lightweight-php-class-for-parsing-rss-and-atom-feeds/
+ */
 class XtFeedParser
 {
-    private $xmlParser      = null;
-    private $insideItem     = array();                  // Keep track of current position in tag tree
-    private $currentTag     = null;                     // Last entered tag name
-    private $currentAttr    = null;                     // Attributes array of last entered tag
-    
-    private $namespaces     = array(
-                            'http://purl.org/rss/1.0/'                  => 'RSS 1.0',
-                            'http://purl.org/rss/1.0/modules/content/'  => 'RSS 2.0',
-                            'http://www.w3.org/2005/Atom'               => 'ATOM 1',
-                            );                          // Namespaces to detact feed version
-    private $itemTags       = array('ITEM','ENTRY');    // List of tag names which holds a feed item
-    private $channelTags    = array('CHANNEL','FEED');  // List of tag names which holds all channel elements
-    private $dateTags       = array('UPDATED','PUBDATE','DC:DATE');
-    private $hasSubTags     = array('IMAGE','AUTHOR');  // List of tag names which have sub tags
-    private $channels       = array();
-    private $items          = array();
-    private $itemIndex      = 0;
+    private $xmlParser = null;
+    private $insideItem = [];                  // Keep track of current position in tag tree
+    private $currentTag = null;                     // Last entered tag name
+    private $currentAttr = null;                     // Attributes array of last entered tag
 
-    private $url            = null;                     // The parsed url
-    private $version        = 'RSS 2.0';                     // Detected feed version
-    
-       
+    private $namespaces = [
+                            'http://purl.org/rss/1.0/' => 'RSS 1.0',
+                            'http://purl.org/rss/1.0/modules/content/' => 'RSS 2.0',
+                            'http://www.w3.org/2005/Atom' => 'ATOM 1',
+                            ];                          // Namespaces to detact feed version
+    private $itemTags = ['ITEM', 'ENTRY'];    // List of tag names which holds a feed item
+    private $channelTags = ['CHANNEL', 'FEED'];  // List of tag names which holds all channel elements
+    private $dateTags = ['UPDATED', 'PUBDATE', 'DC:DATE'];
+    private $hasSubTags = ['IMAGE', 'AUTHOR'];  // List of tag names which have sub tags
+    private $channels = [];
+    private $items = [];
+    private $itemIndex = 0;
+
+    private $url = null;                     // The parsed url
+    private $version = 'RSS 2.0';                     // Detected feed version
+
     /**
-    * Constructor - Initialize and set event handler functions to xmlParser
-    */
+     * Constructor - Initialize and set event handler functions to xmlParser
+     */
     public function __construct()
     {
         $this->xmlParser = xml_parser_create();
-        
+
         xml_set_object($this->xmlParser, $this);
-        xml_set_element_handler($this->xmlParser, "startElement", "endElement");
-        xml_set_character_data_handler($this->xmlParser, "characterData");
+        xml_set_elementHandler($this->xmlParser, 'startElement', 'endElement');
+        xml_set_character_dataHandler($this->xmlParser, 'characterData');
     }
 
     /*-----------------------------------------------------------------------+
     |  Public functions. Use to parse feed and get informations.             |
     +-----------------------------------------------------------------------*/
-   
+
     /**
-    * Get all channel elements
-    *
-    * @access   public
-    * @return   array   - All chennels as associative array
-    */
+     * Get all channel elements
+     *
+     * @access   public
+     * @return   array   - All chennels as associative array
+     */
     public function getChannels()
     {
         return $this->channels;
     }
-   
+
     /**
-    * Get all feed items
-    *
-    * @access   public
-    * @return   array   - All feed items as associative array
-    */
+     * Get all feed items
+     *
+     * @access   public
+     * @return   array   - All feed items as associative array
+     */
     public function getItems()
     {
         return $this->items;
     }
 
     /**
-    * Get total number of feed items
-    *
-    * @access   public
-    * @return   number
-    */
+     * Get total number of feed items
+     *
+     * @access   public
+     * @return   number
+     */
     public function getTotalItems()
     {
         return count($this->items);
     }
 
     /**
-    * Get a feed item by index
-    *
-    * @access   public
-    * @param    number  index of feed item
-    * @return   array   feed item as associative array of it's elements
-    */
+     * Get a feed item by index
+     *
+     * @access   public
+     * @param    number  index of feed item
+     * @param mixed $index
+     * @return   array   feed item as associative array of it's elements
+     */
     public function getItem($index)
     {
         if ($index < $this->getTotalItems()) {
             return $this->items[$index];
-        } else {
-            throw new Exception("Item index is learger then total items.");
-            return false;
         }
-    }
-   
-    /**
-    * Get a channel element by name
-    *
-    * @access   public
-    * @param    string  the name of channel tag
-    * @return   string
-    */
-    public function getChannel($tagName)
-    {
-        if (array_key_exists(strtoupper($tagName), $this->channels)) {
-            return $this->channels[strtoupper($tagName)];
-        } else {
-            throw new Exception("Channel tag $tagName not found.");
-            return false;
-        }
-    }
-   
-    /**
-    * Get the parsed URL
-    *
-    * @access   public
-    * @return   string
-    */
-    public function getParsedUrl()
-    {
-        if (empty($this->url)) {
-            throw new Exception("Feed URL is not set yet.");
-            return false;
-        } else {
-            return $this->url;
-        }
+        throw new Exception('Item index is learger then total items.');
+
+        return false;
     }
 
     /**
-    * Get the detected Feed version
-    *
-    * @access   public
-    * @return   string
-    */
+     * Get a channel element by name
+     *
+     * @access   public
+     * @param    string  the name of channel tag
+     * @param mixed $tagName
+     * @return   string
+     */
+    public function getChannel($tagName)
+    {
+        if (array_key_exists(mb_strtoupper($tagName), $this->channels)) {
+            return $this->channels[mb_strtoupper($tagName)];
+        }
+        throw new Exception("Channel tag $tagName not found.");
+
+        return false;
+    }
+
+    /**
+     * Get the parsed URL
+     *
+     * @access   public
+     * @return   string
+     */
+    public function getParsedUrl()
+    {
+        if (empty($this->url)) {
+            throw new Exception('Feed URL is not set yet.');
+
+            return false;
+        }
+
+        return $this->url;
+    }
+
+    /**
+     * Get the detected Feed version
+     *
+     * @access   public
+     * @return   string
+     */
     public function getFeedVersion()
     {
         return $this->version;
     }
-   
+
     /**
-    * Parses a feed url
-    *
-    * @access   public
-    * @param    srting  teh feed url
-    * @return   void
-    */
+     * Parses a feed url
+     *
+     * @access   public
+     * @param    srting  teh feed url
+     * @param mixed $url
+     */
     public function parse($url)
     {
-        $this->url  = $url;
+        $this->url = $url;
         $URLContent = $this->getUrlContent();
 
         if ($URLContent) {
-            $segments   = str_split($URLContent, 4096);
-            foreach ($segments as $index=>$data) {
-                $lastPiese = ((count($segments)-1) == $index)? true : false;
+            $segments = str_split($URLContent, 4096);
+            foreach ($segments as $index => $data) {
+                $lastPiese = ((count($segments) - 1) == $index) ? true : false;
                 xml_parse($this->xmlParser, $data, $lastPiese)
-                   or die(sprintf(
-                       "XML error: %s at line %d",
+                   || die(sprintf(
+                       'XML error: %s at line %d',
                        xml_error_string(xml_get_error_code($this->xmlParser)),
                        xml_get_current_line_number($this->xmlParser)
                    ));
@@ -234,14 +236,14 @@ class XtFeedParser
         } else {
             die('Sorry! cannot load the feed url.');
         }
-        
+
         if (empty($this->version)) {
             die('Sorry! cannot detect the feed version.');
         }
     }
-   
+
     // End public functions -------------------------------------------------
-   
+
     /*-----------------------------------------------------------------------+
     | Private functions. Be careful to edit them.                            |
     +-----------------------------------------------------------------------*/
@@ -255,109 +257,113 @@ class XtFeedParser
     private function getUrlContent()
     {
         if (empty($this->url)) {
-            throw new Exception("URL to parse is empty!.");
+            throw new Exception('URL to parse is empty!.');
+
             return false;
         }
-    
+
         if ($content = @file_get_contents($this->url)) {
             return $content;
-        } else {
-            $ch         = curl_init();
-            
-            curl_setopt($ch, CURLOPT_URL, $this->url);
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-            $content    = curl_exec($ch);
-            $error      = curl_error($ch);
-            
-            curl_close($ch);
-            
-            if (empty($error)) {
-                return $content;
-            } else {
-                throw new Exception("Erroe occured while loading url by cURL. <br />\n" . $error) ;
-                return false;
-            }
         }
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $this->url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $content = curl_exec($ch);
+        $error = curl_error($ch);
+
+        curl_close($ch);
+
+        if (empty($error)) {
+            return $content;
+        }
+        throw new Exception("Erroe occured while loading url by cURL. <br>\n" . $error);
+
+        return false;
     }
-    
+
     /**
-    * Handle the start event of a tag while parsing
-    *
-    * @access   private
-    * @param    object  the xmlParser object
-    * @param    string  name of currently entering tag
-    * @param    array   array of attributes
-    * @return   void
-    */
+     * Handle the start event of a tag while parsing
+     *
+     * @access   private
+     * @param    object  the xmlParser object
+     * @param    string  name of currently entering tag
+     * @param    array   array of attributes
+     * @param mixed $parser
+     * @param mixed $tagName
+     * @param mixed $attrs
+     */
     private function startElement($parser, $tagName, $attrs)
     {
         if (!$this->version) {
             $this->findVersion($tagName, $attrs);
         }
-        
+
         array_push($this->insideItem, $tagName);
-        
-        $this->currentTag  = $tagName;
+
+        $this->currentTag = $tagName;
         $this->currentAttr = $attrs;
     }
 
     /**
-    * Handle the end event of a tag while parsing
-    *
-    * @access   private
-    * @param    object  the xmlParser object
-    * @param    string  name of currently ending tag
-    * @return   void
-    */
+     * Handle the end event of a tag while parsing
+     *
+     * @access   private
+     * @param    object  the xmlParser object
+     * @param    string  name of currently ending tag
+     * @param mixed $parser
+     * @param mixed $tagName
+     */
     private function endElement($parser, $tagName)
     {
-        if (in_array($tagName, $this->itemTags)) {
+        if (in_array($tagName, $this->itemTags, true)) {
             $this->itemIndex++;
         }
-        
+
         array_pop($this->insideItem);
-        $this->currentTag = $this->insideItem[count($this->insideItem)-1];
+        $this->currentTag = $this->insideItem[count($this->insideItem) - 1];
     }
 
     /**
-    * Handle character data of a tag while parsing
-    *
-    * @access   private
-    * @param    object  the xmlParser object
-    * @param    string  tag value
-    * @return   void
-    */
+     * Handle character data of a tag while parsing
+     *
+     * @access   private
+     * @param    object  the xmlParser object
+     * @param    string  tag value
+     * @param mixed $parser
+     * @param mixed $data
+     */
     private function characterData($parser, $data)
     {
         //Converting all date formats to timestamp
-        if (in_array($this->currentTag, $this->dateTags)) {
+        if (in_array($this->currentTag, $this->dateTags, true)) {
             $data = strtotime($data);
         }
-                 
+
         if ($this->inChannel()) {
             // If has subtag, make current element an array and assign subtags as it's element
-            if (in_array($this->getParentTag(), $this->hasSubTags)) {
-                if (! is_array($this->channels[$this->getParentTag()])) {
-                    $this->channels[$this->getParentTag()] = array();
+            if (in_array($this->getParentTag(), $this->hasSubTags, true)) {
+                if (!is_array($this->channels[$this->getParentTag()])) {
+                    $this->channels[$this->getParentTag()] = [];
                 }
 
                 $this->channels[$this->getParentTag()][$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
+
                 return;
-            } else {
-                if (! in_array($this->currentTag, $this->hasSubTags)) {
-                    $this->channels[$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
-                }
             }
-                       
+            if (!in_array($this->currentTag, $this->hasSubTags, true)) {
+                $this->channels[$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
+            }
+
             if (!empty($this->currentAttr)) {
                 $this->channels[$this->currentTag . '_ATTRS'] = $this->currentAttr;
-                
+
                 //If the tag has no value
-                if (strlen($this->channels[$this->currentTag]) < 2) {
+                if (mb_strlen($this->channels[$this->currentTag]) < 2) {
                     //If there is only one attribute, assign the attribute value as channel value
-                    if (count($this->currentAttr) == 1) {
+                    if (1 == count($this->currentAttr)) {
                         foreach ($this->currentAttr as $attrVal) {
                             $this->channels[$this->currentTag] = $attrVal;
                         }
@@ -370,28 +376,27 @@ class XtFeedParser
             }
         } elseif ($this->inItem()) {
             // If has subtag, make current element an array and assign subtags as it's elements
-            if (in_array($this->getParentTag(), $this->hasSubTags)) {
-                if (! is_array($this->items[$this->itemIndex][$this->getParentTag()])) {
-                    $this->items[$this->itemIndex][$this->getParentTag()] = array();
+            if (in_array($this->getParentTag(), $this->hasSubTags, true)) {
+                if (!is_array($this->items[$this->itemIndex][$this->getParentTag()])) {
+                    $this->items[$this->itemIndex][$this->getParentTag()] = [];
                 }
 
                 $this->items[$this->itemIndex][$this->getParentTag()][$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
+
                 return;
-            } else {
-                if (! in_array($this->currentTag, $this->hasSubTags)) {
-                    $this->items[$this->itemIndex][$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
-                }
             }
-            
-             
+            if (!in_array($this->currentTag, $this->hasSubTags, true)) {
+                $this->items[$this->itemIndex][$this->currentTag] .= strip_tags($this->unhtmlentities((trim($data))));
+            }
+
             if (!empty($this->currentAttr)) {
                 $this->items[$this->itemIndex][$this->currentTag . '_ATTRS'] = $this->currentAttr;
-                
+
                 //If the tag has no value
-                
-                if (strlen($this->items[$this->itemIndex][$this->currentTag]) < 2) {
+
+                if (mb_strlen($this->items[$this->itemIndex][$this->currentTag]) < 2) {
                     //If there is only one attribute, assign the attribute value as feed element's value
-                    if (count($this->currentAttr) == 1) {
+                    if (1 == count($this->currentAttr)) {
                         foreach ($this->currentAttr as $attrVal) {
                             $this->items[$this->itemIndex][$this->currentTag] = $attrVal;
                         }
@@ -406,86 +411,90 @@ class XtFeedParser
     }
 
     /**
-    * Find out the feed version
-    *
-    * @access   private
-    * @param    string  name of current tag
-    * @param    array   array of attributes
-    * @return   void
-    */
+     * Find out the feed version
+     *
+     * @access   private
+     * @param    string  name of current tag
+     * @param    array   array of attributes
+     * @param mixed $tagName
+     * @param mixed $attrs
+     */
     private function findVersion($tagName, $attrs)
     {
         $namespace = array_values($attrs);
-        foreach ($this->namespaces as $value =>$version) {
-            if (in_array($value, $namespace)) {
+        foreach ($this->namespaces as $value => $version) {
+            if (in_array($value, $namespace, true)) {
                 $this->version = $version;
+
                 return;
             }
         }
     }
-    
+
     private function getParentTag()
     {
         return $this->insideItem[count($this->insideItem) - 2];
     }
 
     /**
-    * Detect if current position is in channel element
-    *
-    * @access   private
-    * @return   bool
-    */
+     * Detect if current position is in channel element
+     *
+     * @access   private
+     * @return   bool
+     */
     private function inChannel()
     {
-        if ($this->version == 'RSS 1.0') {
-            if (in_array('CHANNEL', $this->insideItem) && $this->currentTag != 'CHANNEL') {
+        if ('RSS 1.0' == $this->version) {
+            if (in_array('CHANNEL', $this->insideItem, true) && 'CHANNEL' != $this->currentTag) {
                 return true;
             }
-        } elseif ($this->version == 'RSS 2.0') {
-            if (in_array('CHANNEL', $this->insideItem) && !in_array('ITEM', $this->insideItem) && $this->currentTag != 'CHANNEL') {
+        } elseif ('RSS 2.0' == $this->version) {
+            if (in_array('CHANNEL', $this->insideItem, true) && !in_array('ITEM', $this->insideItem, true) && 'CHANNEL' != $this->currentTag) {
                 return true;
             }
-        } elseif ($this->version == 'ATOM 1') {
-            if (in_array('FEED', $this->insideItem) && !in_array('ENTRY', $this->insideItem) && $this->currentTag != 'FEED') {
+        } elseif ('ATOM 1' == $this->version) {
+            if (in_array('FEED', $this->insideItem, true) && !in_array('ENTRY', $this->insideItem, true) && 'FEED' != $this->currentTag) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     /**
-    * Detect if current position is in Item element
-    *
-    * @access   private
-    * @return   bool
-    */
+     * Detect if current position is in Item element
+     *
+     * @access   private
+     * @return   bool
+     */
     private function inItem()
     {
-        if ($this->version == 'RSS 1.0' || $this->version == 'RSS 2.0') {
-            if (in_array('ITEM', $this->insideItem) && $this->currentTag != 'ITEM') {
+        if ('RSS 1.0' == $this->version || 'RSS 2.0' == $this->version) {
+            if (in_array('ITEM', $this->insideItem, true) && 'ITEM' != $this->currentTag) {
                 return true;
             }
-        } elseif ($this->version == 'ATOM 1') {
-            if (in_array('ENTRY', $this->insideItem) && $this->currentTag != 'ENTRY') {
+        } elseif ('ATOM 1' == $this->version) {
+            if (in_array('ENTRY', $this->insideItem, true) && 'ENTRY' != $this->currentTag) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     //This function is taken from lastRSS
+
     /**
-    * Replace HTML entities &something; by real characters
-    *
-    *
-    * @access   private
-    * @author   Vojtech Semecky <webmaster@oslab.net>
-    * @link     http://lastrss.oslab.net/
-    * @param    string
-    * @return   string
-    */
+     * Replace HTML entities &something; by real characters
+     *
+     *
+     * @access   private
+     * @author   Vojtech Semecky <webmaster@oslab.net>
+     * @link     http://lastrss.oslab.net/
+     * @param    string
+     * @param mixed $string
+     * @return   string
+     */
     private function unhtmlentities($string)
     {
         // Get HTML entities table
@@ -493,7 +502,7 @@ class XtFeedParser
         // Flip keys<==>values
         $trans_tbl = array_flip($trans_tbl);
         // Add support for &apos; entity (missing in HTML_ENTITIES)
-        $trans_tbl += array('&apos;' => "'");
+        $trans_tbl += ['&apos;' => "'"];
         // Replace entities by values
         return strtr($string, $trans_tbl);
     }

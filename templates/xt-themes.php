@@ -8,7 +8,7 @@
                 <div class="row">
 
                     <div class="col-sm-4 col-md-4 xt_current_screenshot">
-                        <img src="<?php echo $current->url().'/'.$current->getInfo('screenshot'); ?>" alt="<?php echo $current->getInfo('name'); ?>" class="img-thumbnail">
+                        <img src="<?php echo $current->url() . '/' . $current->getInfo('screenshot'); ?>" alt="<?php echo $current->getInfo('name'); ?>" class="img-thumbnail">
                     </div>
 
                     <div class="col-sm-8 col-md-8 xt_current_data">
@@ -16,7 +16,7 @@
                         <span class="current_legend"><?php _e('Current Theme', 'xthemes'); ?></span>
                         <h2><?php echo $current->getInfo('name'); ?></h2>
 
-                        <?php if ($current->getInfo('type')=='standard'): ?>
+                        <?php if ('standard' == $current->getInfo('type')): ?>
                             <div class="current_standar_legend">
                                 <?php _e('This is a standard XOOPS Theme and doesn\'t have any additional options.', 'xthemes'); ?>
                             </div>
@@ -25,21 +25,21 @@
 
                             <div class="row">
 
-                                <?php if ($current->getInfo('author_email') != ''): ?>
+                                <?php if ('' != $current->getInfo('author_email')): ?>
                                     <div class="col-xs-3 col-lg-2">
                                         <img src="http://www.gravatar.com/avatar/<?php echo md5($current->getInfo('author_email')); ?>?s=200" class="img-responsive img-thumbnail">
                                     </div>
                                 <?php endif; ?>
 
-                                    <div class="<?php echo $current->getInfo('author_email') != '' ? 'col-xs-9 col-lg-10' : 'col-xs-12'; ?>">
+                                    <div class="<?php echo '' != $current->getInfo('author_email') ? 'col-xs-9 col-lg-10' : 'col-xs-12'; ?>">
 
                                         <div class="current_data">
 
 
                                             <ul>
                                                 <li>
-                                                    <?php if ($current->getInfo('author_uri')!=''): ?>
-                                                        <?php echo sprintf(__('By %s', 'xthemes'), '<a href="'.$current->getInfo('author_uri').'" target="_blank">'.$current->getInfo('author').'</a>'); ?>
+                                                    <?php if ('' != $current->getInfo('author_uri')): ?>
+                                                        <?php echo sprintf(__('By %s', 'xthemes'), '<a href="' . $current->getInfo('author_uri') . '" target="_blank">' . $current->getInfo('author') . '</a>'); ?>
                                                     <?php else: ?>
                                                         <?php echo sprintf(__('By %s', 'xthemes'), $current->getInfo('author')); ?>
                                                     <?php endif; ?>
@@ -47,7 +47,7 @@
                                                 <li>
                                                     <?php echo sprintf(__('Version %s', 'xthemes'), $current->getInfo('version')); ?>
                                                 </li>
-                                                <?php if ($current->getInfo('uri')!=''): ?>
+                                                <?php if ('' != $current->getInfo('uri')): ?>
                                                     <li><a href="<?php echo $current->getInfo('uri'); ?>" target="_blank"><?php _e('Website', 'xthemes'); ?></a></li>
                                                 <?php endif; ?>
                                             </ul>
@@ -93,14 +93,14 @@
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($current->getInfo('uri')!=''): ?>
+                                    <?php if ('' != $current->getInfo('uri')): ?>
                                         <li>
                                             <a href="<?php echo $current->getInfo('uri'); ?>" target="_blank" title="<?php _e('Website', 'xthemes'); ?>">
                                                 <?php echo $common->icons()->getIcon('svg-rmcommon-home'); ?>
                                             </a>
                                         </li>
                                     <?php endif; ?>
-                                    <?php if ($current->getInfo('author_uri')!=''): ?>
+                                    <?php if ('' != $current->getInfo('author_uri')): ?>
                                         <li>
                                             <a href="<?php echo $current->getInfo('author_uri'); ?>" target="_blank" title="<?php _e('Author', 'xthemes'); ?>">
                                                 <?php echo $common->icons()->getIcon('svg-rmcommon-user'); ?>
@@ -141,15 +141,15 @@
                     <div class="cu-box" id="available-<?php echo $theme['dir']; ?>">
                         <div class="box-content">
                             <div class="theme_screenshot">
-                                <img class="img-responsive img-thumbnail" src="<?php echo $theme['url'].'/'.$theme['screenshot']; ?>" alt="<?php echo $theme['name']; ?>">
+                                <img class="img-responsive img-thumbnail" src="<?php echo $theme['url'] . '/' . $theme['screenshot']; ?>" alt="<?php echo $theme['name']; ?>">
                             </div>
                             <div class="available-details">
                                 <h3><?php echo $theme['name']; ?></h3>
-                                <?php if (isset($theme['type']) && $theme['type']=='standard'): ?>
+                                <?php if (isset($theme['type']) && 'standard' == $theme['type']): ?>
                                     <span class="help-block"><?php echo _e('This is a standard XOOPS theme.', 'xthemes'); ?></span>
                                 <?php else: ?>
                                     <div class="theme-author">
-                                        <?php echo sprintf(__('By %s', 'xthemes'), '<a href="'.$theme['author_uri'].'" target="_blank">'.$theme['author'].'</a>'); ?>
+                                        <?php echo sprintf(__('By %s', 'xthemes'), '<a href="' . $theme['author_uri'] . '" target="_blank">' . $theme['author'] . '</a>'); ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -157,7 +157,7 @@
 
                         <div class="box-footer theme-options">
 
-                            <?php if (isset($theme['type']) && $theme['type']=='standard'): ?>
+                            <?php if (isset($theme['type']) && 'standard' == $theme['type']): ?>
                                 <ul class="nav nav-pills nav-justified">
                                     <li><a href="themes.php?action=activate&amp;dir=<?php echo $theme['dir']; ?>&amp;token=<?php echo $xoopsSecurity->createToken(); ?>"><?php _e('Activate', 'xthemes'); ?></a></li>
                                 </ul>

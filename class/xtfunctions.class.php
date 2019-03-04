@@ -10,68 +10,73 @@
 class XtFunctions
 {
     /**
-    * Get the current theme and all related information
-    * return object
-    */
+     * Get the current theme and all related information
+     * return object
+     */
     public function current_theme()
     {
         global $xoopsConfig;
-        
+
         // Configured theme
         $ctheme = $xoopsConfig['theme_set'];
-        
+
         // Check if theme is a valid xTheme or not
         $theme = $this->load_theme($ctheme);
-        
+
         return $theme;
     }
-    
+
     /**
-    * Load a specified theme
-    * return object
-    */
+     * Load a specified theme
+     * return object
+     * @param mixed $dir
+     */
     public function load_theme($dir)
     {
-        if ($dir=='') {
+        if ('' == $dir) {
             return false;
         }
-        
-        $fulldir = XOOPS_THEME_PATH.'/'.$dir;
+
+        $fulldir = XOOPS_THEME_PATH . '/' . $dir;
         if (!is_dir($fulldir)) {
             return false;
         }
-        
-        $theme_file = $fulldir.'/assemble/'.$dir.'.theme.php';
-        
+
+        $theme_file = $fulldir . '/assemble/' . $dir . '.theme.php';
+
         if (is_file($theme_file)) {
-            include_once $theme_file;
+            require_once $theme_file;
             $class = ucfirst($dir);
             $theme = new $class();
+
             return $theme;
         }
-        
+
         $theme = new StandardTheme();
         $theme->set_dir($dir);
+
         return $theme;
     }
-    
+
     /**
-    * Insert configuration options
-    * @param array with sections and options
-    * @return bool
-    */
+     * Insert configuration options
+     * @param array with sections and options
+     * @param mixed $theme
+     * @param null|mixed $set
+     * @return bool
+     */
     public function insertOptions($theme, $set = null)
     {
-        if ($theme==null) {
+        if (null === $theme) {
             return false;
         }
         $options = $theme->options();
-        $to_delete = array();
-        
+        $to_delete = [];
+
         if (empty($options)) {
             return true;
         }
-        
+
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         // Current settings
         $current = $theme->settings();
@@ -79,16 +84,16 @@ class XtFunctions
 
         $to_delete = array_keys(array_diff_key($current, $options['options']));
 
-        $sql = "INSERT INTO ".$db->prefix("xt_options")." (`theme`,`name`,`value`,`type`) VALUES ";
-        $sqlu = "UPDATE ".$db->prefix("xt_options")." SET `value`=";
+        $sql = 'INSERT INTO ' . $db->prefix('xt_options') . ' (`theme`,`name`,`value`,`type`) VALUES ';
+        $sqlu = 'UPDATE ' . $db->prefix('xt_options') . ' SET `value`=';
 
         //$values = array();
         $errors = '';
 
         foreach ($options['options'] as $name => $option) {
             $value = isset($set[$name]) ? $set[$name] : $option['default'];
-            $value = $option['content']=='array' ? (is_array($value) ? base64_encode(serialize($value)) : '') : $value;
-            
+            $value = 'array' == $option['content'] ? (is_array($value) ? base64_encode(serialize($value)) : '') : $value;
+
             $item = new Xthemes_Option($name, $theme->id());
             $item->name = $name;
             $item->theme = $theme->id();
@@ -117,7 +122,7 @@ class XtFunctions
         }
 
         if (!empty($to_delete)) {
-            $db->queryF("DELETE FROM " . $db->prefix("xt_options") . " WHERE theme = " . $theme->id() . " AND ( name = '" . implode("' OR name='", $to_delete) . "')");
+            $db->queryF('DELETE FROM ' . $db->prefix('xt_options') . ' WHERE theme = ' . $theme->id() . " AND ( name = '" . implode("' OR name='", $to_delete) . "')");
         }
 
         /*if(!empty($values))
@@ -125,7 +130,7 @@ class XtFunctions
         else
             return true;*/
 
-        if ($errors != '') {
+        if ('' != $errors) {
             return $errors;
         }
 
@@ -134,10 +139,11 @@ class XtFunctions
 
     /**
      * Create positions for blocks
+     * @param mixed $theme
      */
     public function insertPositions($theme)
     {
-        if ($theme==null) {
+        if (null === $theme) {
             return false;
         }
 
@@ -161,8 +167,9 @@ class XtFunctions
     }
 
     /**
-    * Remove all theme data from database
-    */
+     * Remove all theme data from database
+     * @param mixed $theme
+     */
     public function purge_theme($theme)
     {
         if (!$theme) {
@@ -171,15 +178,15 @@ class XtFunctions
         if (is_a($theme, 'StandardTheme')) {
             return true;
         }
-        
+
         // Delete options
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "DELETE FROM ".$db->prefix("xt_options")." WHERE theme=".$theme->id();
+        $sql = 'DELETE FROM ' . $db->prefix('xt_options') . ' WHERE theme=' . $theme->id();
         if (!$db->queryF($sql)) {
             return false;
         }
-        
-        $sql = "DELETE FROM ".$db->prefix("xt_menus")." WHERE theme=".$theme->id();
+
+        $sql = 'DELETE FROM ' . $db->prefix('xt_menus') . ' WHERE theme=' . $theme->id();
         if (!$db->queryF($sql)) {
             return false;
         }
@@ -199,20 +206,21 @@ class XtFunctions
         }
 
         return true;
-        
+
         return $theme->delete();
     }
-    
+
     /**
-    * Forms the menu in menu manager based on <li>s
-    * @param
-    */
+     * Forms the menu in menu manager based on <li>s
+     * @param
+     * @param mixed $menu
+     */
     public function formAdminMenu($menu)
     {
         if (empty($menu)) {
             return false;
         }
-        
+
         $tpl = RMTemplate::get();
 
         foreach ($menu as $m) {
@@ -227,25 +235,23 @@ class XtFunctions
      */
     public function social_icon($type)
     {
-        $icons = array(
-
-            'twitter'   => 'fa fa-twitter',
-            'facebook'   => 'fa fa-facebook',
-            'google-plus'   => 'fa fa-google-plus',
-            'linkedin'   => 'fa fa-linkedin',
-            'instagram'   => 'fa fa-instagram',
-            'tumblr'   => 'fa fa-tumblr',
-            'flickr'   => 'fa fa-flickr',
-            'youtube'   => 'fa fa-youtube',
-            'stack-overflow'   => 'fa fa-stack-overflow',
-            'vimeo'   => 'fa fa-vimeo',
-            'skype'   => 'fa fa-skype',
-            'foursquare'   => 'fa fa-foursquare',
-            'github'   => 'fa fa-github',
-            'pinterest'   => 'fa fa-pinterest',
-            'blog'  => 'fa fa-quote-left'
-
-        );
+        $icons = [
+            'twitter' => 'fa fa-twitter',
+            'facebook' => 'fa fa-facebook',
+            'google-plus' => 'fa fa-google-plus',
+            'linkedin' => 'fa fa-linkedin',
+            'instagram' => 'fa fa-instagram',
+            'tumblr' => 'fa fa-tumblr',
+            'flickr' => 'fa fa-flickr',
+            'youtube' => 'fa fa-youtube',
+            'stack-overflow' => 'fa fa-stack-overflow',
+            'vimeo' => 'fa fa-vimeo',
+            'skype' => 'fa fa-skype',
+            'foursquare' => 'fa fa-foursquare',
+            'github' => 'fa fa-github',
+            'pinterest' => 'fa fa-pinterest',
+            'blog' => 'fa fa-quote-left',
+        ];
 
         if (isset($icons[$type])) {
             return '<span class="fa ' . $icons[$type] . '"></span>';
@@ -281,7 +287,7 @@ class XtFunctions
         static $instance;
 
         if (!isset($instance)) {
-            $instance = new XtFunctions();
+            $instance = new self();
         }
 
         return $instance;

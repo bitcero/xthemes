@@ -25,16 +25,18 @@
  * @license      GPL v2
  * @link         http://eduardocortes.mx
  * @link         http://xoopsmexico.net
+ * @param mixed $params
+ * @param mixed $smarty
  */
 
 /**
-* This function enable the capacity of translate themes for Xoops
-*/
+ * This function enable the capacity of translate themes for Xoops
+ */
 function smarty_function_locale($params, &$smarty)
 {
     global $xtAssembler;
-    
+
     $theme = $xtAssembler->theme()->getInfo('dir');
-    
+
     return __($params['t'], $theme);
 }

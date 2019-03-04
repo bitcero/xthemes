@@ -8,7 +8,7 @@
 // --------------------------------------------------------------
 
 define('RMCLOCATION', 'dashboard');
-require '../../include/cp_header.php';
+require dirname(__DIR__) . '/../include/cp_header.php';
 
 load_theme_locale($xoopsConfig['theme_set']);
 
@@ -29,7 +29,7 @@ $currentTheme = $xtAssembler->theme();
 $dh = opendir(XOOPS_THEME_PATH);
 $i = 0;
 while (false !== ($dir = readdir($dh))) {
-    if ($dir=='.' || $dir=='..' || is_file(XOOPS_THEME_PATH.'/'.$dir)) {
+    if ('.' == $dir || '..' == $dir || is_file(XOOPS_THEME_PATH . '/' . $dir)) {
         continue;
     }
 
@@ -40,10 +40,10 @@ while (false !== ($dir = readdir($dh))) {
     }
 
     // Supported themes
-    $theme_path = XOOPS_THEME_PATH.'/'.$dir;
-    if (is_file($theme_path.'/assemble/'.strtolower($dir).'.theme.php')) {
-        include_once $theme_path.'/assemble/'.strtolower($dir).'.theme.php';
-        $class = ucfirst(strtolower($dir));
+    $theme_path = XOOPS_THEME_PATH . '/' . $dir;
+    if (is_file($theme_path . '/assemble/' . mb_strtolower($dir) . '.theme.php')) {
+        require_once $theme_path . '/assemble/' . mb_strtolower($dir) . '.theme.php';
+        $class = ucfirst(mb_strtolower($dir));
         $theme = new $class();
     } else {
         $theme = new StandardTheme();
@@ -60,6 +60,6 @@ $common->breadcrumb()->add_crumb(__('Dashboard', 'xthemes'));
 
 xoops_cp_header();
 
-include $rmTpl->get_template("xt-index.php", 'module', 'xthemes');
+include $rmTpl->get_template('xt-index.php', 'module', 'xthemes');
 
 xoops_cp_footer();

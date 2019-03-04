@@ -25,8 +25,11 @@
  * @license      GPL v2
  * @link         http://eduardocortes.mx
  * @link         http://xoopsmexico.net
+ * @param mixed $params
+ * @param mixed $content
+ * @param mixed $tpl
+ * @param mixed $repeat
  */
-
 function smarty_block_htmlhead($params, $content, $tpl, &$repeat)
 {
     RMTemplate::get()->add_head($content);

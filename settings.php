@@ -8,11 +8,14 @@
 // --------------------------------------------------------------
 
 define('RMCLOCATION', 'settings');
-require '../../include/cp_header.php';
+require dirname(__DIR__) . '/../include/cp_header.php';
 
 /**
  * This function prepares an option to show in confgiuration form
  * @param array Configuration option
+ * @param mixed $name
+ * @param mixed $option
+ * @param mixed $ret
  * @return string
  */
 function xt_form_field($name, $option, $ret = 0)
@@ -24,7 +27,7 @@ function xt_form_field($name, $option, $ret = 0)
 
     $currentSettings = $xtAssembler->theme()->settings($name);
 
-    if ($currentSettings !== false) {
+    if (false !== $currentSettings) {
         $option['value'] = $currentSettings;
     } else {
         $option['value'] = $option['default'];
@@ -57,7 +60,7 @@ function xt_form_field($name, $option, $ret = 0)
                 $tiny = TinyEditor::getInstance();
                 $tiny->add_config('elements',$name);
             }*/
-            $ele = new RMFormEditor($option['caption'], $name, isset($option['size']) ? $option['size'] : '100%', '300px', $option['value'], '', 1, array('op'));
+            $ele = new RMFormEditor($option['caption'], $name, isset($option['size']) ? $option['size'] : '100%', '300px', $option['value'], '', 1, ['op']);
             break;
         case 'theme':
         case 'select_theme':
@@ -100,16 +103,16 @@ function xt_form_field($name, $option, $ret = 0)
         case 'select_language_multi':
         case 'checkbox_language':
         case 'language_multi':
-            $ele = new RMFormLanguageField($option['caption'], $name, 1, 1, !is_array($option['value']) ? array($option['value']) : $option['value'], 3);
+            $ele = new RMFormLanguageField($option['caption'], $name, 1, 1, !is_array($option['value']) ? [$option['value']] : $option['value'], 3);
             break;
         case 'modules':
             $ele = new RMFormModules($option['caption'], $name, 0, 0, $option['value'], 3);
-            $ele->setInserted(array('--' => __('None', 'rmcommon')));
+            $ele->setInserted(['--' => __('None', 'rmcommon')]);
             break;
         case 'modules_multi':
         case 'checkbox_modules':
             $ele = new RMFormModules($option['caption'], $name, 1, 1, $option['value'], 3);
-            $ele->setInserted(array('--' => __('None', 'rmcommon')));
+            $ele->setInserted(['--' => __('None', 'rmcommon')]);
             break;
         case 'timezone':
         case 'select_timezone':
@@ -119,20 +122,20 @@ function xt_form_field($name, $option, $ret = 0)
             $ele = new RMFormTimeZoneField($option['caption'], $name, 0, 1, $option['value'], 3);
             break;
         case 'textarea':
-            $ele = new RMFormTextArea($option['caption'], $name, 5, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, $option['content'] == 'array' ? $cleaner->specialchars(implode('|', $option['value'])) : $cleaner->specialchars($option['value']));
+            $ele = new RMFormTextArea($option['caption'], $name, 5, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, 'array' == $option['content'] ? $cleaner->specialchars(implode('|', $option['value'])) : $cleaner->specialchars($option['value']));
             break;
         case 'user':
             $ele = new RMFormUser($option['caption'], $name, false, $option['value'], 300);
             break;
         case 'user_multi':
-            $ele = new RMFormUser($option['caption'], $name, true, !is_array($option['value']) ? array($option['value']) : $option['value'], 300);
+            $ele = new RMFormUser($option['caption'], $name, true, !is_array($option['value']) ? [$option['value']] : $option['value'], 300);
             break;
         case 'radio':
             $ele = new RMFormRadio([
                 'caption' => $option['caption'],
                 'name' => $name,
                 'value' => $option['value'],
-                'display' => 'inline'
+                'display' => 'inline',
             ]);
             foreach ($option['options'] as $opvalue => $op) {
                 $ele->addOption($op, $opvalue, $opvalue == $option['value'] ? 1 : 0);
@@ -149,7 +152,7 @@ function xt_form_field($name, $option, $ret = 0)
                 return;
             }
             $ele = new RMFormSlider($option['caption'], $name, $option['value']);
-            $ele->addField('title', array('caption' => __('Slider Title', 'xthemes'), 'description' => __('Show the slider title', 'xthemes'), 'type' => 'textbox'));
+            $ele->addField('title', ['caption' => __('Slider Title', 'xthemes'), 'description' => __('Show the slider title', 'xthemes'), 'type' => 'textbox']);
             $i = 0;
 
             $option['options'] = isset($option['options']) && is_array($option['options']) ? $option['options'] : (isset($option['options']) ? [$option['options']] : []);
@@ -170,7 +173,7 @@ function xt_form_field($name, $option, $ret = 0)
         case 'textbox':
         case 'password':
         default:
-            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, null, $option['value'], $option['type'] == 'password' ? 1 : 0);
+            $ele = new RMFormText($option['caption'], $name, isset($option['size']) && $option['size'] > 0 ? $option['size'] : 50, null, $option['value'], 'password' == $option['type'] ? 1 : 0);
             break;
     }
 
@@ -195,14 +198,15 @@ function xt_form_field($name, $option, $ret = 0)
         'timezone',
         'select_timezone',
         'textarea',
-        'textbox'
+        'textbox',
     ];
 
-    if (in_array($option['type'], $controls)) {
+    if (in_array($option['type'], $controls, true)) {
         $ele->add('class', 'form-control');
     }
 
     $ids++;
+
     return $ret ? $ele : $ele->render();
 }
 
@@ -229,17 +233,17 @@ function xt_show_options()
 
     $visible = isset($_COOKIE['xtsection']) ? $_COOKIE['xtsection'] : key($sections);
 
-    $options = array();
+    $options = [];
 
     foreach ($topt as $id => $option) {
-        if (!isset($option['type']) || $option['type'] != 'heading') {
+        if (!isset($option['type']) || 'heading' != $option['type']) {
             $option['field'] = xt_form_field($id, $option);
         }
 
         $options[$option['section']][$id] = $option;
     }
 
-    $tpl->add_style("xthemes.min.css", 'xthemes');
+    $tpl->add_style('xthemes.min.css', 'xthemes');
     $tpl->add_script('jquery.ck.js', 'rmcommon', ['footer' => 1]);
     $tpl->add_script('xthemes.min.js', 'xthemes', ['id' => 'xthemes-js', 'footer' => 1]);
 
@@ -252,7 +256,6 @@ function xt_show_options()
     xoops_cp_footer();
 }
 
-
 function xt_save_settings()
 {
     global $xoopsConfig, $xtAssembler, $xtFunctions;
@@ -261,16 +264,16 @@ function xt_save_settings()
         redirectMsg('index.php', __('This is a not valid theme', 'xthemes'), 1);
     }
 
-    $xt_to_save = array();
+    $xt_to_save = [];
 
     $theme = $xtAssembler->theme();
 
     foreach ($_POST as $id => $v) {
-        if (substr($id, 0, 5) != 'conf_') {
+        if ('conf_' != mb_substr($id, 0, 5)) {
             continue;
         }
 
-        $xt_to_save[substr($id, 5)] = $theme->checkSettingValue($v);
+        $xt_to_save[mb_substr($id, 5)] = $theme->checkSettingValue($v);
     }
 
     $result = $xtFunctions->insertOptions($theme, $xt_to_save);
@@ -283,7 +286,6 @@ function xt_save_settings()
 
     redirectMsg('settings.php', __('Settings updated successfully!', 'xthemes'), RMMSG_SAVED);
 }
-
 
 function xt_restore_settings()
 {
@@ -301,13 +303,13 @@ function xt_restore_settings()
     $xtAssembler = XtAssembler::getInstance();
     $xtAssembler->loadTheme($dir);
 
-    if (false == $common->nativeTheme) {
+    if (false === $common->nativeTheme) {
         $common->ajax()->response(
             __('Provided theme is not a xThemes Theme', 'xthemes'),
             RMMSG_WARN,
             0,
             [
-                'reload' => true
+                'reload' => true,
             ]
         );
     }
@@ -327,7 +329,7 @@ function xt_restore_settings()
             RMMSG_SUCCESS,
             0,
             [
-                'reload' => true
+                'reload' => true,
             ]
         );
     }
@@ -351,13 +353,13 @@ function xt_export_settings()
 
     $file = XOOPS_CACHE_PATH . '/xtexport.xtheme';
     $toSave = [
-        'settings' => $theme->settings()
+        'settings' => $theme->settings(),
     ];
 
-    $sql = "SELECT * FROM " . $common->db()->prefix("xt_menus") . " WHERE theme = " . $theme->id();
+    $sql = 'SELECT * FROM ' . $common->db()->prefix('xt_menus') . ' WHERE theme = ' . $theme->id();
     $result = $common->db()->queryF($sql);
     $menus = [];
-    while ($row = $common->db()->fetchArray($result)) {
+    while (false !== ($row = $common->db()->fetchArray($result))) {
         $menus[$row['menu']] = $row['content'];
     }
 
@@ -367,7 +369,7 @@ function xt_export_settings()
 
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="'.$theme->getInfo('dir').'-export.xtheme"');
+    header('Content-Disposition: attachment; filename="' . $theme->getInfo('dir') . '-export.xtheme"');
     header('Expires: 0');
     header('Cache-Control: must-revalidate');
     header('Pragma: public');
@@ -389,7 +391,7 @@ function xt_import_settings_form()
         'title' => __('Import Settings', 'xthemes'),
         'action' => 'settings.php',
         'method' => 'post',
-        'enctype' => 'multipart/form-data'
+        'enctype' => 'multipart/form-data',
     ]);
 
     $form->addElement(new RMFormFile([
@@ -397,19 +399,19 @@ function xt_import_settings_form()
         'name' => 'file',
         'id' => 'import-file',
         'required' => null,
-        'accept' => '.xtheme'
+        'accept' => '.xtheme',
     ]));
 
     $form->addElement(new RMFormYesNo([
         'caption' => __('Import settings', 'xthemes'),
         'value' => 1,
-        'name' => 'settings'
+        'name' => 'settings',
     ]));
 
     $form->addElement(new RMFormYesNo([
         'caption' => __('Import menus', 'xthemes'),
         'value' => 0,
-        'name' => 'menus'
+        'name' => 'menus',
     ]))->setDescription(__('If you import menus, existing menus for this theme will be replaced.', 'xthemes'));
 
     $form->addElement(new RMFormHidden('action', 'import-settings'));
@@ -419,13 +421,13 @@ function xt_import_settings_form()
         'caption' => __('Cancel', 'xthemes'),
         'type' => 'button',
         'class' => 'btn btn-default',
-        'onclick' => 'history.go(-1);'
+        'onclick' => 'history.go(-1);',
     ]);
 
     $btnSubmit = new RMFormButton([
         'caption' => __('Import Now!', 'xthemes'),
         'type' => 'submit',
-        'class' => 'btn btn-primary'
+        'class' => 'btn btn-primary',
     ]);
 
     $buttons = new RMFormButtonGroup();
@@ -443,7 +445,7 @@ function xt_import_settings()
 {
     global $common, $xtAssembler;
 
-    if (false == $common->security()->check()) {
+    if (false === $common->security()->check()) {
         $common->uris()::redirect_with_message(
             __('Session token expired!', 'xthemes'),
             'index.php',
@@ -470,8 +472,8 @@ function xt_import_settings()
         );
     }
 
-    $fileData = json_decode(base64_decode(file_get_contents($file['tmp_name'])), true);
-    if (empty($fileData) || false == is_array($fileData)) {
+    $fileData = json_decode(base64_decode(file_get_contents($file['tmp_name']), true), true);
+    if (empty($fileData) || false === is_array($fileData)) {
         $common->uris()::redirect_with_message(
             __('This file is not a vlid settings file', 'xthemes'),
             'themes.php',
@@ -482,7 +484,7 @@ function xt_import_settings()
     if ($settings) {
         $table = $common->db()->prefix('xt_options');
 
-        if (false == isset($fileData['settings']) || empty($fileData['settings'])) {
+        if (false === isset($fileData['settings']) || empty($fileData['settings'])) {
             $common->uris()::redirect_with_message(
                 __('Settings not detected', 'xthemes'),
                 'themes.php',
@@ -498,11 +500,11 @@ function xt_import_settings()
         //RMEvents::get()->trigger('xtheme.save.settings', $fileData['settings']);
     }
 
-    if ($menus && false == empty($fileData['menu']) && is_array($fileData['menu'])) {
+    if ($menus && false === empty($fileData['menu']) && is_array($fileData['menu'])) {
         $table = $common->db()->prefix('xt_menus');
 
         foreach ($fileData['menu'] as $name => $content) {
-            $sql = "UPDATE $table SET content='" . $common->db()->escape($content) . "' WHERE theme=" . $theme->id() . " AND menu='".$common->db()->escape($name)."'";
+            $sql = "UPDATE $table SET content='" . $common->db()->escape($content) . "' WHERE theme=" . $theme->id() . " AND menu='" . $common->db()->escape($name) . "'";
             $common->db()->queryF($sql);
         }
     }
@@ -514,33 +516,25 @@ function xt_import_settings()
     );
 }
 
-
 $action = $common->httpRequest()::request('action', 'string', '');
 
 switch ($action) {
-
     case 'save':
         xt_save_settings();
         break;
-
     case 'restore':
         xt_restore_settings();
         break;
-
     case 'export':
         xt_export_settings();
         break;
-
     case 'import':
         xt_import_settings_form();
         break;
-
     case 'import-settings':
         xt_import_settings();
         break;
-
     default:
         xt_show_options();
         break;
-
 }

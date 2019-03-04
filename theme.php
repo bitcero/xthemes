@@ -8,14 +8,13 @@
 // --------------------------------------------------------------
 
 define('RMCLOCATION', 'theme');
-require '../../include/cp_header.php';
+require dirname(__DIR__) . '/../include/cp_header.php';
 
 /**
-* This file allows to themes to show their own pages.
-* This feature is specially useful when themes needs to have a single
-* control panel or other features.0
-*/
-
+ * This file allows to themes to show their own pages.
+ * This feature is specially useful when themes needs to have a single
+ * control panel or other features.0
+ */
 global $xtAssembler;
 
 $theme = $xtAssembler->theme();

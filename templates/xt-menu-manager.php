@@ -11,7 +11,7 @@
                             <label><?php _e('Title:', 'xthemes'); ?></label>
                         </div>
                         <div class="col-md-9">
-                            <input class="form-control" type="text" name="title" value="<?php echo $tc->specialchars($m['title']); ?>" />
+                            <input class="form-control" type="text" name="title" value="<?php echo $tc->specialchars($m['title']); ?>">
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                             <label><?php _e('URL:', 'xthemes'); ?></label>
                         </div>
                         <div class="col-md-9">
-                            <input class="form-control" type="text" name="url" value="<?php echo $m['url']; ?>" />
+                            <input class="form-control" type="text" name="url" value="<?php echo $m['url']; ?>">
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                             <label><?php _e('Rel:', 'xthemes'); ?></label>
                         </div>
                         <div class="col-md-9">
-                            <input class="form-control" type="text" name="rel" value="<?php echo $m['rel']; ?>" />
+                            <input class="form-control" type="text" name="rel" value="<?php echo $m['rel']; ?>">
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             <label><?php _e('Target:', 'xthemes'); ?></label>
                         </div>
                         <div class="col-md-9">
-                            <input class="form-control" type="text" name="target" value="<?php echo $m['target']; ?>" />
+                            <input class="form-control" type="text" name="target" value="<?php echo $m['target']; ?>">
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
             <div class="col-md-7">
                 <div class="form-group">
                     <label><?php _e('Extra:', 'xthemes'); ?></label>
-                    <input class="form-control" type="text" name="extra" value="<?php echo $m['extra']; ?>" />
+                    <input class="form-control" type="text" name="extra" value="<?php echo $m['extra']; ?>">
                 </div>
                 <div class="form-group">
                     <label><?php _e('Description:', 'xthemes'); ?></label>

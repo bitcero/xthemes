@@ -25,6 +25,8 @@
  * @license      GPL v2
  * @link         http://eduardocortes.mx
  * @link         http://xoopsmexico.net
+ * @param mixed $options
+ * @param mixed $tpl
  */
 
 /**
@@ -36,7 +38,6 @@
  * <img src="<{resize file=url_to_an_image w=width_value h=height_value}>">
  * </pre>
  */
-
 function smarty_function_resize($options, $tpl)
 {
     $file = RMHttpRequest::array_value('file', $options, 'string', '');
@@ -50,5 +51,6 @@ function smarty_function_resize($options, $tpl)
 
     $resizer = new RMImageResizer();
     $image = $resizer->resize($file, $params);
+
     return $image->url;
 }

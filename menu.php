@@ -7,72 +7,72 @@
 // License: GPL v2
 // --------------------------------------------------------------
 
-defined('XOOPS_ROOT_PATH') or die();
+defined('XOOPS_ROOT_PATH') || die();
 
 load_mod_locale('xthemes');
 
 global $xtAssembler;
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => __('Dashboard', 'xthemes'),
     'link' => 'index.php',
-    'icon' => "svg-rmcommon-dashboard text-red",
-    'location' => 'dashboard'
-);
+    'icon' => 'svg-rmcommon-dashboard text-red',
+    'location' => 'dashboard',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => __('Themes', 'xthemes'),
     'link' => 'themes.php',
-    'icon' => "svg-rmcommon-tshirt text-light-blue",
-    'location' => 'themes'
-);
+    'icon' => 'svg-rmcommon-tshirt text-light-blue',
+    'location' => 'themes',
+];
 
-if (is_object($xtAssembler) && $xtAssembler->isSupported() &&  $xtAssembler->theme()->settings()) {
-    $menu = array(
+if (is_object($xtAssembler) && $xtAssembler->isSupported() && $xtAssembler->theme()->settings()) {
+    $menu = [
         'title' => $xtAssembler->theme()->getInfo('name'),
         'link' => 'settings.php',
-        'icon' => "svg-rmcommon-gear text-purple",
-        'location' => 'settings'
-    );
-    
+        'icon' => 'svg-rmcommon-gear text-purple',
+        'location' => 'settings',
+    ];
+
     if ($xtAssembler->rootMenus()):
-        $options[] = array(
+        $options[] = [
             'title' => __('Menus', 'xthemes'),
-            'link'  => 'navigation.php',
+            'link' => 'navigation.php',
             'selected' => 'menus',
-            'icon' => 'fa fa-reorder'
-        );
+            'icon' => 'fa fa-reorder',
+        ];
     endif;
-    
+
     if ($xtAssembler->theme()->options()):
-        $options[] = array(
+        $options[] = [
             'title' => __('Settings', 'xthemes'),
-            'link'  => 'settings.php',
+            'link' => 'settings.php',
             'selected' => 'settings',
-            'icon' => 'fa fa-cog'
-        );
+            'icon' => 'fa fa-cog',
+        ];
     endif;
-    
-    if ($xtAssembler->theme()->getInfo('uri')!=''):
-        $options[] = array(
+
+    if ('' != $xtAssembler->theme()->getInfo('uri')):
+        $options[] = [
             'title' => __('Website', 'xthemes'),
-            'link'  => $xtAssembler->theme()->getInfo('uri'),
+            'link' => $xtAssembler->theme()->getInfo('uri'),
             'selected' => 'none',
-            'icon' => 'fa fa-globe'
-        );
+            'icon' => 'fa fa-globe',
+        ];
     endif;
-    
-    if ($xtAssembler->theme()->getInfo('author_uri')!=''):
-        $options[] = array(
+
+    if ('' != $xtAssembler->theme()->getInfo('author_uri')):
+        $options[] = [
             'title' => __('Author', 'xthemes'),
-            'link'  => $xtAssembler->theme()->getInfo('author_uri'),
+            'link' => $xtAssembler->theme()->getInfo('author_uri'),
             'selected' => 'none',
-            'icon' => 'fa fa-user'
-        );
+            'icon' => 'fa fa-user',
+        ];
     endif;
-    
+
     $menu['options'] = $options;
-    
+
     $adminmenu[] = $menu;
     unset($menu, $options);
 }

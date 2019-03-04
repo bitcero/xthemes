@@ -17,13 +17,13 @@
 <ul id="menus-select">
 <?php $i = 0; ?>
 <?php foreach ($menus as $id => $menu): ?>
-    <li><a href="#" rel="menu-<?php echo $id; ?>"<?php echo $i==0 ? ' class="selected"': ''; ?>><?php echo $menu['title']; ?></a></li>
+    <li><a href="#" rel="menu-<?php echo $id; ?>"<?php echo 0 == $i ? ' class="selected"' : ''; ?>><?php echo $menu['title']; ?></a></li>
     <?php $i++; ?>
 <?php endforeach; ?>    
 </ul>
 <?php $i = 0; ?>
 <?php foreach ($menus as $id => $menu): ?>
-<div id="menu-<?php echo $id; ?>" class="xt-menus-container<?php echo $i==0 ? ' container-selected': ''; ?>">
+<div id="menu-<?php echo $id; ?>" class="xt-menus-container<?php echo 0 == $i ? ' container-selected' : ''; ?>">
     <ol>
         <?php foreach ($theme_menu[$id] as $m): ?>
         <?php include $tpl->path('xt-menu-manager.php', 'module', 'xthemes'); ?>
@@ -61,7 +61,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
                                 <label><?php _e('Title:', 'xthemes'); ?></label>
                             </div>
                             <div class="col-md-9">
-                                <input class="form-control" type="text" name="title" value="<?php _e('Menu Item', 'xthemes'); ?>" />
+                                <input class="form-control" type="text" name="title" value="<?php _e('Menu Item', 'xthemes'); ?>">
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
                                 <label><?php _e('URL:', 'xthemes'); ?></label>
                             </div>
                             <div class="col-md-9">
-                                <input class="form-control" type="text" name="url" value="" />
+                                <input class="form-control" type="text" name="url" value="">
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
                                 <label><?php _e('Rel:', 'xthemes'); ?></label>
                             </div>
                             <div class="col-md-9">
-                                <input class="form-control" type="text" name="rel" value="" />
+                                <input class="form-control" type="text" name="rel" value="">
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
                                 <label><?php _e('Target:', 'xthemes'); ?></label>
                             </div>
                             <div class="col-md-9">
-                                <input class="form-control" type="text" name="target" value="" />
+                                <input class="form-control" type="text" name="target" value="">
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@ $("#menu-<?php echo $id; ?> ol").nestedSortable({
                 <div class="col-md-7">
                     <div class="form-group">
                         <label><?php _e('Extra:', 'xthemes'); ?></label>
-                        <input class="form-control" type="text" name="extra" value="" />
+                        <input class="form-control" type="text" name="extra" value="">
                     </div>
                     <div class="form-group">
                         <label><?php _e('Description:', 'xthemes'); ?></label>

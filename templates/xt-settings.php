@@ -1,17 +1,17 @@
-<h1 class="cu-section-title"><?php echo sprintf(__('%s Settings', 'xthemes'), $xtAssembler->theme()->getInfo("name")); ?></h1>
+<h1 class="cu-section-title"><?php echo sprintf(__('%s Settings', 'xthemes'), $xtAssembler->theme()->getInfo('name')); ?></h1>
 
 <form name="formSettings" id="frm-settings" action="settings.php" method="post" data-translate="true">
     <ul class="nav nav-tabs xt-settings-tabs cu-top-tabs">
-        <?php if (count($sections)<=6): ?>
+        <?php if (count($sections) <= 6): ?>
             <?php foreach ($sections as $name => $section): ?>
-                <li<?php if ($visible==$name): ?> class="active"<?php endif; ?>><a href="#section-<?php echo $name; ?>" data-toggle="tab"><?php echo $section; ?></a></li>
+                <li<?php if ($visible == $name): ?> class="active"<?php endif; ?>><a href="#section-<?php echo $name; ?>" data-toggle="tab"><?php echo $section; ?></a></li>
             <?php endforeach; ?>
         <?php else: ?>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php _e('Configuration Sections', 'xthemes'); ?> <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <?php foreach ($sections as $name => $section): ?>
-                        <li<?php if ($visible==$name): ?> class="active"<?php endif; ?>><a href="#section-<?php echo $name; ?>" data-toggle="tab"><?php echo $section; ?></a></li>
+                        <li<?php if ($visible == $name): ?> class="active"<?php endif; ?>><a href="#section-<?php echo $name; ?>" data-toggle="tab"><?php echo $section; ?></a></li>
                     <?php endforeach; ?>
                 </ul>
             </li>
@@ -21,18 +21,18 @@
 
     <div class="tab-content">
         <?php foreach ($sections as $name => $section): ?>
-            <div id="section-<?php echo $name; ?>" class="tab-pane<?php if ($visible==$name): ?> active<?php endif; ?> xt-configuration-section">
+            <div id="section-<?php echo $name; ?>" class="tab-pane<?php if ($visible == $name): ?> active<?php endif; ?> xt-configuration-section">
                 <?php if (isset($options[$name])): ?>
                     <?php foreach ($options[$name] as $name => $option): ?>
-                        <?php if (isset($option['type']) && $option['type'] == 'heading'): ?>
+                        <?php if (isset($option['type']) && 'heading' == $option['type']): ?>
                             <h3>
                                 <?php echo $option['caption']; ?><br>
-                                <?php if (isset($option['description']) && $option['description'] != ''): ?>
+                                <?php if (isset($option['description']) && '' != $option['description']): ?>
                                     <small><?php echo $option['description']; ?></small>
                                 <?php endif; ?>
                             </h3>
                             <hr>
-                        <?php elseif (isset($option['type']) && $option['type'] == 'divider'): ?>
+                        <?php elseif (isset($option['type']) && 'divider' == $option['type']): ?>
                             <hr>
                         <?php else: ?>
                             <div class="form-group">
@@ -41,7 +41,7 @@
                                         <label for="<?php echo $name; ?>">
                                             <strong><?php echo $option['caption']; ?></strong>
                                         </label>
-                                        <?php if ($option['description']!=''): ?>
+                                        <?php if ('' != $option['description']): ?>
                                             <span class="help-block"><?php echo $option['description']; ?></span>
                                         <?php endif; ?>
                                     </div>
@@ -69,7 +69,7 @@
         </div>
 
         <?php echo $xoopsSecurity->getTokenHTML(); ?>
-        <input type="hidden" name="action" value="save" />
+        <input type="hidden" name="action" value="save">
         <input type="hidden" name="theme" value="<?php echo $xtAssembler->theme()->getInfo('dir'); ?>" id="xt-theme">
     </div>
 </form>

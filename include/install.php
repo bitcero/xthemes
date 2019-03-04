@@ -25,20 +25,21 @@
  * @author       Eduardo Cortés (AKA bitcero)    <i.bitcero@gmail.com>
  * @url          http://www.redmexico.com.mx
  * @url          http://www.eduardocortes.mx
+ * @param mixed $mod
+ * @param mixed $pre
  */
-
 function xoops_module_update_xthemes($mod, $pre)
 {
     global $xoopsDB;
 
-    $table = $xoopsDB->prefix("xt_menus");
+    $table = $xoopsDB->prefix('xt_menus');
 
     $sql = "SELECT * FROM $table";
     $result = $xoopsDB->query($sql);
 
     $toSave = [];
 
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $serialized = @unserialize($row['content']);
 
         if (false !== $serialized) {

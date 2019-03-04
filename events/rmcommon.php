@@ -26,11 +26,11 @@
  * @author       Eduardo Cortés (AKA bitcero)    <i.bitcero@gmail.com>
  * @url          http://www.eduardocortes.mx
  */
-
 class XthemesRmcommonPreload
 {
     /**
      * Add the customize widget to Common Utilities Dashboard
+     * @param mixed $panels
      */
     public static function eventRmcommonDashboardPanels($panels)
     {
@@ -105,6 +105,7 @@ class XthemesRmcommonPreload
         <?php
         $panel = ob_get_clean();
         $panels[] = $panel;
+
         return $panels;
     }
 
@@ -112,13 +113,13 @@ class XthemesRmcommonPreload
     {
         global $xoopsConfig;
 
-        if (!in_array(XOOPS_ROOT_PATH . '/modules/xthemes/smarty', $plugins)) {
+        if (!in_array(XOOPS_ROOT_PATH . '/modules/xthemes/smarty', $plugins, true)) {
             $plugins[] = XOOPS_ROOT_PATH . '/modules/xthemes/smarty';
         }
 
         $dir = XOOPS_THEME_PATH . '/' . $xoopsConfig['theme_set'] . '/assemble/smarty';
 
-        if (!in_array($dir, $plugins)) {
+        if (!in_array($dir, $plugins, true)) {
             $plugins[] = $dir;
         }
 
@@ -128,27 +129,28 @@ class XthemesRmcommonPreload
     public static function eventRmcommonCheckUpdatesThemes($urls)
     {
         global $common, $xoopsDB;
-        $sql = "SELECT * FROM " . $xoopsDB->prefix("xt_themes");
+        $sql = 'SELECT * FROM ' . $xoopsDB->prefix('xt_themes');
         $result = $xoopsDB->queryF($sql);
         if ($xoopsDB->getRowsNum($result) <= 0) {
             return $urls;
         }
-        while ($row = $xoopsDB->fetchArray($result)) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $theme = XtFunctions::getInstance()->load_theme($row['dir']);
-            if (false == $theme->getInfo('updateurl')) {
+            if (false === $theme->getInfo('updateurl')) {
                 continue;
             }
             $version = $theme->getInfo('version');
-            if (false == $version || '' == $version) {
+            if (false === $version || '' == $version) {
                 $version = 0;
             }
             $url = $theme->getInfo('updateurl');
-            $url .= (strpos($url, '?')===false ? '?' : '&') . 'action=check&type=theme&id='.$row['dir'].'&version='.$version;
+            $url .= (false === mb_strpos($url, '?') ? '?' : '&') . 'action=check&type=theme&id=' . $row['dir'] . '&version=' . $version;
             $urls[$row['dir']] = [
                 'url' => $url,
-                'name' => $theme->getInfo('name')
+                'name' => $theme->getInfo('name'),
             ];
         }
+
         return $urls;
     }
 
@@ -156,10 +158,11 @@ class XthemesRmcommonPreload
     {
         global $common;
         $theme = XtFunctions::getInstance()->load_theme($theme);
-        if (false == $theme) {
+        if (false === $theme) {
             return false;
         }
         $url = $theme->getInfo('updateurl');
+
         return $url;
     }
 }
