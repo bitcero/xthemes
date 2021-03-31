@@ -7,8 +7,8 @@
 // License: GPL v2
 // --------------------------------------------------------------
 
-define('RMCLOCATION','dashboard');
-require '../../include/cp_header.php';
+define('RMCLOCATION', 'dashboard');
+require dirname(__DIR__) . '/../include/cp_header.php';
 
 load_theme_locale($xoopsConfig['theme_set']);
 
@@ -28,26 +28,26 @@ $currentTheme = $xtAssembler->theme();
 // Read all available themes
 $dh = opendir(XOOPS_THEME_PATH);
 $i = 0;
-while(false !== ($dir = readdir($dh))){
-    if($dir=='.' || $dir=='..' || is_file(XOOPS_THEME_PATH.'/'.$dir)) continue;
+while (false !== ($dir = readdir($dh))) {
+    if ('.' == $dir || '..' == $dir || is_file(XOOPS_THEME_PATH . '/' . $dir)) {
+        continue;
+    }
 
     $path = XOOPS_THEME_PATH . '/' . $dir . '/';
 
-    if(!is_file($path . '/theme.html') && !is_file($path . '/theme.tpl')) continue;
+    if (!is_file($path . '/theme.html') && !is_file($path . '/theme.tpl')) {
+        continue;
+    }
 
     // Supported themes
-    $theme_path = XOOPS_THEME_PATH.'/'.$dir;
-    if(is_file($theme_path.'/assemble/'.strtolower($dir).'.theme.php')){
-
-        include_once $theme_path.'/assemble/'.strtolower($dir).'.theme.php';
-        $class = ucfirst(strtolower($dir));
+    $theme_path = XOOPS_THEME_PATH . '/' . $dir;
+    if (is_file($theme_path . '/assemble/' . mb_strtolower($dir) . '.theme.php')) {
+        require_once $theme_path . '/assemble/' . mb_strtolower($dir) . '.theme.php';
+        $class = ucfirst(mb_strtolower($dir));
         $theme = new $class();
-
     } else {
-
         $theme = new StandardTheme();
         $theme->set_dir($dir);
-
     }
 
     $themes[$i] = $theme->getInfo();
@@ -60,6 +60,6 @@ $common->breadcrumb()->add_crumb(__('Dashboard', 'xthemes'));
 
 xoops_cp_header();
 
-include $rmTpl->get_template("xt-index.php", 'module', 'xthemes');
+include $rmTpl->get_template('xt-index.php', 'module', 'xthemes');
 
 xoops_cp_footer();

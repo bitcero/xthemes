@@ -9,10 +9,8 @@
 
 class XthemesCorePreload extends XoopsPreloadItem
 {
-
-    static function eventCoreIncludeCommonLanguage()
+    public static function eventCoreIncludeCommonLanguage()
     {
-
         load_mod_locale('xthemes');
         define('XTPATH', XOOPS_ROOT_PATH . '/modules/xthemes');
         define('XTURL', XOOPS_URL . '/modules/xthemes');
@@ -22,10 +20,9 @@ class XthemesCorePreload extends XoopsPreloadItem
         $GLOBALS['xtFunctions'] = new XtFunctions();
 
         load_theme_locale($GLOBALS['xtAssembler']->theme()->getInfo('dir'));
-
     }
 
-    static function eventCoreHeaderAddMeta()
+    public static function eventCoreHeaderAddMeta()
     {
         global $xtAssembler;
         /**
@@ -34,17 +31,14 @@ class XthemesCorePreload extends XoopsPreloadItem
         if (!defined('XOOPS_CPFUNC_LOADED')) {
             $xtAssembler->init();
         }
-
     }
 
-    static function eventCoreIndexStart()
+    public static function eventCoreIndexStart()
     {
-
         define('XTHEMES_IS_HOME', 1);
-
     }
 
-    static function eventCoreFooterStart()
+    public static function eventCoreFooterStart()
     {
         global $xtAssembler;
 

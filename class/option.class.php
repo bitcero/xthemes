@@ -31,31 +31,27 @@ class Xthemes_Option extends RMObject
 {
     public function __construct($id = null, $theme = '')
     {
-
         $this->noTranslate = ['name', 'type'];
         $this->ownerName = 'xthemes';
         $this->ownerType = 'module';
 
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->_dbtable = $this->db->prefix("xt_options");
+        $this->_dbtable = $this->db->prefix('xt_options');
         $this->setNew();
         $this->initVarsFromTable();
         $this->setVarType('value', XOBJ_DTYPE_SOURCE);
 
-        if ($id == null) {
+        if (null === $id) {
             return;
         }
 
-        if (is_integer($id)) {
-
+        if (is_int($id)) {
             $load = $this->loadValues($id);
-
         } else {
-
-            $sql = "SELECT * FROM " . $this->_dbtable . " WHERE `name`='$id' AND `theme`=$theme";
+            $sql = 'SELECT * FROM ' . $this->_dbtable . " WHERE `name`='$id' AND `theme`=$theme";
             $result = $this->db->query($sql);
 
-            if ($this->db->error() != '') {
+            if ('' != $this->db->error()) {
                 $this->addError($this->db->error());
             }
 
@@ -67,24 +63,20 @@ class Xthemes_Option extends RMObject
             $this->assignVars($data);
             $this->unsetNew();
             $load = true;
-
         }
 
         if ($load) {
             $this->unsetNew();
         }
-
-        return;
-
     }
 
     public function save()
     {
         if ($this->isNew()) {
             return $this->saveToTable();
-        } else {
-            return $this->updateTable();
         }
+
+        return $this->updateTable();
     }
 
     public function delete()

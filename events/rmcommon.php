@@ -26,27 +26,28 @@
  * @author       Eduardo Cortés (AKA bitcero)    <i.bitcero@gmail.com>
  * @url          http://www.eduardocortes.mx
  */
-
 class XthemesRmcommonPreload
 {
     /**
      * Add the customize widget to Common Utilities Dashboard
+     * @param mixed $panels
      */
-    static function eventRmcommonDashboardPanels($panels)
+    public static function eventRmcommonDashboardPanels($panels)
     {
         global $xtAssembler, $xtFunctions;
 
-        if (!isset($GLOBALS['xtAssembler']))
+        if (!isset($GLOBALS['xtAssembler'])) {
             $xtAssembler = new XtAssembler();
+        }
 
-        if (!$xtAssembler->isSupported())
+        if (!$xtAssembler->isSupported()) {
             return;
+        }
 
         $theme = $xtAssembler->theme();
 
         RMTemplate::get()->add_style('rmc-dashboard.css', 'xthemes');
-        ob_start();
-        ?>
+        ob_start(); ?>
         <div class="size-1" data-dashboard="item">
             <div class="cu-box box-green">
                 <div class="box-header">
@@ -104,62 +105,64 @@ class XthemesRmcommonPreload
         <?php
         $panel = ob_get_clean();
         $panels[] = $panel;
+
         return $panels;
     }
 
-    static function eventRmcommonSmartyPlugins($plugins)
+    public static function eventRmcommonSmartyPlugins($plugins)
     {
         global $xoopsConfig;
 
-        if (!in_array(XOOPS_ROOT_PATH . '/modules/xthemes/smarty', $plugins)) {
+        if (!in_array(XOOPS_ROOT_PATH . '/modules/xthemes/smarty', $plugins, true)) {
             $plugins[] = XOOPS_ROOT_PATH . '/modules/xthemes/smarty';
         }
 
         $dir = XOOPS_THEME_PATH . '/' . $xoopsConfig['theme_set'] . '/assemble/smarty';
 
-        if (!in_array($dir, $plugins)) {
+        if (!in_array($dir, $plugins, true)) {
             $plugins[] = $dir;
         }
 
         return $plugins;
-
     }
 
-    static function eventRmcommonCheckUpdatesThemes($urls)
+    public static function eventRmcommonCheckUpdatesThemes($urls)
     {
         global $common, $xoopsDB;
-        $sql = "SELECT * FROM " . $xoopsDB->prefix("xt_themes");
+        $sql = 'SELECT * FROM ' . $xoopsDB->prefix('xt_themes');
         $result = $xoopsDB->queryF($sql);
-        if($xoopsDB->getRowsNum($result) <= 0){
+        if ($xoopsDB->getRowsNum($result) <= 0) {
             return $urls;
         }
-        while($row = $xoopsDB->fetchArray($result)){
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
             $theme = XtFunctions::getInstance()->load_theme($row['dir']);
-            if(false == $theme->getInfo('updateurl')){
+            if (false === $theme->getInfo('updateurl')) {
                 continue;
             }
             $version = $theme->getInfo('version');
-            if(false == $version || '' == $version){
+            if (false === $version || '' == $version) {
                 $version = 0;
             }
             $url = $theme->getInfo('updateurl');
-            $url .= (strpos($url, '?')===false ? '?' : '&') . 'action=check&type=theme&id='.$row['dir'].'&version='.$version;
+            $url .= (false === mb_strpos($url, '?') ? '?' : '&') . 'action=check&type=theme&id=' . $row['dir'] . '&version=' . $version;
             $urls[$row['dir']] = [
                 'url' => $url,
-                'name' => $theme->getInfo('name')
+                'name' => $theme->getInfo('name'),
             ];
         }
+
         return $urls;
     }
 
-    static function eventRmcommonThemeUpdateUrl($url, $theme)
+    public static function eventRmcommonThemeUpdateUrl($url, $theme)
     {
         global $common;
         $theme = XtFunctions::getInstance()->load_theme($theme);
-        if(false == $theme){
+        if (false === $theme) {
             return false;
         }
         $url = $theme->getInfo('updateurl');
+
         return $url;
     }
 }

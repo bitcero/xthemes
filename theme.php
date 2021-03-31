@@ -7,20 +7,20 @@
 // License: GPL v2
 // --------------------------------------------------------------
 
-define('RMCLOCATION','theme');
-require '../../include/cp_header.php';
+define('RMCLOCATION', 'theme');
+require dirname(__DIR__) . '/../include/cp_header.php';
 
 /**
-* This file allows to themes to show their own pages.
-* This feature is specially useful when themes needs to have a single
-* control panel or other features.0
-*/
-
+ * This file allows to themes to show their own pages.
+ * This feature is specially useful when themes needs to have a single
+ * control panel or other features.0
+ */
 global $xtAssembler;
 
 $theme = $xtAssembler->theme();
 
-if(!method_exists($theme, 'controlPanel'))
-    redirectMsg('themes.php', sprintf(__('%s does not support this feature.','xthemes'), $theme->getInfo('name')), RMMSG_WARN);
+if (!method_exists($theme, 'controlPanel')) {
+    redirectMsg('themes.php', sprintf(__('%s does not support this feature.', 'xthemes'), $theme->getInfo('name')), RMMSG_WARN);
+}
 
 $theme->controlPanel();

@@ -8,10 +8,10 @@
 // --------------------------------------------------------------
 
 // Load required classes
-include_once XTPATH . '/class/xttheme.php';
-include_once XTPATH . '/class/xtcolor.class.php';
-include_once XTPATH . '/class/standardtheme.class.php';
-include_once XTPATH . '/class/xtfunctions.class.php';
+require_once XTPATH . '/class/xttheme.php';
+require_once XTPATH . '/class/xtcolor.class.php';
+require_once XTPATH . '/class/standardtheme.class.php';
+require_once XTPATH . '/class/xtfunctions.class.php';
 
 /**
  * This class is the main controller for xThemes
@@ -21,23 +21,23 @@ class XtAssembler
     private $current = null;
     private $root_menus = null;
     private $menus = null;
-    private $registered = array();
+    private $registered = [];
     private $colors = '';
     private $xsettings;
 
     public function __construct($theme = '')
     {
-
         global $xoopsConfig, $common;
 
-        $theme = $theme != '' ? $theme : $xoopsConfig['theme_set'];
-        $dir = XOOPS_THEME_PATH . '/' . ($theme == '' ? $xoopsConfig['theme_set'] : $theme);
+        $theme = '' != $theme ? $theme : $xoopsConfig['theme_set'];
+        $dir = XOOPS_THEME_PATH . '/' . ('' == $theme ? $xoopsConfig['theme_set'] : $theme);
         $common->nativeTheme = true;
 
         if (!is_file($dir . '/assemble/' . $theme . '.theme.php')) {
             $this->current = new StandardTheme();
             $this->current->set_dir($theme);
             $common->nativeTheme = false;
+
             return;
         }
 
@@ -65,31 +65,32 @@ class XtAssembler
 
         // Register pluguins
         if (method_exists($this->current, 'register')) {
-
             $plugins = $this->theme()->register();
 
-            if (empty($plugins))
+            if (empty($plugins)) {
                 return;
+            }
 
             $dir = str_replace(XOOPS_URL, XOOPS_ROOT_PATH, $this->theme()->url() . '/assemble/plugins');
             foreach ($plugins as $plug) {
-                if (!file_exists($dir . '/' . $plug['file'])) continue;
+                if (!file_exists($dir . '/' . $plug['file'])) {
+                    continue;
+                }
 
-                include_once $dir . '/' . $plug['file'];
+                require_once $dir . '/' . $plug['file'];
                 $this->registered[$plug['var']] = new $plug['name']();
-
             }
-
         }
-
     }
 
     /**
      * This function reload the current theme
+     * @param mixed $theme
      */
     public function loadTheme($theme)
     {
         $this->__construct($theme);
+
         return $this->theme();
     }
 
@@ -98,7 +99,6 @@ class XtAssembler
      */
     public function init()
     {
-
         global $xoopsTpl, $xoopsConfig, $cuSettings, $xoTheme;
 
         // xThemes settings (?)
@@ -106,16 +106,18 @@ class XtAssembler
 
         $xoopsTpl->assign('isHome', defined('XTHEMES_IS_HOME'));
 
-        if (!$this->isSupported()) return;
+        if (!$this->isSupported()) {
+            return;
+        }
 
         if ($this->current->getInfo('dir') != $xoopsConfig['theme_set']) {
-
             // If user has selected another theme, realod all theme data
             $dir = XOOPS_THEME_PATH . '/' . $xoopsConfig['theme_set'];
 
             if (!is_file($dir . '/assemble/' . $xoopsConfig['theme_set'] . '.theme.php')) {
                 $this->current = new StandardTheme();
                 $this->current->set_dir($xoopsConfig['theme_set']);
+
                 return;
             }
 
@@ -139,20 +141,18 @@ class XtAssembler
 
             // Register pluguins
             if (method_exists($this->current, 'register')) {
-
                 $plugins = $this->theme()->register();
 
                 $dir = str_replace(XOOPS_URL, XOOPS_ROOT_PATH, $this->theme()->url() . '/assemble/plugins');
                 foreach ($plugins as $plug) {
-                    if (!file_exists($dir . '/' . $plug['file'])) continue;
+                    if (!file_exists($dir . '/' . $plug['file'])) {
+                        continue;
+                    }
 
-                    include_once $dir . '/' . $plug['file'];
+                    require_once $dir . '/' . $plug['file'];
                     $this->registered[$plug['var']] = new $plug['name']();
-
                 }
-
             }
-
         }
 
         $xoopsTpl->assign('theme', $this->theme());
@@ -178,19 +178,19 @@ class XtAssembler
         load_theme_locale($this->theme()->getInfo('dir'));
 
         $this->current->init();
-
     }
 
     /**
      * Access to registered plugins
+     * @param mixed $name
      */
     public function plugin($name)
     {
-
-        if ($name == '' || !isset($this->registered[$name])) return false;
+        if ('' == $name || !isset($this->registered[$name])) {
+            return false;
+        }
 
         return $this->registered[$name];
-
     }
 
     /**
@@ -206,31 +206,29 @@ class XtAssembler
      */
     private function load_settings()
     {
-
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "SELECT * FROM " . $db->prefix("xt_options") . " WHERE theme=" . $this->current->id();
+        $sql = 'SELECT * FROM ' . $db->prefix('xt_options') . ' WHERE theme=' . $this->current->id();
 
         $result = $db->query($sql);
 
-        $settings = array();
+        $settings = [];
         $option = new Xthemes_Option();
 
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             $option->assignVars($row);
-            $settings[$row['name']] = $option->type == 'array' ? unserialize($this->recalculate(base64_decode($option->value))) : $option->value;
+            $settings[$row['name']] = 'array' == $option->type ? unserialize($this->recalculate(base64_decode($option->value, true))) : $option->value;
         }
 
         return $settings;
-
     }
 
     private function recalculate($data)
     {
-
-        if ($this->xsettings->recal)
+        if ($this->xsettings->recal) {
             $data = preg_replace_callback('!s:(\d+):"(.*?)";!', function ($t) {
-                return "s:" . strlen($t[2]) . ":\"$t[2]\";";
+                return 's:' . mb_strlen($t[2]) . ":\"$t[2]\";";
             }, $data);
+        }
 
         return $data;
     }
@@ -242,47 +240,48 @@ class XtAssembler
      */
     private function loadMenus()
     {
-
         if (empty($this->root_menus)) {
             return false;
         }
 
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $sql = "SELECT * FROM " . $db->prefix("xt_menus") . " WHERE theme=" . $this->current->id() . " AND (";
+        $sql = 'SELECT * FROM ' . $db->prefix('xt_menus') . ' WHERE theme=' . $this->current->id() . ' AND (';
         $sqlm = '';
 
         foreach ($this->root_menus as $id => $menu) {
-            $sqlm .= $sqlm == '' ? "menu='" . $id . "'" : " OR menu='" . $id . "'";
+            $sqlm .= '' == $sqlm ? "menu='" . $id . "'" : " OR menu='" . $id . "'";
         }
         $sql .= $sqlm . ')';
         unset($sqlm);
 
         $result = $db->query($sql);
-        $this->menus = array();
+        $this->menus = [];
         $menu = new Xthemes_Menu();
 
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             $menu->assignVars($row);
             $this->menus[$row['menu']] = $menu->content();
             //$this->menus[$row['menu']] = unserialize(base64_decode($row['content']));
         }
-
     }
 
     /**
      * Get configured menus from database
+     * @param mixed $id
      * @return array
      * @return false
      */
     public function menu($id = '')
     {
+        if ('' == $id) {
+            return $this->menus;
+        }
 
-        if ($id == '') return $this->menus;
-
-        if (!isset($this->menus[$id])) return false;
+        if (!isset($this->menus[$id])) {
+            return false;
+        }
 
         return $this->menus[$id];
-
     }
 
     /**
@@ -298,9 +297,9 @@ class XtAssembler
      */
     public function colorControl()
     {
-
-        if (!is_object($this->colors))
+        if (!is_object($this->colors)) {
             $this->colors = new XtColor();
+        }
 
         return $this->colors;
     }
@@ -319,35 +318,30 @@ class XtAssembler
      */
     public function isSupported()
     {
-
         return !is_a($this->current, 'StandardTheme');
-
     }
 
     /**
      * is module or plugin installed?
      * @paramn string Directory name of module or plugin
      * @param string type can be 'module' or 'plugin'
+     * @param mixed $dirname
+     * @param mixed $type
      * @return bool
      */
     public function installed($dirname, $type)
     {
         global $common;
 
-        if ($type == 'plugin') {
-
+        if ('plugin' == $type) {
             return $common->plugins()->isInstalled($dirname);
-
-        } else {
-
-            $mod = RMModules::load_module($dirname);
-            if (!$mod || $mod->isNew())
-                return false;
-            else
-                return true;
-
+        }
+        $mod = RMModules::load_module($dirname);
+        if (!$mod || $mod->isNew()) {
+            return false;
         }
 
+        return true;
     }
 
     /**
@@ -359,10 +353,9 @@ class XtAssembler
         static $instance;
 
         if (!isset($instance)) {
-            $instance = new XtAssembler();
+            $instance = new self();
         }
 
         return $instance;
     }
-
 }

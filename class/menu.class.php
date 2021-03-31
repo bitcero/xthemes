@@ -26,7 +26,6 @@
  * @url          http://www.redmexico.com.mx
  * @url          http://www.eduardocortes.mx
  */
-
 class Xthemes_Menu extends RMObject
 {
     private $encoded = false;
@@ -43,29 +42,26 @@ class Xthemes_Menu extends RMObject
         $this->ownerName = 'xthemes';
 
         $this->db = XoopsDatabaseFactory::getDatabaseConnection();
-        $this->_dbtable = $this->db->prefix("xt_menus");
+        $this->_dbtable = $this->db->prefix('xt_menus');
         $this->setNew();
         $this->initVarsFromTable();
         $this->setVarType('content', XOBJ_DTYPE_SOURCE);
 
-        if ($id==null){
+        if (null === $id) {
             return;
         }
 
-        if(is_integer($id)){
-
+        if (is_int($id)) {
             $load = $this->loadValues($id);
-
         } else {
-
-            $sql = "SELECT * FROM " . $this->_dbtable . " WHERE `menu`='$id' AND `theme`=$theme";
+            $sql = 'SELECT * FROM ' . $this->_dbtable . " WHERE `menu`='$id' AND `theme`=$theme";
             $result = $this->db->query($sql);
 
-            if($this->db->error()!=''){
+            if ('' != $this->db->error()) {
                 $this->addError($this->db->error());
             }
 
-            if($this->db->getRowsNum($result)<=0){
+            if ($this->db->getRowsNum($result) <= 0) {
                 return false;
             }
 
@@ -73,40 +69,38 @@ class Xthemes_Menu extends RMObject
             $this->assignVars($data);
             $this->unsetNew();
             $load = true;
-
         }
 
-        if ($load){
-            $this->setVar('content', unserialize(base64_decode($this->getVar('content'))));
+        if ($load) {
+            $this->setVar('content', unserialize(base64_decode($this->getVar('content'), true)));
             $this->encoded = false;
             $this->unsetNew();
         }
-
-        return;
     }
 
-    public function content(){
-        if ($this->encoded){
-            return unserialize(base64_decode($this->getVar('content')));
-        } else {
-            return $this->getVar('content');
+    public function content()
+    {
+        if ($this->encoded) {
+            return unserialize(base64_decode($this->getVar('content'), true));
         }
 
+        return $this->getVar('content');
     }
 
-    public function setContent($content){
+    public function setContent($content)
+    {
         $this->setVar('content', $content);
         $this->encoded = false;
     }
 
-    public function assignVars($vars){
+    public function assignVars($vars)
+    {
         $this->encoded = true;
         parent::assignVars($vars);
     }
 
     public function save()
     {
-
         if (!$this->encoded) {
             $this->setVar('content', base64_encode(serialize($this->getVar('content'))));
             $this->encoded = true;
@@ -114,9 +108,9 @@ class Xthemes_Menu extends RMObject
 
         if ($this->isNew()) {
             return $this->saveToTable();
-        } else {
-            return $this->updateTable();
         }
+
+        return $this->updateTable();
     }
 
     public function delete()
